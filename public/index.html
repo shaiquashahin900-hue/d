@@ -666,7 +666,9 @@
                 <button class="plan-btn" onclick="selectPlan('vip')">VIP</button>
             </div>
             
-            <input type="text" class="key-input" id="keyInput" placeholder="ENTER YOUR KEY" maxlength="30">
+            <!-- Fixed Key Input with Paste Support -->
+            <input type="text" class="key-input" id="keyInput" placeholder="ENTER YOUR KEY" maxlength="50" 
+                   onpaste="handlePaste(event)" oninput="this.value = this.value.toUpperCase()">
             
             <div class="modal-buttons">
                 <button class="btn btn-primary" onclick="activateKey()">ACTIVATE</button>
@@ -852,6 +854,19 @@
         let currentSpeed = 5;
         let eventSource = null;
 
+        // Paste handler function
+        function handlePaste(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            let pastedText = (e.clipboardData || window.clipboardData).getData('text');
+            document.getElementById('keyInput').value = pastedText.trim().toUpperCase();
+            
+            // Auto-trigger activation after paste (optional)
+            setTimeout(() => {
+                activateKey();
+            }, 100);
+        }
+
         // Generate user ID
         function generateUserId() {
             let id = localStorage.getItem('flashUserId');
@@ -932,8 +947,8 @@
             
             if (currentUser.expiresAt) {
                 const days = Math.ceil((new Date(currentUser.expiresAt) - new Date()) / (1000 * 60 * 60 * 24));
-                document.getElementById('daysLeft').textContent = days;
-                document.getElementById('expiryBadge').textContent = days + ' DAYS LEFT';
+                document.getElementById('daysLeft').textContent = days > 0 ? days : 0;
+                document.getElementById('expiryBadge').textContent = (days > 0 ? days : 0) + ' DAYS LEFT';
             }
         }
 
@@ -1059,35 +1074,51 @@
                 if (data.success) {
                     resultsDiv.innerHTML = '';
                     
-                    data.results.forEach(result => {
-                        if (result.success) {
-                            const card = document.createElement('div');
-                            card.className = 'data-card';
-                            
-                            let content = `<div class="data-title">${result.name}</div>`;
-                            content += '<div class="data-content">';
-                            
-                            // Parse and display data
-                            if (typeof result.data === 'object') {
-                                Object.entries(result.data).forEach(([key, value]) => {
-                                    content += `
-                                        <div class="data-row">
-                                            <span class="data-label">${key}:</span>
-                                            <span class="data-value">${value}</span>
-                                        </div>
-                                    `;
-                                });
+                    if (data.results && data.results.length > 0) {
+                        data.results.forEach(result => {
+                            if (result.success) {
+                                const card = document.createElement('div');
+                                card.className = 'data-card';
+                                
+                                let content = `<div class="data-title">${result.name}</div>`;
+                                content += '<div class="data-content">';
+                                
+                                // Parse and display data
+                                if (result.data && typeof result.data === 'object') {
+                                    Object.entries(result.data).forEach(([key, value]) => {
+                                        if (value && value !== null) {
+                                            content += `
+                                                <div class="data-row">
+                                                    <span class="data-label">${key}:</span>
+                                                    <span class="data-value">${JSON.stringify(value)}</span>
+                                                </div>
+                                            `;
+                                        }
+                                    });
+                                } else if (result.data) {
+                                    content += `<div class="data-value">${result.data}</div>`;
+                                } else {
+                                    content += `<div class="data-value">No data found</div>`;
+                                }
+                                
+                                content += '</div>';
+                                card.innerHTML = content;
+                                resultsDiv.appendChild(card);
                             } else {
-                                content += `<div class="data-value">${result.data}</div>`;
+                                const card = document.createElement('div');
+                                card.className = 'data-card';
+                                card.innerHTML = `
+                                    <div class="data-title">${result.name}</div>
+                                    <div class="data-value" style="color: var(--danger);">❌ Failed: ${result.error || 'Unknown error'}</div>
+                                `;
+                                resultsDiv.appendChild(card);
                             }
-                            
-                            content += '</div>';
-                            card.innerHTML = content;
-                            resultsDiv.appendChild(card);
-                        }
-                    });
-                    
-                    addLog(`✅ Data leak search completed for +91${phone}`);
+                        });
+                        
+                        addLog(`✅ Data leak search completed for +91${phone}`);
+                    } else {
+                        resultsDiv.innerHTML = '<p style="color: var(--warning);">⚠️ No results found</p>';
+                    }
                 } else {
                     resultsDiv.innerHTML = '<p style="color: var(--danger);">❌ Search failed</p>';
                 }
@@ -1116,6 +1147,36 @@
         // Initialize
         document.getElementById('userId').textContent = currentUser.id;
         loadStats();
+
+        // Add additional paste protection
+        document.addEventListener('DOMContentLoaded', function() {
+            const keyInput = document.getElementById('keyInput');
+            if (keyInput) {
+                keyInput.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    let pastedText = e.clipboardData.getData('text');
+                    this.value = pastedText.trim().toUpperCase();
+                    
+                    // Auto activate after paste
+                    setTimeout(() => {
+                        activateKey();
+                    }, 100);
+                });
+                
+                keyInput.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey && e.key === 'v') {
+                        e.preventDefault();
+                        navigator.clipboard.readText().then(text => {
+                            this.value = text.trim().toUpperCase();
+                            setTimeout(() => {
+                                activateKey();
+                            }, 100);
+                        });
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
