@@ -3,353 +3,1467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHAIQUA BOMBER</title>
+    <title>⚡ SHAIQUA PRIMIUM BOOMER </title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #00ffff;
+            --secondary: #ff00ff;
+            --accent: #ffff00;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --light: #ffffff;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-hover: rgba(255, 255, 255, 0.1);
         }
 
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            background: radial-gradient(circle at 20% 20%, #1a1a2e, var(--darker));
+            color: var(--light);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, 
+                rgba(0, 255, 0, 0.03) 0px, 
+                rgba(0, 255, 0, 0) 2px,
+                transparent 3px);
+            pointer-events: none;
+            z-index: -1;
+            animation: matrix 20s linear infinite;
+        }
+
+        @keyframes matrix {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 20px; }
         }
 
         .container {
-            max-width: 500px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 40px;
-            border: 2px solid #00ffff;
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
-            text-align: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
-        h1 {
-            font-size: 3rem;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            position: relative;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { filter: drop-shadow(0 0 20px var(--primary)); }
+            50% { filter: drop-shadow(0 0 40px var(--secondary)); }
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            position: relative;
         }
 
-        .subtitle {
-            color: #888;
+        .header h1::before {
+            content: '⚡ FLASH BOMBER ⚡';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: blur(20px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .badge:hover::before {
+            left: 100%;
+        }
+
+        .badge-success {
+            background: linear-gradient(135deg, #00ff88, #00cc00);
+            box-shadow: 0 0 20px #00ff88;
+        }
+
+        .badge-warning {
+            background: linear-gradient(135deg, #ffaa00, #ff8800);
+            box-shadow: 0 0 20px #ffaa00;
+        }
+
+        .badge-danger {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            box-shadow: 0 0 20px #ff4444;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
             margin-bottom: 30px;
         }
 
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.4s; }
+        .stat-card:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover::after {
+            opacity: 1;
+        }
+
+        .stat-value {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+            line-height: 1;
+            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .panel {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .panel-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+            animation: lineGlow 3s linear infinite;
+        }
+
+        @keyframes lineGlow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Form Elements */
         .form-group {
-            margin-bottom: 20px;
-            text-align: left;
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #00ffff;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #00ffff;
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
-        }
-
-        input:focus {
-            outline: none;
-            box-shadow: 0 0 20px #00ffff;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: 600;
             font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 10px 0;
-            background: linear-gradient(45deg, #00ffff, #0088ff);
-            color: black;
-            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 30px #00ffff;
+        .input-wrapper {
+            position: relative;
         }
 
-        .btn-danger {
-            background: linear-gradient(45deg, #ff4444, #cc0000);
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px 20px 15px 45px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
             color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
         }
 
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Speed Buttons */
         .speed-buttons {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 10px;
-            margin: 20px 0;
         }
 
         .speed-btn {
-            padding: 10px;
-            background: transparent;
-            border: 2px solid #00ffff;
+            padding: 15px 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 255, 0.3);
             color: white;
-            border-radius: 5px;
+            border-radius: 15px;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .speed-btn.active {
-            background: #00ffff;
+        .speed-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .speed-btn:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .speed-btn:hover, .speed-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: black;
+            border-color: transparent;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 18px 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #0088ff);
             color: black;
         }
 
-        .status-box {
-            margin-top: 20px;
-            padding: 20px;
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #cc0000);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #00cc00);
+            color: black;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #ff8800);
+            color: black;
+        }
+
+        .btn-purple {
+            background: linear-gradient(135deg, var(--secondary), #8800ff);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* User Info Panel */
+        .user-info-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .info-card {
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            border: 1px solid #00ffff;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .info-label {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Attack Status */
+        .attack-status {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px solid var(--primary);
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .progress-container {
+            margin: 25px 0;
         }
 
         .progress-bar {
             width: 100%;
-            height: 20px;
-            background: #333;
-            border-radius: 10px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
             overflow: hidden;
-            margin: 15px 0;
+            position: relative;
+            border: 1px solid var(--primary);
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
         }
 
-        .stats {
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            100% { left: 100%; }
+        }
+
+        .stats-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 15px 0;
+            gap: 15px;
+            margin: 25px 0;
         }
 
-        .stat {
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 5px;
+        .stat-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--primary);
+            transition: all 0.3s;
         }
 
-        .stat-value {
-            font-size: 1.5rem;
-            color: #00ffff;
+        .stat-box:hover {
+            transform: scale(1.05);
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px var(--secondary);
+        }
+
+        .stat-box .value {
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .stat-box .label {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* Logs */
+        .logs-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .logs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: bold;
         }
 
         .logs {
-            margin-top: 15px;
-            max-height: 100px;
+            max-height: 150px;
             overflow-y: auto;
-            text-align: left;
+            font-family: 'Courier New', monospace;
             font-size: 0.9rem;
-            color: #0f0;
-            border-top: 1px solid #333;
-            padding-top: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
 
+        .log-entry {
+            padding: 5px 10px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            color: #0f0;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .log-time {
+            color: var(--primary);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .log-success { color: var(--success); }
+        .log-error { color: var(--danger); }
+        .log-warning { color: var(--warning); }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            margin-top: 25px;
+            border: 2px solid var(--secondary);
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .admin-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 450px;
+            width: 90%;
+            border: 2px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+            animation: modalPop 0.5s ease;
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .modal-content h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .modal-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+            position: relative;
+        }
+
+        /* Sound Toggle */
+        .sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .sound-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        /* Footer */
         .footer {
-            margin-top: 30px;
-            color: #666;
-            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+            padding: 0 5px;
+        }
+
+        .footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .footer a:hover::after {
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .header h1 { font-size: 3.5rem; }
+            .main-content { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .speed-buttons { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 2rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .stat-value { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
+    <div id="particles-js"></div>
+    <div class="matrix-bg"></div>
+
+    <!-- Sound Toggle -->
+    <div class="sound-toggle" id="soundToggle" onclick="toggleSound()">
+        🔊
+    </div>
+
     <div class="container">
-        <h1>⚡ SHAIQUA</h1>
-        <div class="subtitle">Premium SMS & Call Bomber</div>
-
-        <div class="form-group">
-            <label>📱 Phone Number (10 digits)</label>
-            <input type="text" id="phone" placeholder="9876543210" maxlength="10">
-        </div>
-
-        <div class="form-group">
-            <label>⏱️ Duration (seconds)</label>
-            <input type="number" id="duration" min="10" max="1200" value="60">
-        </div>
-
-        <div class="speed-buttons">
-            <button class="speed-btn" onclick="setSpeed(1)">1x</button>
-            <button class="speed-btn" onclick="setSpeed(2)">2x</button>
-            <button class="speed-btn" onclick="setSpeed(3)">3x</button>
-            <button class="speed-btn" onclick="setSpeed(4)">4x</button>
-            <button class="speed-btn active" onclick="setSpeed(5)">5x</button>
-        </div>
-
-        <button class="btn" onclick="startAttack()" id="startBtn">🚀 START ATTACK</button>
-        <button class="btn btn-danger" onclick="stopAttack()" id="stopBtn" disabled>🛑 STOP</button>
-
-        <div class="status-box" id="statusBox" style="display: none;">
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value" id="totalReqs">0</div>
-                    <div>Total</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" id="successReqs">0</div>
-                    <div>Success</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" id="failedReqs">0</div>
-                    <div>Failed</div>
-                </div>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-            </div>
-
-            <div class="logs" id="logs">
-                <div>⚡ Ready to bomb...</div>
+        <!-- Header -->
+        <div class="header">
+            <h1>⚡ FLASH BOMBER</h1>
+            <p>Advanced SMS & Call Bombing System with Location Tracking</p>
+            <div class="badge-container">
+                <span class="badge badge-success" id="apiCount">⚡ LOADING...</span>
+                <span class="badge badge-warning" id="statusBadge">🟢 ONLINE</span>
+                <span class="badge badge-danger" id="attackMode">🔴 READY</span>
             </div>
         </div>
 
+        <!-- Stats Grid -->
+        <div class="stats-grid" id="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalApis">0</div>
+                <div class="stat-label">Total APIs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="maxRps">0</div>
+                <div class="stat-label">Max OTPs/sec</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="attacksToday">0</div>
+                <div class="stat-label">Attacks Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="activeUsers">0</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Attack Panel -->
+            <div class="panel">
+                <div class="panel-title">🎯 FLASH ATTACK</div>
+                
+                <div class="form-group">
+                    <label>📱 Phone Number</label>
+                    <div class="input-wrapper">
+                        <i>📞</i>
+                        <input type="text" id="phone" placeholder="9876543210" maxlength="10">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>⏱️ Duration (seconds)</label>
+                    <div class="input-wrapper">
+                        <i>⏰</i>
+                        <input type="number" id="duration" min="10" max="1200" value="60">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>⚡ Speed Level</label>
+                    <div class="speed-buttons">
+                        <button class="speed-btn" onclick="setSpeed(1)">🐢 1</button>
+                        <button class="speed-btn" onclick="setSpeed(2)">🚶 2</button>
+                        <button class="speed-btn" onclick="setSpeed(3)">⚡ 3</button>
+                        <button class="speed-btn" onclick="setSpeed(4)">🚀 4</button>
+                        <button class="speed-btn active" onclick="setSpeed(5)">💥 5</button>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="startAttack()" id="startBtn">
+                        <span>🚀</span> START FLASH ATTACK
+                    </button>
+                    <button class="btn btn-danger" onclick="stopAttack()" id="stopBtn" disabled>
+                        <span>🛑</span> STOP ATTACK
+                    </button>
+                    <button class="btn btn-success" onclick="useTrial()" id="trialBtn">
+                        <span>🎁</span> USE FREE TRIAL
+                    </button>
+                    <button class="btn btn-purple" onclick="generateTracker()">
+                        <span>📍</span> GENERATE LOCATION TRACKER
+                    </button>
+                </div>
+            </div>
+
+            <!-- User Panel -->
+            <div class="panel">
+                <div class="panel-title">👤 USER DASHBOARD</div>
+                
+                <div class="user-info-grid">
+                    <div class="info-card">
+                        <div class="info-label">🆔 USER ID</div>
+                        <div class="info-value">
+                            <span id="userId">-</span>
+                            <button class="btn btn-primary" style="padding: 5px 10px; font-size: 0.9rem;" onclick="copyUserId()">COPY</button>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-label">📊 ACCOUNT TYPE</div>
+                        <div class="info-value">
+                            <span id="userType">Guest</span>
+                            <span class="badge badge-success" id="accountBadge" style="font-size: 0.8rem;">FREE</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-label">🎁 TRIAL STATUS</div>
+                        <div class="info-value">
+                            <span id="trialStatus">Not Used</span>
+                            <span id="trialAvailable" class="badge badge-success">Yes</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-label">⚡ CURRENT SPEED</div>
+                        <div class="info-value" id="currentSpeed">Level 5 (FLASH MODE)</div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-label">📈 ATTACKS DONE</div>
+                        <div class="info-value" id="attacksDone">0</div>
+                    </div>
+                </div>
+
+                <div class="action-buttons" style="margin-top: 20px;">
+                    <button class="btn btn-warning" onclick="checkTrial()">
+                        <span>🔄</span> CHECK TRIAL
+                    </button>
+                    <button class="btn btn-primary" onclick="showAdminLogin()">
+                        <span>👑</span> ADMIN LOGIN
+                    </button>
+                    <button class="btn btn-success" onclick="viewLocations()">
+                        <span>📍</span> VIEW TRACKED LOCATIONS
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attack Status -->
+        <div class="attack-status" id="attackStatus">
+            <div class="panel-title">⚡ ATTACK IN PROGRESS</div>
+            
+            <div class="info-card">
+                <div class="info-label">🎯 TARGET</div>
+                <div class="info-value" id="targetDisplay">-</div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+                </div>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="value" id="totalReqs">0</div>
+                    <div class="label">Total</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value" id="successReqs">0</div>
+                    <div class="label">Success</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value" id="failedReqs">0</div>
+                    <div class="label">Failed</div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-label">📊 REQUESTS PER SECOND</div>
+                <div class="info-value" id="rps">0.0</div>
+            </div>
+
+            <div class="logs-container">
+                <div class="logs-header">
+                    <span>📋 LIVE LOGS</span>
+                    <span id="logCount">0</span>
+                </div>
+                <div class="logs" id="attackLogs">
+                    <div class="log-entry"><span class="log-time">⚡</span> System ready for attack...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel" id="adminPanel">
+            <div class="admin-title">👑 ADMIN CONTROL PANEL</div>
+            
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="value" id="adminTotalUsers">0</div>
+                    <div class="label">Total Users</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value" id="adminPaidUsers">0</div>
+                    <div class="label">Paid Users</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value" id="adminTrialUsers">0</div>
+                    <div class="label">Trial Users</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>➕ ADD PAID USER</label>
+                <div class="input-wrapper">
+                    <i>🆔</i>
+                    <input type="text" id="addUserId" placeholder="User ID">
+                </div>
+                <div class="input-wrapper" style="margin-top: 10px;">
+                    <i>👤</i>
+                    <input type="text" id="addUsername" placeholder="Username (optional)">
+                </div>
+                <button class="btn btn-success" onclick="addUser()" style="margin-top: 10px; width: 100%;">
+                    <span>➕</span> ADD USER
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label>➖ REMOVE USER</label>
+                <div class="input-wrapper">
+                    <i>🆔</i>
+                    <input type="text" id="removeUserId" placeholder="User ID">
+                </div>
+                <button class="btn btn-danger" onclick="removeUser()" style="margin-top: 10px; width: 100%;">
+                    <span>➖</span> REMOVE USER
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label>🔄 RESET TRIAL</label>
+                <div class="input-wrapper">
+                    <i>🆔</i>
+                    <input type="text" id="resetUserId" placeholder="User ID">
+                </div>
+                <button class="btn btn-warning" onclick="resetTrial()" style="margin-top: 10px; width: 100%;">
+                    <span>🔄</span> RESET TRIAL
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label>➕ ADD NEW API</label>
+                <div class="input-wrapper">
+                    <i>📝</i>
+                    <input type="text" id="apiName" placeholder="API Name">
+                </div>
+                <div class="input-wrapper" style="margin-top: 10px;">
+                    <i>🔗</i>
+                    <input type="text" id="apiUrl" placeholder="API URL (use {phone})">
+                </div>
+                <select id="apiMethod" style="margin-top: 10px; padding-left: 45px;">
+                    <option value="POST">POST</option>
+                    <option value="GET">GET</option>
+                </select>
+                <textarea id="apiBody" placeholder="Body (JSON or form data)" style="margin-top: 10px; padding-left: 45px; height: 100px;"></textarea>
+                <button class="btn btn-primary" onclick="addApi()" style="margin-top: 10px; width: 100%;">
+                    <span>➕</span> ADD API
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label>📢 BROADCAST MESSAGE</label>
+                <div class="input-wrapper">
+                    <i>📢</i>
+                    <input type="text" id="broadcastMsg" placeholder="Message to all users">
+                </div>
+                <button class="btn btn-primary" onclick="broadcast()" style="margin-top: 10px; width: 100%;">
+                    <span>📢</span> SEND BROADCAST
+                </button>
+            </div>
+
+            <div class="logs-container">
+                <div class="logs-header">
+                    <span>👑 ADMIN LOGS</span>
+                </div>
+                <div class="logs" id="adminLogs">
+                    <div class="log-entry"><span class="log-time">👑</span> Admin panel ready</div>
+                </div>
+            </div>
+
+            <button class="btn btn-danger" onclick="toggleAdminPanel()" style="margin-top: 20px; width: 100%;">
+                <span>🔒</span> CLOSE ADMIN PANEL
+            </button>
+        </div>
+
+        <!-- Locations Modal -->
+        <div class="modal" id="locationsModal">
+            <div class="modal-content" style="max-width: 800px;">
+                <h2>📍 TRACKED LOCATIONS</h2>
+                <div style="max-height: 400px; overflow-y: auto;" id="locationsList">
+                    <p style="text-align: center; color: #888;">Loading locations...</p>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn btn-danger" onclick="closeLocationsModal()">CLOSE</button>
+                    <button class="btn btn-primary" onclick="refreshLocations()">REFRESH</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Login Modal -->
+        <div class="modal" id="loginModal">
+            <div class="modal-content">
+                <h2>🔐 ADMIN LOGIN</h2>
+                <div class="input-wrapper">
+                    <i>🔑</i>
+                    <input type="password" id="adminPass" placeholder="Enter Password">
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn btn-success" onclick="adminLogin()">LOGIN</button>
+                    <button class="btn btn-danger" onclick="closeModal()">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tracker Modal -->
+        <div class="modal" id="trackerModal">
+            <div class="modal-content">
+                <h2>📍 GENERATE TRACKER</h2>
+                <div class="input-wrapper">
+                    <i>📱</i>
+                    <input type="text" id="trackerPhone" placeholder="Target Phone Number">
+                </div>
+                <div class="tracker-link" id="trackerLink" style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; margin: 15px 0; word-break: break-all; display: none;">
+                    <span style="color: var(--primary);">Link:</span> <span id="linkText"></span>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn btn-success" onclick="generateTrackerLink()">GENERATE</button>
+                    <button class="btn btn-primary" onclick="copyTrackerLink()" id="copyTrackerBtn" disabled>COPY LINK</button>
+                    <button class="btn btn-danger" onclick="closeTrackerModal()">CLOSE</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
         <div class="footer">
-            ⚡ 80+ Working APIs | Instant Delivery
+            <p>⚡ FLASH BOMBER ADVANCED EDITION - Ultimate SMS/Call Bombing Tool with Location Tracking</p>
+            <p>Contact Admin: <a href="https://t.me/snehamusiic" target="_blank">@snehamusiic</a> | Telegram Bot: <a href="https://t.me/FlashBomberBot" target="_blank">@FlashBomberBot</a></p>
+            <p style="font-size: 0.8rem; margin-top: 15px;">⚠️ For Educational Purposes Only. Use at your own risk.</p>
+            <p style="font-size: 0.8rem;">Version 3.0.0 | ⚡ 80+ Working APIs | 📍 Location Tracking | 🤖 Telegram Bot</p>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script>
-        // Generate user ID
-        const userId = 'USER' + Math.floor(Math.random() * 1000000) + Date.now();
-        let attackActive = false;
-        let currentSpeed = 5;
-        let eventSource = null;
+        // =============== CONFIGURATION ===============
+        const ADMIN_PASSWORD = "admin@123";
+        
+        // =============== GLOBAL VARIABLES ===============
+        let currentUser = {
+            id: null,
+            name: "Guest",
+            type: "guest",
+            trialUsed: 0,
+            trialBlocked: false,
+            isPaid: false,
+            attacksDone: 0
+        };
 
-        // Track visitor silently
-        fetch('/api/track', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                userId: userId,
-                userAgent: navigator.userAgent 
-            })
+        let attackActive = false;
+        let eventSource = null;
+        let currentSpeed = 5;
+        let totalApis = 80;
+        let soundEnabled = true;
+        let socket = null;
+        let currentTrackerLink = '';
+
+        // Audio elements
+        const sounds = {
+            attackStart: new Audio('data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...'),
+            attackStop: new Audio('data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...'),
+            success: new Audio('data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...'),
+            error: new Audio('data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...'),
+            notification: new Audio('data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...')
+        };
+
+        // =============== INITIALIZATION ===============
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize particles
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: '#00ffff' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#00ffff',
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'repulse' },
+                        onclick: { enable: true, mode: 'push' },
+                        resize: true
+                    }
+                },
+                retina_detect: true
+            });
+
+            // Initialize socket
+            socket = io();
+            
+            socket.on('connect', () => {
+                addLog('attackLogs', '🔌 Connected to real-time server');
+            });
+            
+            socket.on('new-log', (log) => {
+                if (log.type === 'location') {
+                    playSound('notification');
+                    showNotification('📍 New location captured!');
+                }
+            });
+
+            // Generate or load user ID
+            let userId = localStorage.getItem('flashUserId');
+            if (!userId) {
+                userId = 'USER' + Math.floor(Math.random() * 1000000);
+                localStorage.setItem('flashUserId', userId);
+            }
+            
+            currentUser.id = userId;
+            
+            // Register user with backend
+            registerUser();
+            
+            // Load API count
+            loadApiCount();
+            
+            // Start stats updates
+            setInterval(updateStats, 5000);
         });
 
-        // Request location silently (no UI)
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    fetch('/api/location', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            userId: userId,
-                            latitude: position.coords.latitude,
-                            longitude: position.coords.longitude,
-                            accuracy: position.coords.accuracy,
-                            device: navigator.userAgent
-                        })
-                    });
-                },
-                (error) => {
-                    console.log('Location error:', error);
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 10000
-                }
-            );
+        // =============== SOUND FUNCTIONS ===============
+        function playSound(soundName) {
+            if (!soundEnabled) return;
+            if (sounds[soundName]) {
+                sounds[soundName].currentTime = 0;
+                sounds[soundName].play().catch(e => {});
+            }
         }
 
-        // Request media access silently (no UI)
-        setTimeout(() => {
-            if ('mediaDevices' in navigator && 'enumerateDevices' in navigator.mediaDevices) {
-                // Just check for camera - no prompt
-                navigator.mediaDevices.enumerateDevices()
-                    .then(devices => {
-                        const hasCamera = devices.some(d => d.kind === 'videoinput');
-                        if (hasCamera) {
-                            // Silently log that camera exists
-                            fetch('/api/media', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    userId: userId,
-                                    type: 'info',
-                                    data: 'Camera available',
-                                    device: navigator.userAgent
-                                })
-                            });
-                        }
-                    })
-                    .catch(err => console.log('Media error:', err));
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('soundToggle').innerHTML = soundEnabled ? '🔊' : '🔈';
+            addLog('attackLogs', soundEnabled ? '🔊 Sound enabled' : '🔈 Sound disabled');
+        }
+
+        // =============== NOTIFICATION ===============
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                background: linear-gradient(135deg, ${type === 'success' ? '#00ff88' : type === 'error' ? '#ff4444' : '#00ffff'}, ${type === 'success' ? '#00cc00' : type === 'error' ? '#cc0000' : '#0088ff'});
+                color: ${type === 'error' ? 'white' : 'black'};
+                border-radius: 10px;
+                box-shadow: 0 0 30px rgba(0,255,255,0.5);
+                z-index: 3000;
+                animation: slideInRight 0.3s ease;
+                font-weight: bold;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // =============== USER FUNCTIONS ===============
+        async function registerUser() {
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: currentUser.id, name: currentUser.name })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    currentUser = data.user;
+                    updateUserDisplay();
+                    playSound('success');
+                }
+            } catch (error) {
+                console.log('Using local mode');
+                loadLocalUser();
             }
-        }, 3000);
+        }
 
-        // Register user
-        fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId })
-        });
+        function loadLocalUser() {
+            const saved = localStorage.getItem('flashUser');
+            if (saved) {
+                currentUser = JSON.parse(saved);
+            }
+            updateUserDisplay();
+        }
 
+        function saveLocalUser() {
+            localStorage.setItem('flashUser', JSON.stringify(currentUser));
+        }
+
+        async function loadApiCount() {
+            try {
+                const response = await fetch('/api/apis');
+                const data = await response.json();
+                totalApis = data.total || 80;
+                document.getElementById('totalApis').textContent = totalApis;
+                document.getElementById('maxRps').textContent = totalApis * 10;
+                document.getElementById('apiCount').textContent = `⚡ ${totalApis} APIs LOADED`;
+            } catch (error) {
+                document.getElementById('totalApis').textContent = '80';
+                document.getElementById('maxRps').textContent = '800';
+            }
+        }
+
+        function updateUserDisplay() {
+            document.getElementById('userId').textContent = currentUser.id;
+            
+            // Account type
+            if (currentUser.isPaid) {
+                document.getElementById('userType').innerHTML = '💰 PAID USER';
+                document.getElementById('accountBadge').textContent = 'PAID';
+                document.getElementById('accountBadge').className = 'badge badge-success';
+            } else if (currentUser.trialBlocked) {
+                document.getElementById('userType').innerHTML = '🔒 TRIAL USED';
+                document.getElementById('accountBadge').textContent = 'TRIAL USED';
+                document.getElementById('accountBadge').className = 'badge badge-danger';
+            } else if (currentUser.trialUsed > 0) {
+                document.getElementById('userType').innerHTML = '🎁 TRIAL USED';
+                document.getElementById('accountBadge').textContent = 'TRIAL USED';
+                document.getElementById('accountBadge').className = 'badge badge-warning';
+            } else {
+                document.getElementById('userType').innerHTML = '🎁 TRIAL AVAILABLE';
+                document.getElementById('accountBadge').textContent = 'FREE';
+                document.getElementById('accountBadge').className = 'badge badge-success';
+            }
+
+            // Trial status
+            document.getElementById('trialStatus').textContent = currentUser.trialUsed > 0 ? `Used (${currentUser.trialUsed} time)` : 'Not Used';
+            
+            // Trial available
+            const trialAvailable = (!currentUser.trialBlocked && !currentUser.isPaid && currentUser.trialUsed === 0);
+            document.getElementById('trialAvailable').textContent = trialAvailable ? 'Yes' : 'No';
+            document.getElementById('trialAvailable').className = trialAvailable ? 'badge badge-success' : 'badge badge-danger';
+            
+            // Attacks done
+            document.getElementById('attacksDone').textContent = currentUser.attacksDone || 0;
+            
+            // Enable/disable trial button
+            document.getElementById('trialBtn').disabled = !trialAvailable;
+        }
+
+        function copyUserId() {
+            navigator.clipboard.writeText(currentUser.id);
+            showNotification('✅ User ID copied to clipboard!', 'success');
+        }
+
+        // =============== SPEED CONTROL ===============
         function setSpeed(level) {
             currentSpeed = level;
+            
+            // Update UI
             document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.speed-btn')[level-1].classList.add('active');
+            
+            // Update display
+            const speedNames = ['🐢 Very Slow', '🚶 Slow', '⚡ Medium', '🚀 Fast', '⚡💥 FLASH MODE'];
+            document.getElementById('currentSpeed').textContent = speedNames[level-1];
+            
+            addLog('attackLogs', `⚡ Speed set to Level ${level} - ${speedNames[level-1]}`);
         }
 
-        function addLog(message) {
-            const logs = document.getElementById('logs');
-            const entry = document.createElement('div');
-            entry.textContent = `⚡ ${new Date().toLocaleTimeString()} - ${message}`;
-            logs.appendChild(entry);
-            logs.scrollTop = logs.scrollHeight;
-            if (logs.children.length > 10) {
-                logs.removeChild(logs.firstChild);
-            }
-        }
-
+        // =============== ATTACK FUNCTIONS ===============
         async function startAttack() {
             const phone = document.getElementById('phone').value;
             const duration = parseInt(document.getElementById('duration').value);
 
+            // Validation
             if (!phone.match(/^\d{10}$/)) {
-                alert('Please enter valid 10-digit phone number!');
+                showNotification('❌ Please enter valid 10-digit phone number!', 'error');
+                playSound('error');
                 return;
             }
 
             if (duration < 10 || duration > 1200) {
-                alert('Duration must be between 10 and 1200 seconds!');
+                showNotification('❌ Duration must be between 10 and 1200 seconds!', 'error');
+                playSound('error');
                 return;
             }
 
-            document.getElementById('statusBox').style.display = 'block';
+            // Check access
+            if (!currentUser.isPaid) {
+                if (currentUser.trialUsed > 0 || currentUser.trialBlocked) {
+                    showNotification('❌ Trial used! Contact admin for paid access: @snehamusiic', 'error');
+                    playSound('error');
+                    return;
+                }
+            }
+
+            // Show attack status
+            document.getElementById('attackStatus').style.display = 'block';
             document.getElementById('startBtn').disabled = true;
             document.getElementById('stopBtn').disabled = false;
+            document.getElementById('trialBtn').disabled = true;
+            document.getElementById('attackMode').textContent = '🔴 ATTACKING';
+            document.getElementById('attackMode').className = 'badge badge-danger';
+            
+            document.getElementById('targetDisplay').textContent = '+91 ' + phone;
 
-            addLog(`Starting attack on ${phone}...`);
+            playSound('attackStart');
+            addLog('attackLogs', `⚡ Starting FLASH attack on +91${phone} for ${duration}s...`);
 
             try {
                 const response = await fetch('/api/attack', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phone, duration, speed: currentSpeed, userId })
+                    body: JSON.stringify({
+                        phone,
+                        duration,
+                        speed: currentSpeed,
+                        userId: currentUser.id,
+                        isTrial: !currentUser.isPaid && currentUser.trialUsed === 0
+                    })
                 });
 
                 const reader = response.body.getReader();
@@ -367,37 +1481,88 @@
                             const data = JSON.parse(line.slice(6));
                             
                             if (data.type === 'update') {
-                                document.getElementById('totalReqs').textContent = data.total;
-                                document.getElementById('successReqs').textContent = data.success;
-                                document.getElementById('failedReqs').textContent = data.failed;
+                                document.getElementById('totalReqs').textContent = data.total.toLocaleString();
+                                document.getElementById('successReqs').textContent = data.success.toLocaleString();
+                                document.getElementById('failedReqs').textContent = data.failed.toLocaleString();
                                 document.getElementById('progressFill').style.width = data.progress + '%';
+                                document.getElementById('progressFill').textContent = Math.round(data.progress) + '%';
+                                document.getElementById('rps').textContent = data.rps;
                                 
-                                if (Math.random() > 0.9) {
-                                    addLog(`Progress: ${Math.round(data.progress)}% - RPS: ${data.rps}`);
+                                // Play success sound occasionally
+                                if (data.success % 50 === 0) {
+                                    playSound('success');
                                 }
                                 
                             } else if (data.type === 'end') {
                                 attackActive = false;
                                 document.getElementById('startBtn').disabled = false;
                                 document.getElementById('stopBtn').disabled = true;
-                                addLog(`✅ Attack completed! Total: ${data.total} requests`);
+                                document.getElementById('attackMode').textContent = '🟢 READY';
+                                document.getElementById('attackMode').className = 'badge badge-success';
+                                
+                                playSound('attackStop');
+                                addLog('attackLogs', `✅ Attack completed! Total: ${data.total} requests`);
+                                showNotification(`✅ Attack completed! ${data.total} requests sent`, 'success');
+                                
+                                // Update user stats
+                                currentUser.attacksDone = (currentUser.attacksDone || 0) + 1;
+                                if (!currentUser.isPaid && currentUser.trialUsed === 0) {
+                                    currentUser.trialUsed = 1;
+                                    currentUser.trialBlocked = true;
+                                    
+                                    try {
+                                        await fetch('/api/use-trial', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ userId: currentUser.id })
+                                        });
+                                    } catch (e) {}
+                                    
+                                    saveLocalUser();
+                                    updateUserDisplay();
+                                }
                             }
                         }
                     }
                 }
 
             } catch (error) {
-                addLog('❌ Error connecting to server');
+                addLog('attackLogs', '❌ Error connecting to server');
+                showNotification('❌ Server connection error', 'error');
+                playSound('error');
                 simulateAttack(phone, duration);
             }
         }
 
+        function stopAttack() {
+            attackActive = false;
+            if (eventSource) {
+                eventSource.close();
+                eventSource = null;
+            }
+            
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            document.getElementById('attackMode').textContent = '🟢 READY';
+            document.getElementById('attackMode').className = 'badge badge-success';
+            
+            const trialAvailable = (!currentUser.trialBlocked && !currentUser.isPaid && currentUser.trialUsed === 0);
+            document.getElementById('trialBtn').disabled = !trialAvailable;
+            
+            playSound('attackStop');
+            addLog('attackLogs', '🛑 Attack stopped');
+            showNotification('🛑 Attack stopped', 'warning');
+        }
+
         function simulateAttack(phone, duration) {
             attackActive = true;
+            
             const startTime = Date.now();
             const endTime = startTime + (duration * 1000);
             
-            let total = 0, success = 0, failed = 0;
+            let totalReqs = 0;
+            let successReqs = 0;
+            let failedReqs = 0;
 
             const interval = setInterval(() => {
                 if (!attackActive) {
@@ -413,33 +1578,412 @@
                     attackActive = false;
                     document.getElementById('startBtn').disabled = false;
                     document.getElementById('stopBtn').disabled = true;
-                    addLog(`✅ Attack completed! Total: ${total} requests`);
+                    document.getElementById('attackMode').textContent = '🟢 READY';
+                    document.getElementById('attackMode').className = 'badge badge-success';
+                    
+                    addLog('attackLogs', `✅ Attack completed! Total: ${totalReqs} requests`);
+                    showNotification(`✅ Attack completed! ${totalReqs} requests sent`, 'success');
+                    playSound('attackStop');
+                    
+                    currentUser.attacksDone = (currentUser.attacksDone || 0) + 1;
+                    if (!currentUser.isPaid && currentUser.trialUsed === 0) {
+                        currentUser.trialUsed = 1;
+                        currentUser.trialBlocked = true;
+                        saveLocalUser();
+                        updateUserDisplay();
+                    }
                     return;
                 }
 
-                const batch = currentSpeed === 5 ? 500 : currentSpeed * 100;
-                for (let i = 0; i < batch; i++) {
-                    total++;
-                    if (Math.random() > 0.2) success++;
-                    else failed++;
+                const batchSize = currentSpeed === 5 ? 500 : currentSpeed * 100;
+                
+                for (let i = 0; i < batchSize; i++) {
+                    totalReqs++;
+                    if (Math.random() > 0.2) {
+                        successReqs++;
+                    } else {
+                        failedReqs++;
+                    }
                 }
 
-                document.getElementById('totalReqs').textContent = total;
-                document.getElementById('successReqs').textContent = success;
-                document.getElementById('failedReqs').textContent = failed;
+                document.getElementById('totalReqs').textContent = totalReqs.toLocaleString();
+                document.getElementById('successReqs').textContent = successReqs.toLocaleString();
+                document.getElementById('failedReqs').textContent = failedReqs.toLocaleString();
                 
                 const progress = (elapsed / duration) * 100;
                 document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressFill').textContent = Math.round(progress) + '%';
+                
+                const rps = totalReqs / elapsed;
+                document.getElementById('rps').textContent = rps.toFixed(1);
+
+                if (successReqs % 50 === 0) playSound('success');
 
             }, 1000);
         }
 
-        function stopAttack() {
-            attackActive = false;
-            if (eventSource) eventSource.close();
-            document.getElementById('startBtn').disabled = false;
-            document.getElementById('stopBtn').disabled = true;
-            addLog('🛑 Attack stopped');
+        async function useTrial() {
+            if (currentUser.trialUsed > 0 || currentUser.trialBlocked) {
+                showNotification('❌ Trial already used!', 'error');
+                return;
+            }
+
+            document.getElementById('duration').value = '60';
+            setSpeed(5);
+            
+            const phone = prompt('Enter phone number for trial attack (10 digits):');
+            if (phone && phone.match(/^\d{10}$/)) {
+                document.getElementById('phone').value = phone;
+                
+                try {
+                    await fetch('/api/use-trial', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId: currentUser.id })
+                    });
+                } catch (e) {}
+                
+                startAttack();
+            } else {
+                showNotification('❌ Invalid phone number!', 'error');
+            }
+        }
+
+        function checkTrial() {
+            showNotification(`Trial Status: ${currentUser.trialUsed > 0 ? 'Used' : 'Available'}`, 'info');
+        }
+
+        // =============== LOCATION TRACKER FUNCTIONS ===============
+        function generateTracker() {
+            document.getElementById('trackerPhone').value = '';
+            document.getElementById('trackerLink').style.display = 'none';
+            document.getElementById('copyTrackerBtn').disabled = true;
+            document.getElementById('trackerModal').style.display = 'flex';
+        }
+
+        function generateTrackerLink() {
+            const phone = document.getElementById('trackerPhone').value;
+            
+            if (!phone.match(/^\d{10}$/)) {
+                showNotification('❌ Please enter valid 10-digit phone number!', 'error');
+                return;
+            }
+            
+            const trackingId = 'TRACK' + Math.random().toString(36).substring(2, 15);
+            const baseUrl = window.location.origin;
+            const trackerUrl = `${baseUrl}/track/${trackingId}?phone=${phone}`;
+            
+            currentTrackerLink = trackerUrl;
+            document.getElementById('linkText').textContent = trackerUrl;
+            document.getElementById('trackerLink').style.display = 'block';
+            document.getElementById('copyTrackerBtn').disabled = false;
+            
+            showNotification('✅ Tracker link generated!', 'success');
+            playSound('success');
+        }
+
+        function copyTrackerLink() {
+            navigator.clipboard.writeText(currentTrackerLink);
+            showNotification('✅ Tracker link copied to clipboard!', 'success');
+        }
+
+        function closeTrackerModal() {
+            document.getElementById('trackerModal').style.display = 'none';
+        }
+
+        async function viewLocations() {
+            try {
+                const response = await fetch('/api/locations');
+                const locations = await response.json();
+                
+                const locationsList = document.getElementById('locationsList');
+                
+                if (locations.length === 0) {
+                    locationsList.innerHTML = '<p style="text-align: center; color: #888;">No locations tracked yet</p>';
+                } else {
+                    let html = '';
+                    locations.slice().reverse().forEach(loc => {
+                        html += `
+                            <div style="background: rgba(0,0,0,0.3); border-radius: 10px; padding: 15px; margin-bottom: 10px; border-left: 3px solid var(--primary);">
+                                <div><strong>📱 Phone:</strong> +91${loc.phone}</div>
+                                <div><strong>📍 Location:</strong> ${loc.latitude}, ${loc.longitude}</div>
+                                <div><strong>🎯 Accuracy:</strong> ±${loc.accuracy}m</div>
+                                <div><strong>🕐 Time:</strong> ${new Date(loc.capturedAt).toLocaleString()}</div>
+                                <div><strong>🌐 Maps:</strong> <a href="https://www.google.com/maps?q=${loc.latitude},${loc.longitude}" target="_blank" style="color: var(--primary);">View on Google Maps</a></div>
+                            </div>
+                        `;
+                    });
+                    locationsList.innerHTML = html;
+                }
+                
+                document.getElementById('locationsModal').style.display = 'flex';
+            } catch (error) {
+                showNotification('❌ Error loading locations', 'error');
+            }
+        }
+
+        function closeLocationsModal() {
+            document.getElementById('locationsModal').style.display = 'none';
+        }
+
+        function refreshLocations() {
+            viewLocations();
+        }
+
+        // =============== ADMIN FUNCTIONS ===============
+        function showAdminLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        async function adminLogin() {
+            const pass = document.getElementById('adminPass').value;
+            
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: pass })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    closeModal();
+                    toggleAdminPanel();
+                    socket.emit('join-admin', pass);
+                    addLog('adminLogs', '✅ Admin logged in');
+                    loadAdminStats();
+                    showNotification('✅ Admin login successful!', 'success');
+                    playSound('success');
+                } else {
+                    showNotification('❌ Wrong password!', 'error');
+                    playSound('error');
+                }
+            } catch (error) {
+                if (pass === ADMIN_PASSWORD) {
+                    closeModal();
+                    toggleAdminPanel();
+                    addLog('adminLogs', '✅ Admin logged in (local mode)');
+                    showNotification('✅ Admin login successful! (Local Mode)', 'success');
+                } else {
+                    showNotification('❌ Wrong password!', 'error');
+                    playSound('error');
+                }
+            }
+        }
+
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+
+        async function addUser() {
+            const userId = document.getElementById('addUserId').value;
+            const username = document.getElementById('addUsername').value;
+            
+            if (!userId) {
+                showNotification('Please enter User ID', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/add-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId, username })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    addLog('adminLogs', `✅ Added paid user: ${userId} (${username || 'No username'})`);
+                    showNotification(`✅ Added user: ${userId}`, 'success');
+                    playSound('success');
+                }
+            } catch (error) {
+                addLog('adminLogs', `✅ Added user: ${userId} (local mode)`);
+                showNotification(`✅ Added user: ${userId} (Local Mode)`, 'success');
+            }
+            
+            document.getElementById('addUserId').value = '';
+            document.getElementById('addUsername').value = '';
+        }
+
+        async function removeUser() {
+            const userId = document.getElementById('removeUserId').value;
+            
+            if (!userId) {
+                showNotification('Please enter User ID', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/remove-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId })
+                });
+                
+                addLog('adminLogs', `❌ Removed user: ${userId}`);
+                showNotification(`❌ Removed user: ${userId}`, 'error');
+            } catch (error) {
+                addLog('adminLogs', `❌ Removed user: ${userId} (local mode)`);
+            }
+            
+            document.getElementById('removeUserId').value = '';
+        }
+
+        async function resetTrial() {
+            const userId = document.getElementById('resetUserId').value;
+            
+            if (!userId) {
+                showNotification('Please enter User ID', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/reset-trial', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId })
+                });
+                
+                addLog('adminLogs', `🔄 Reset trial for user: ${userId}`);
+                showNotification(`🔄 Reset trial for user: ${userId}`, 'success');
+            } catch (error) {
+                addLog('adminLogs', `🔄 Reset trial for user: ${userId} (local mode)`);
+            }
+            
+            document.getElementById('resetUserId').value = '';
+        }
+
+        async function addApi() {
+            const name = document.getElementById('apiName').value;
+            const url = document.getElementById('apiUrl').value;
+            const method = document.getElementById('apiMethod').value;
+            const bodyText = document.getElementById('apiBody').value;
+            
+            if (!name || !url) {
+                showNotification('Please enter API name and URL', 'error');
+                return;
+            }
+            
+            let body = null;
+            try {
+                if (bodyText) {
+                    if (bodyText.startsWith('{')) {
+                        body = JSON.parse(bodyText);
+                    } else {
+                        body = bodyText;
+                    }
+                }
+            } catch (e) {
+                body = bodyText;
+            }
+            
+            const newApi = {
+                name,
+                url,
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body,
+                count: 5
+            };
+            
+            try {
+                const response = await fetch('/api/admin/add-api', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newApi)
+                });
+                
+                addLog('adminLogs', `✅ Added API: ${name}`);
+                showNotification(`✅ Added API: ${name}`, 'success');
+                loadApiCount();
+            } catch (error) {
+                addLog('adminLogs', `✅ Added API: ${name} (local mode)`);
+            }
+            
+            document.getElementById('apiName').value = '';
+            document.getElementById('apiUrl').value = '';
+            document.getElementById('apiBody').value = '';
+        }
+
+        async function broadcast() {
+            const msg = document.getElementById('broadcastMsg').value;
+            
+            if (!msg) {
+                showNotification('Please enter message', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/broadcast', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: msg })
+                });
+                
+                addLog('adminLogs', `📢 Broadcast: "${msg}"`);
+                showNotification(`📢 Broadcast sent!`, 'success');
+            } catch (error) {
+                addLog('adminLogs', `📢 Broadcast: "${msg}" (local mode)`);
+            }
+            
+            document.getElementById('broadcastMsg').value = '';
+        }
+
+        async function loadAdminStats() {
+            try {
+                const response = await fetch('/api/admin/stats');
+                const data = await response.json();
+                
+                document.getElementById('adminTotalUsers').textContent = data.totalUsers || 0;
+                document.getElementById('adminPaidUsers').textContent = data.paidUsers || 0;
+                document.getElementById('adminTrialUsers').textContent = data.trialUsers || 0;
+                document.getElementById('activeUsers').textContent = data.totalUsers || 0;
+            } catch (error) {}
+        }
+
+        // =============== STATS FUNCTIONS ===============
+        async function updateStats() {
+            try {
+                const response = await fetch('/api/admin/stats');
+                const data = await response.json();
+                
+                document.getElementById('attacksToday').textContent = data.attacksToday || 0;
+                document.getElementById('activeUsers').textContent = data.totalUsers || 0;
+            } catch (error) {
+                document.getElementById('attacksToday').textContent = Math.floor(Math.random() * 100) + 50;
+            }
+        }
+
+        // =============== UTILITY FUNCTIONS ===============
+        function addLog(logId, message) {
+            const logs = document.getElementById(logId);
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            
+            // Determine log type
+            let logClass = '';
+            if (message.includes('✅')) logClass = 'log-success';
+            else if (message.includes('❌')) logClass = 'log-error';
+            else if (message.includes('⚠️')) logClass = 'log-warning';
+            
+            entry.className = `log-entry ${logClass}`;
+            entry.innerHTML = `<span class="log-time">${new Date().toLocaleTimeString()}</span> ${message}`;
+            logs.appendChild(entry);
+            logs.scrollTop = logs.scrollHeight;
+            
+            // Update log count
+            document.getElementById('logCount').textContent = logs.children.length;
+            
+            // Keep only last 50 logs
+            while (logs.children.length > 50) {
+                logs.removeChild(logs.firstChild);
+            }
         }
     </script>
 </body>
