@@ -127,7 +127,6 @@
             font-size: 1.2rem;
             text-align: center;
             letter-spacing: 3px;
-            margin-bottom: 20px;
             transition: all 0.3s;
         }
 
@@ -175,7 +174,7 @@
 
         .modal-buttons {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 15px;
             margin-top: 30px;
         }
@@ -666,13 +665,17 @@
                 <button class="plan-btn" onclick="selectPlan('vip')">VIP</button>
             </div>
             
-            <!-- Fixed Key Input with Paste Support -->
-            <input type="text" class="key-input" id="keyInput" placeholder="ENTER YOUR KEY" maxlength="50" 
-                   onpaste="handlePaste(event)" oninput="this.value = this.value.toUpperCase()">
+            <!-- Key Input with Paste Button -->
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" class="key-input" id="keyInput" placeholder="ENTER YOUR KEY" maxlength="50" 
+                       style="flex: 3; margin-bottom: 0;" oninput="this.value = this.value.toUpperCase()">
+                <button class="btn btn-secondary" onclick="pasteAndActivate()" style="flex: 1; margin: 0; padding: 15px 10px;">
+                    📋 Paste
+                </button>
+            </div>
             
             <div class="modal-buttons">
                 <button class="btn btn-primary" onclick="activateKey()">ACTIVATE</button>
-                <button class="btn btn-secondary" onclick="showDemo()">TRY DEMO</button>
             </div>
             
             <div class="status-message" id="keyStatus"></div>
@@ -854,17 +857,32 @@
         let currentSpeed = 5;
         let eventSource = null;
 
-        // Paste handler function
-        function handlePaste(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            let pastedText = (e.clipboardData || window.clipboardData).getData('text');
-            document.getElementById('keyInput').value = pastedText.trim().toUpperCase();
-            
-            // Auto-trigger activation after paste (optional)
-            setTimeout(() => {
-                activateKey();
-            }, 100);
+        // Paste and activate function
+        function pasteAndActivate() {
+            navigator.clipboard.readText().then(text => {
+                if (text) {
+                    document.getElementById('keyInput').value = text.trim().toUpperCase();
+                    // Automatically trigger activation after a tiny delay
+                    setTimeout(() => {
+                        activateKey();
+                    }, 100);
+                } else {
+                    const statusDiv = document.getElementById('keyStatus');
+                    statusDiv.className = 'status-message error';
+                    statusDiv.innerHTML = '❌ Clipboard is empty';
+                    setTimeout(() => {
+                        statusDiv.className = 'status-message';
+                    }, 2000);
+                }
+            }).catch(err => {
+                console.error('Failed to read clipboard contents: ', err);
+                const statusDiv = document.getElementById('keyStatus');
+                statusDiv.className = 'status-message error';
+                statusDiv.innerHTML = '❌ Cannot access clipboard. Please paste manually or allow permission.';
+                setTimeout(() => {
+                    statusDiv.className = 'status-message';
+                }, 3000);
+            });
         }
 
         // Generate user ID
@@ -928,16 +946,6 @@
                 statusDiv.className = 'status-message error';
                 statusDiv.innerHTML = '❌ Connection error';
             }
-        }
-
-        // Show demo (for testing)
-        function showDemo() {
-            document.getElementById('keyModal').classList.remove('active');
-            document.getElementById('mainContainer').classList.add('active');
-            currentUser.plan = 'DEMO';
-            updateUserDisplay();
-            loadStats();
-            addLog('⚡ Demo mode activated');
         }
 
         // Update user display
