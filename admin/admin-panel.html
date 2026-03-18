@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👑 ADMIN PANEL - KEY GENERATOR</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff00ff;
+            --secondary: #00ffff;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --dark: #0a0a0f;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: #000;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 30%),
+                linear-gradient(rgba(255, 0, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+            min-height: 100vh;
+            color: var(--primary);
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid var(--primary);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 50px var(--primary);
+            display: block;
+        }
+
+        .login-container.hidden {
+            display: none;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .admin-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            color: var(--primary);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 10px;
+        }
+
+        .key-generator {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .plan-selector {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .plan-btn {
+            flex: 1;
+            padding: 15px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .plan-btn:hover, .plan-btn.active {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .generated-key {
+            background: #000;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 3px;
+            word-break: break-all;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px var(--primary); }
+            to { box-shadow: 0 0 30px var(--primary); }
+        }
+
+        .keys-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .keys-table th {
+            background: var(--primary);
+            color: #000;
+            padding: 15px;
+            font-weight: bold;
+        }
+
+        .keys-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--primary);
+            text-align: center;
+        }
+
+        .keys-table tr:hover {
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: #000;
+        }
+
+        .badge-warning {
+            background: var(--warning);
+            color: #000;
+        }
+
+        .badge-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .status-message {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+
+        .status-message.success {
+            display: block;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #0f0;
+            color: #0f0;
+        }
+
+        .status-message.error {
+            display: block;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #f00;
+            color: #f00;
+        }
+
+        .logout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: var(--danger);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="login-container" id="loginForm">
+        <h1>👑 ADMIN LOGIN</h1>
+        <input type="password" id="adminPassword" placeholder="Enter Admin Password">
+        <button class="btn btn-primary" onclick="adminLogin()">LOGIN</button>
+        <div class="status-message" id="loginStatus"></div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-container" id="adminPanel">
+        <button class="logout-btn" onclick="logout()">LOGOUT</button>
+        
+        <h1>⚡ ADMIN CONTROL PANEL ⚡</h1>
+
+        <!-- Stats -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalUsers">0</div>
+                <div class="stat-label">TOTAL USERS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="activeUsers">0</div>
+                <div class="stat-label">ACTIVE USERS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalKeys">0</div>
+                <div class="stat-label">TOTAL KEYS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="usedKeys">0</div>
+                <div class="stat-label">USED KEYS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalAttacks">0</div>
+                <div class="stat-label">ATTACKS</div>
+            </div>
+        </div>
+
+        <!-- Key Generator -->
+        <div class="key-generator">
+            <h2>🔑 KEY GENERATOR</h2>
+            
+            <div class="plan-selector">
+                <button class="plan-btn active" onclick="selectPlan('basic')">BASIC (30 DAYS)</button>
+                <button class="plan-btn" onclick="selectPlan('premium')">PREMIUM (60 DAYS)</button>
+                <button class="plan-btn" onclick="selectPlan('vip')">VIP (90 DAYS)</button>
+            </div>
+
+            <div class="generated-key" id="generatedKey">XXXX-XXXX-XXXX-XXXX</div>
+
+            <button class="btn btn-primary" onclick="generateKey()">⚡ GENERATE KEY</button>
+            <button class="btn btn-secondary" onclick="copyKey()" id="copyBtn" disabled>📋 COPY KEY</button>
+
+            <div class="status-message" id="keyStatus"></div>
+        </div>
+
+        <!-- Keys Table -->
+        <h2>📋 GENERATED KEYS</h2>
+        <table class="keys-table" id="keysTable">
+            <thead>
+                <tr>
+                    <th>KEY</th>
+                    <th>PLAN</th>
+                    <th>STATUS</th>
+                    <th>CREATED</th>
+                    <th>EXPIRES</th>
+                    <th>USED BY</th>
+                </tr>
+            </thead>
+            <tbody id="keysBody">
+                <tr>
+                    <td colspan="6" style="text-align: center;">Loading keys...</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Refresh Button -->
+        <button class="btn btn-secondary" onclick="loadKeys()" style="margin-top: 20px;">
+            🔄 REFRESH DATA
+        </button>
+    </div>
+
+    <script>
+        let adminToken = localStorage.getItem('adminToken');
+        let currentPlan = 'basic';
+
+        // Check if already logged in
+        if (adminToken) {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('adminPanel').classList.add('active');
+            loadStats();
+            loadKeys();
+        }
+
+        // Admin login
+        async function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            const statusDiv = document.getElementById('loginStatus');
+
+            try {
+                const response = await fetch('/admin/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    adminToken = data.token;
+                    localStorage.setItem('adminToken', adminToken);
+                    
+                    statusDiv.className = 'status-message success';
+                    statusDiv.innerHTML = '✅ Login successful!';
+                    
+                    setTimeout(() => {
+                        document.getElementById('loginForm').style.display = 'none';
+                        document.getElementById('adminPanel').classList.add('active');
+                        loadStats();
+                        loadKeys();
+                    }, 1000);
+                } else {
+                    statusDiv.className = 'status-message error';
+                    statusDiv.innerHTML = '❌ Invalid password';
+                }
+            } catch (error) {
+                statusDiv.className = 'status-message error';
+                statusDiv.innerHTML = '❌ Connection error';
+            }
+        }
+
+        // Select plan
+        function selectPlan(plan) {
+            currentPlan = plan;
+            document.querySelectorAll('.plan-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Generate key
+        async function generateKey() {
+            const keyDiv = document.getElementById('generatedKey');
+            const statusDiv = document.getElementById('keyStatus');
+            const copyBtn = document.getElementById('copyBtn');
+
+            let duration = 30;
+            if (currentPlan === 'premium') duration = 60;
+            if (currentPlan === 'vip') duration = 90;
+
+            keyDiv.innerHTML = '⏳ Generating...';
+
+            try {
+                const response = await fetch('/admin/api/generate-key', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        plan: currentPlan, 
+                        duration,
+                        adminToken 
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    keyDiv.innerHTML = data.key;
+                    statusDiv.className = 'status-message success';
+                    statusDiv.innerHTML = `✅ ${data.plan.toUpperCase()} key generated successfully!`;
+                    copyBtn.disabled = false;
+                    
+                    // Refresh keys list
+                    loadKeys();
+                    loadStats();
+                } else {
+                    keyDiv.innerHTML = 'GENERATION FAILED';
+                    statusDiv.className = 'status-message error';
+                    statusDiv.innerHTML = '❌ ' + data.message;
+                }
+            } catch (error) {
+                keyDiv.innerHTML = 'ERROR';
+                statusDiv.className = 'status-message error';
+                statusDiv.innerHTML = '❌ Connection error';
+            }
+        }
+
+        // Copy key to clipboard
+        function copyKey() {
+            const key = document.getElementById('generatedKey').innerText;
+            navigator.clipboard.writeText(key);
+            
+            const statusDiv = document.getElementById('keyStatus');
+            statusDiv.className = 'status-message success';
+            statusDiv.innerHTML = '✅ Key copied to clipboard!';
+            
+            setTimeout(() => {
+                statusDiv.className = 'status-message';
+            }, 3000);
+        }
+
+        // Load stats
+        async function loadStats() {
+            try {
+                const response = await fetch('/admin/api/stats', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ adminToken })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('totalUsers').textContent = data.stats.totalUsers;
+                    document.getElementById('activeUsers').textContent = data.stats.activeUsers;
+                    document.getElementById('totalKeys').textContent = data.stats.totalKeys;
+                    document.getElementById('usedKeys').textContent = data.stats.usedKeys;
+                    document.getElementById('totalAttacks').textContent = data.stats.totalAttacks;
+                }
+            } catch (error) {}
+        }
+
+        // Load keys
+        async function loadKeys() {
+            try {
+                const response = await fetch('/admin/api/keys', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ adminToken })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const tbody = document.getElementById('keysBody');
+                    tbody.innerHTML = '';
+
+                    data.keys.reverse().forEach(key => {
+                        const row = document.createElement('tr');
+                        
+                        const statusClass = key.used ? 'badge-danger' : 
+                                            new Date(key.expiresAt) < new Date() ? 'badge-warning' : 'badge-success';
+                        const statusText = key.used ? 'USED' : 
+                                          new Date(key.expiresAt) < new Date() ? 'EXPIRED' : 'ACTIVE';
+
+                        row.innerHTML = `
+                            <td><strong>${key.key}</strong></td>
+                            <td>${key.plan.toUpperCase()}</td>
+                            <td><span class="badge ${statusClass}">${statusText}</span></td>
+                            <td>${new Date(key.createdAt).toLocaleDateString()}</td>
+                            <td>${new Date(key.expiresAt).toLocaleDateString()}</td>
+                            <td>${key.usedBy || '-'}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+            } catch (error) {}
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('adminToken');
+            location.reload();
+        }
+
+        // Auto refresh every 30 seconds
+        setInterval(() => {
+            if (adminToken) {
+                loadStats();
+                loadKeys();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
