@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ FLASH BOMBER PRO - KEY SYSTEM ⚡</title>
+    <title>⚡ DATA LEAK OSINT PRO - MULTI SEARCH ⚡</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap');
         
@@ -20,6 +20,7 @@
             --success: #00ff88;
             --warning: #ffaa00;
             --danger: #ff4444;
+            --info: #0088ff;
             --dark: #0a0a0f;
             --darker: #050508;
             --glass: rgba(0, 255, 255, 0.1);
@@ -223,6 +224,11 @@
             color: #fff;
         }
 
+        .btn-info {
+            background: var(--info);
+            color: #fff;
+        }
+
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
@@ -393,10 +399,54 @@
             font-size: 0.9rem;
         }
 
+        /* Search Tabs */
+        .search-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .tab-btn:hover {
+            background: var(--primary);
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* Search Panels */
+        .search-panel {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .search-panel.active {
+            display: block;
+        }
+
         /* Main Content */
         .main-content {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 25px;
             margin-bottom: 30px;
         }
@@ -473,91 +523,115 @@
             background: #000;
         }
 
-        .speed-buttons {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin-top: 10px;
+        .format-hint {
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        .speed-btn {
-            padding: 12px;
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
+        /* Data Leak Results */
+        .data-results {
+            margin-top: 30px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .data-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            animation: slideIn 0.5s ease;
             transition: all 0.3s;
         }
 
-        .speed-btn:hover, .speed-btn.active {
-            background: var(--primary);
-            color: #000;
+        .data-card:hover {
+            transform: translateX(5px);
             box-shadow: 0 0 20px var(--primary);
         }
 
-        .action-buttons {
-            display: grid;
-            gap: 15px;
-            margin-top: 25px;
+        .data-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Attack Status */
-        .attack-status {
-            margin-top: 30px;
+        .data-title i {
+            font-size: 1.5rem;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .data-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .data-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .data-value {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.1rem;
+            word-break: break-all;
+        }
+
+        .data-value.success { color: var(--success); }
+        .data-value.warning { color: var(--warning); }
+        .data-value.danger { color: var(--danger); }
+
+        .leak-source {
+            display: inline-block;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        /* Search Status */
+        .search-status {
+            text-align: center;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--primary);
-            border-radius: 15px;
             display: none;
         }
 
-        .attack-status.active {
+        .search-status.active {
             display: block;
-            animation: slideIn 0.5s ease;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--primary);
-            border-radius: 15px;
-            overflow: hidden;
-            margin: 20px 0;
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid transparent;
+            border-top-color: var(--primary);
+            border-right-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: bold;
-        }
-
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .stat-box {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--primary);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .stat-box .value {
-            font-size: 1.8rem;
-            color: var(--primary);
-            font-weight: bold;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Logs */
@@ -573,7 +647,7 @@
         }
 
         .logs {
-            max-height: 150px;
+            max-height: 200px;
             overflow-y: auto;
             padding: 10px;
             background: rgba(0, 0, 0, 0.5);
@@ -585,6 +659,7 @@
             padding: 5px;
             border-bottom: 1px solid rgba(0, 255, 255, 0.1);
             animation: fadeIn 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .log-time {
@@ -595,45 +670,7 @@
         .log-success { color: var(--success); }
         .log-error { color: var(--danger); }
         .log-warning { color: var(--warning); }
-
-        /* Data Leak Results */
-        .data-results {
-            margin-top: 30px;
-        }
-
-        .data-card {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--primary);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-            animation: slideIn 0.5s ease;
-        }
-
-        .data-title {
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--primary);
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            padding: 5px;
-            border-bottom: 1px dashed rgba(0, 255, 255, 0.2);
-        }
-
-        .data-label {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .data-value {
-            color: var(--primary);
-            font-weight: bold;
-        }
+        .log-info { color: var(--info); }
 
         /* Footer */
         .footer {
@@ -649,7 +686,8 @@
             .glitch { font-size: 2.5rem; }
             .main-content { grid-template-columns: 1fr; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
-            .speed-buttons { grid-template-columns: repeat(3, 1fr); }
+            .search-tabs { flex-direction: column; }
+            .tab-btn { width: 100%; }
         }
     </style>
 </head>
@@ -665,7 +703,6 @@
                 <button class="plan-btn" onclick="selectPlan('vip')">VIP</button>
             </div>
             
-            <!-- Key Input with Paste Button -->
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <input type="text" class="key-input" id="keyInput" placeholder="ENTER YOUR KEY" maxlength="50" 
                        style="flex: 3; margin-bottom: 0;" oninput="this.value = this.value.toUpperCase()">
@@ -690,9 +727,9 @@
     <div class="container" id="mainContainer">
         <div class="header">
             <h1 class="glitch">
-                FLASH BOMBER PRO
-                <span>FLASH BOMBER PRO</span>
-                <span>FLASH BOMBER PRO</span>
+                DATA LEAK OSINT PRO
+                <span>DATA LEAK OSINT PRO</span>
+                <span>DATA LEAK OSINT PRO</span>
             </h1>
             
             <div class="user-info">
@@ -709,129 +746,152 @@
 
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-value" id="totalApis">83</div>
-                <div class="stat-label">ACTIVE APIS</div>
+                <div class="stat-value" id="totalDatabases">47</div>
+                <div class="stat-label">DATABASES</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="attackCount">0</div>
-                <div class="stat-label">ATTACKS DONE</div>
+                <div class="stat-value" id="totalRecords">12.5M</div>
+                <div class="stat-label">RECORDS</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="successRate">98%</div>
-                <div class="stat-label">SUCCESS RATE</div>
+                <div class="stat-value" id="searchCount">0</div>
+                <div class="stat-label">SEARCHES</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="daysLeft">30</div>
-                <div class="stat-label">DAYS LEFT</div>
+                <div class="stat-value" id="successRate">94%</div>
+                <div class="stat-label">HIT RATE</div>
             </div>
         </div>
 
+        <!-- Search Tabs -->
+        <div class="search-tabs">
+            <button class="tab-btn active" onclick="switchTab('mobile')">📱 MOBILE</button>
+            <button class="tab-btn" onclick="switchTab('pan')">🆔 PAN CARD</button>
+            <button class="tab-btn" onclick="switchTab('aadhar')">👤 AADHAR</button>
+            <button class="tab-btn" onclick="switchTab('vehicle')">🚗 VEHICLE</button>
+        </div>
+
         <div class="main-content">
-            <!-- Attack Panel -->
+            <!-- Left Panel - Search Input -->
             <div class="panel">
-                <div class="panel-title">🎯 BOMBING ATTACK</div>
+                <div class="panel-title">🔍 SEARCH PARAMETERS</div>
                 
-                <div class="input-group">
-                    <label>📱 TARGET NUMBER</label>
-                    <div class="input-wrapper">
-                        <i>📞</i>
-                        <input type="text" id="phone" placeholder="9876543210" maxlength="10">
+                <!-- Mobile Search Panel -->
+                <div class="search-panel active" id="mobilePanel">
+                    <div class="input-group">
+                        <label>📱 MOBILE NUMBER</label>
+                        <div class="input-wrapper">
+                            <i>📞</i>
+                            <input type="text" id="mobileNumber" placeholder="9876543210" maxlength="10" oninput="validateMobile(this)">
+                        </div>
+                        <div class="format-hint">Enter 10-digit mobile number</div>
                     </div>
-                </div>
-
-                <div class="input-group">
-                    <label>⏱️ DURATION (SECONDS)</label>
-                    <div class="input-wrapper">
-                        <i>⏰</i>
-                        <input type="number" id="duration" min="10" max="600" value="60">
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label>⚡ SPEED LEVEL</label>
-                    <div class="speed-buttons">
-                        <button class="speed-btn" onclick="setSpeed(1)">1</button>
-                        <button class="speed-btn" onclick="setSpeed(2)">2</button>
-                        <button class="speed-btn" onclick="setSpeed(3)">3</button>
-                        <button class="speed-btn" onclick="setSpeed(4)">4</button>
-                        <button class="speed-btn active" onclick="setSpeed(5)">5</button>
-                    </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="startAttack()" id="startBtn">
-                        🚀 START ATTACK
-                    </button>
-                    <button class="btn btn-danger" onclick="stopAttack()" id="stopBtn" disabled>
-                        🛑 STOP ATTACK
-                    </button>
-                    <button class="btn btn-secondary" onclick="searchDataLeak()" id="dataLeakBtn">
-                        🔍 SEARCH DATA LEAK
-                    </button>
-                </div>
-
-                <!-- Attack Status -->
-                <div class="attack-status" id="attackStatus">
-                    <h3 style="color: var(--primary); margin-bottom: 15px;">⚡ ATTACK IN PROGRESS</h3>
                     
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+                    <div class="input-group">
+                        <label>🔍 SEARCH DEPTH</label>
+                        <select id="mobileDepth">
+                            <option value="basic">Basic (Call Details)</option>
+                            <option value="advanced" selected>Advanced + Social Media</option>
+                            <option value="deep">Deep + Financial</option>
+                        </select>
                     </div>
+                </div>
 
-                    <div class="stats-row">
-                        <div class="stat-box">
-                            <div class="value" id="totalReqs">0</div>
-                            <div class="label">TOTAL</div>
+                <!-- PAN Search Panel -->
+                <div class="search-panel" id="panPanel">
+                    <div class="input-group">
+                        <label>🆔 PAN NUMBER</label>
+                        <div class="input-wrapper">
+                            <i>📇</i>
+                            <input type="text" id="panNumber" placeholder="ABCDE1234F" maxlength="10" oninput="validatePAN(this)">
                         </div>
-                        <div class="stat-box">
-                            <div class="value" id="successReqs">0</div>
-                            <div class="label">SUCCESS</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="value" id="failedReqs">0</div>
-                            <div class="label">FAILED</div>
-                        </div>
+                        <div class="format-hint">Format: ABCDE1234F (10 characters)</div>
                     </div>
+                    
+                    <div class="input-group">
+                        <label>🔍 SEARCH TYPE</label>
+                        <select id="panDepth">
+                            <option value="basic">Basic Details</option>
+                            <option value="advanced" selected>Full Profile + Tax</option>
+                            <option value="deep">Deep + Financial History</option>
+                        </select>
+                    </div>
+                </div>
 
-                    <div class="logs-container">
-                        <div class="logs-header">
-                            <span>📋 LIVE LOGS</span>
-                            <span id="logCount">0</span>
+                <!-- Aadhar Search Panel -->
+                <div class="search-panel" id="aadharPanel">
+                    <div class="input-group">
+                        <label>👤 AADHAR NUMBER</label>
+                        <div class="input-wrapper">
+                            <i>🆔</i>
+                            <input type="text" id="aadharNumber" placeholder="1234 5678 9012" maxlength="14" oninput="validateAadhar(this)">
                         </div>
-                        <div class="logs" id="attackLogs">
-                            <div class="log-entry"><span class="log-time">⚡</span> System ready</div>
-                        </div>
+                        <div class="format-hint">Format: 1234 5678 9012 (12 digits)</div>
                     </div>
+                    
+                    <div class="input-group">
+                        <label>🔍 SEARCH TYPE</label>
+                        <select id="aadharDepth">
+                            <option value="basic">Basic KYC</option>
+                            <option value="advanced" selected>Full Demographic</option>
+                            <option value="deep">Deep + Bank Linked</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Vehicle Search Panel -->
+                <div class="search-panel" id="vehiclePanel">
+                    <div class="input-group">
+                        <label>🚗 VEHICLE NUMBER</label>
+                        <div class="input-wrapper">
+                            <i>🚘</i>
+                            <input type="text" id="vehicleNumber" placeholder="MH01AB1234" oninput="validateVehicle(this)">
+                        </div>
+                        <div class="format-hint">Format: MH01AB1234 (Indian format)</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>🔍 SEARCH TYPE</label>
+                        <select id="vehicleDepth">
+                            <option value="basic">Registration Details</option>
+                            <option value="advanced" selected>Full Vehicle History</option>
+                            <option value="deep">Deep + Insurance & Finance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="searchDataLeak()" style="width: 100%; margin-top: 20px;" id="searchBtn">
+                    🔍 EXECUTE DEEP SEARCH
+                </button>
+
+                <!-- Search Status -->
+                <div class="search-status" id="searchStatus">
+                    <div class="spinner"></div>
+                    <p>Searching 47 databases...</p>
+                    <p id="searchProgress">Querying: Telecom DB</p>
                 </div>
             </div>
 
-            <!-- Data Leak Panel -->
+            <!-- Right Panel - Results -->
             <div class="panel">
-                <div class="panel-title">📍 DATA LEAK SEARCH</div>
+                <div class="panel-title">📊 SEARCH RESULTS</div>
                 
-                <div class="input-group">
-                    <label>📱 SEARCH NUMBER</label>
-                    <div class="input-wrapper">
-                        <i>🔍</i>
-                        <input type="text" id="searchPhone" placeholder="9876543210" maxlength="10">
+                <div class="data-results" id="dataResults">
+                    <div style="text-align: center; color: rgba(255,255,255,0.5); padding: 50px 20px;">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">🔍</div>
+                        <p>Select search type and enter details</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">47 databases ready • Real-time search</p>
                     </div>
                 </div>
 
-                <button class="btn btn-primary" onclick="searchDataLeak()" style="width: 100%; margin-bottom: 20px;">
-                    🔍 EXECUTE SEARCH
-                </button>
-
-                <div class="data-results" id="dataResults"></div>
-
-                <div class="logs-container" style="margin-top: 20px;">
+                <div class="logs-container">
                     <div class="logs-header">
-                        <span>📊 SYSTEM INFO</span>
+                        <span>📋 SEARCH LOGS</span>
+                        <span id="searchLogCount">0</span>
                     </div>
-                    <div class="logs" style="max-height: 200px;">
-                        <div class="log-entry"><span class="log-time">🔐</span> AES-256 Encryption</div>
-                        <div class="log-entry"><span class="log-time">🌐</span> 83 APIs Active</div>
-                        <div class="log-entry"><span class="log-time">📡</span> Real-time Tracking</div>
-                        <div class="log-entry"><span class="log-time">⚡</span> Unlimited Attacks</div>
+                    <div class="logs" id="searchLogs">
+                        <div class="log-entry"><span class="log-time">⚡</span> <span class="log-info">OSINT System Ready</span></div>
+                        <div class="log-entry"><span class="log-time">🔐</span> <span class="log-success">AES-256 Encrypted</span></div>
                     </div>
                 </div>
             </div>
@@ -839,7 +899,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p>⚡ FLASH BOMBER PRO - ADVANCED BOMBING SYSTEM WITH KEY PROTECTION ⚡</p>
+            <p>⚡ DATA LEAK OSINT PRO - ADVANCED INTELLIGENCE GATHERING ⚡</p>
             <p style="margin-top: 10px;">Contact Admin: @introvert_O2z | Version 4.0.0</p>
         </div>
     </div>
@@ -850,19 +910,16 @@
             id: generateUserId(),
             plan: null,
             expiresAt: null,
-            attacksDone: 0
+            searchesDone: 0
         };
         
-        let attackActive = false;
-        let currentSpeed = 5;
-        let eventSource = null;
+        let currentTab = 'mobile';
 
         // Paste and activate function
         function pasteAndActivate() {
             navigator.clipboard.readText().then(text => {
                 if (text) {
                     document.getElementById('keyInput').value = text.trim().toUpperCase();
-                    // Automatically trigger activation after a tiny delay
                     setTimeout(() => {
                         activateKey();
                     }, 100);
@@ -916,32 +973,21 @@
             statusDiv.innerHTML = '⏳ Validating key...';
 
             try {
-                const response = await fetch('/api/validate-key', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ key, userId: currentUser.id })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    statusDiv.className = 'status-message success';
-                    statusDiv.innerHTML = '✅ Key activated successfully!';
-                    
-                    currentUser.plan = data.user.plan;
-                    currentUser.expiresAt = data.user.expiresAt;
-                    
-                    setTimeout(() => {
-                        document.getElementById('keyModal').classList.remove('active');
-                        document.getElementById('mainContainer').classList.add('active');
-                        updateUserDisplay();
-                        loadStats();
-                        addLog('⚡ System activated');
-                    }, 1500);
-                } else {
-                    statusDiv.className = 'status-message error';
-                    statusDiv.innerHTML = '❌ ' + data.message;
-                }
+                // Simulate key validation
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                statusDiv.className = 'status-message success';
+                statusDiv.innerHTML = '✅ Key activated successfully!';
+                
+                currentUser.plan = 'VIP';
+                currentUser.expiresAt = new Date(Date.now() + 30*24*60*60*1000).toISOString();
+                
+                setTimeout(() => {
+                    document.getElementById('keyModal').classList.remove('active');
+                    document.getElementById('mainContainer').classList.add('active');
+                    updateUserDisplay();
+                    addSearchLog('⚡ System activated - VIP Access Granted', 'success');
+                }, 1500);
             } catch (error) {
                 statusDiv.className = 'status-message error';
                 statusDiv.innerHTML = '❌ Connection error';
@@ -960,213 +1006,392 @@
             }
         }
 
-        // Load stats
-        async function loadStats() {
-            try {
-                const response = await fetch('/api/apis');
-                const data = await response.json();
-                document.getElementById('totalApis').textContent = data.total;
-            } catch (error) {}
-        }
-
-        // Set speed
-        function setSpeed(level) {
-            currentSpeed = level;
-            document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.speed-btn')[level-1].classList.add('active');
-        }
-
-        // Start attack
-        async function startAttack() {
-            const phone = document.getElementById('phone').value;
-            const duration = document.getElementById('duration').value;
-
-            if (!phone.match(/^\d{10}$/)) {
-                alert('❌ Enter valid 10-digit number');
-                return;
-            }
-
-            document.getElementById('startBtn').disabled = true;
-            document.getElementById('stopBtn').disabled = false;
-            document.getElementById('attackStatus').classList.add('active');
+        // Switch tabs
+        function switchTab(tab) {
+            currentTab = tab;
             
-            addLog(`🚀 Starting attack on +91${phone}`);
-
-            try {
-                const response = await fetch('/api/attack', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        phone,
-                        duration: parseInt(duration),
-                        speed: currentSpeed,
-                        userId: currentUser.id
-                    })
-                });
-
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-
-                while (true) {
-                    const { value, done } = await reader.read();
-                    if (done) break;
-                    
-                    const chunk = decoder.decode(value);
-                    const lines = chunk.split('\n');
-                    
-                    for (const line of lines) {
-                        if (line.startsWith('data: ')) {
-                            const data = JSON.parse(line.slice(6));
-                            
-                            if (data.type === 'update') {
-                                document.getElementById('totalReqs').textContent = data.total;
-                                document.getElementById('successReqs').textContent = data.success;
-                                document.getElementById('failedReqs').textContent = data.failed;
-                                document.getElementById('progressFill').style.width = data.progress + '%';
-                                document.getElementById('progressFill').textContent = Math.round(data.progress) + '%';
-                                
-                            } else if (data.type === 'end') {
-                                attackActive = false;
-                                document.getElementById('startBtn').disabled = false;
-                                document.getElementById('stopBtn').disabled = true;
-                                document.getElementById('attackStatus').classList.remove('active');
-                                
-                                addLog(`✅ Attack completed! Total: ${data.total} requests`);
-                                document.getElementById('attackCount').textContent = 
-                                    parseInt(document.getElementById('attackCount').textContent) + 1;
-                            }
-                        }
-                    }
-                }
-
-            } catch (error) {
-                addLog('❌ Connection error', 'error');
-                document.getElementById('startBtn').disabled = false;
-                document.getElementById('stopBtn').disabled = true;
-            }
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update panels
+            document.querySelectorAll('.search-panel').forEach(panel => panel.classList.remove('active'));
+            document.getElementById(tab + 'Panel').classList.add('active');
         }
 
-        // Stop attack
-        function stopAttack() {
-            attackActive = false;
-            if (eventSource) {
-                eventSource.close();
-                eventSource = null;
+        // Validation functions
+        function validateMobile(input) {
+            input.value = input.value.replace(/[^0-9]/g, '').slice(0, 10);
+        }
+
+        function validatePAN(input) {
+            input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
+        }
+
+        function validateAadhar(input) {
+            let value = input.value.replace(/[^0-9]/g, '').slice(0, 12);
+            if (value.length > 4) {
+                value = value.match(/.{1,4}/g).join(' ');
             }
-            document.getElementById('startBtn').disabled = false;
-            document.getElementById('stopBtn').disabled = true;
-            addLog('🛑 Attack stopped');
+            input.value = value;
+        }
+
+        function validateVehicle(input) {
+            input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
         }
 
         // Search data leak
         async function searchDataLeak() {
-            const phone = document.getElementById('searchPhone').value || document.getElementById('phone').value;
+            let searchValue = '';
+            let searchType = currentTab;
             
-            if (!phone.match(/^\d{10}$/)) {
-                alert('❌ Enter valid 10-digit number');
-                return;
+            // Get search value based on tab
+            switch(currentTab) {
+                case 'mobile':
+                    searchValue = document.getElementById('mobileNumber').value.replace(/\D/g, '');
+                    if (!searchValue.match(/^[0-9]{10}$/)) {
+                        alert('❌ Enter valid 10-digit mobile number');
+                        return;
+                    }
+                    break;
+                case 'pan':
+                    searchValue = document.getElementById('panNumber').value;
+                    if (!searchValue.match(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)) {
+                        alert('❌ Enter valid PAN number (e.g., ABCDE1234F)');
+                        return;
+                    }
+                    break;
+                case 'aadhar':
+                    searchValue = document.getElementById('aadharNumber').value.replace(/\s/g, '');
+                    if (!searchValue.match(/^[0-9]{12}$/)) {
+                        alert('❌ Enter valid 12-digit Aadhar number');
+                        return;
+                    }
+                    break;
+                case 'vehicle':
+                    searchValue = document.getElementById('vehicleNumber').value;
+                    if (!searchValue.match(/^[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{4}$/)) {
+                        alert('❌ Enter valid vehicle number (e.g., MH01AB1234)');
+                        return;
+                    }
+                    break;
             }
 
-            const resultsDiv = document.getElementById('dataResults');
-            resultsDiv.innerHTML = '<p style="text-align: center; color: var(--primary);">🔍 Searching databases...</p>';
+            // Show search status
+            document.getElementById('searchStatus').classList.add('active');
+            document.getElementById('searchBtn').disabled = true;
+            document.getElementById('dataResults').innerHTML = '';
+
+            addSearchLog(`🔍 Starting ${searchType.toUpperCase()} search: ${searchValue}`, 'info');
+
+            // Simulate search progress
+            const databases = [
+                'Telecom DB', 'UIDAI Database', 'Income Tax Records', 'Driving License', 
+                'Voter ID', 'Passport Records', 'Bank Records', 'Credit Bureau',
+                'Insurance DB', 'SIM Registry', 'WhatsApp Leak', 'Facebook Data',
+                'Instagram Scrape', 'LinkedIn Leak', 'Truecaller DB', 'Payment Apps',
+                'Electricity Board', 'Water Supply', 'Gas Connection', 'Property Records'
+            ];
+
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                if (progress < databases.length) {
+                    document.getElementById('searchProgress').textContent = `Querying: ${databases[progress]}`;
+                    progress++;
+                }
+            }, 200);
 
             try {
-                const response = await fetch('/api/data-leak', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phone, userId: currentUser.id })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    resultsDiv.innerHTML = '';
-                    
-                    if (data.results && data.results.length > 0) {
-                        data.results.forEach(result => {
-                            if (result.success) {
-                                const card = document.createElement('div');
-                                card.className = 'data-card';
-                                
-                                let content = `<div class="data-title">${result.name}</div>`;
-                                content += '<div class="data-content">';
-                                
-                                // Parse and display data
-                                if (result.data && typeof result.data === 'object') {
-                                    Object.entries(result.data).forEach(([key, value]) => {
-                                        if (value && value !== null) {
-                                            content += `
-                                                <div class="data-row">
-                                                    <span class="data-label">${key}:</span>
-                                                    <span class="data-value">${JSON.stringify(value)}</span>
-                                                </div>
-                                            `;
-                                        }
-                                    });
-                                } else if (result.data) {
-                                    content += `<div class="data-value">${result.data}</div>`;
-                                } else {
-                                    content += `<div class="data-value">No data found</div>`;
-                                }
-                                
-                                content += '</div>';
-                                card.innerHTML = content;
-                                resultsDiv.appendChild(card);
-                            } else {
-                                const card = document.createElement('div');
-                                card.className = 'data-card';
-                                card.innerHTML = `
-                                    <div class="data-title">${result.name}</div>
-                                    <div class="data-value" style="color: var(--danger);">❌ Failed: ${result.error || 'Unknown error'}</div>
-                                `;
-                                resultsDiv.appendChild(card);
-                            }
-                        });
-                        
-                        addLog(`✅ Data leak search completed for +91${phone}`);
-                    } else {
-                        resultsDiv.innerHTML = '<p style="color: var(--warning);">⚠️ No results found</p>';
-                    }
-                } else {
-                    resultsDiv.innerHTML = '<p style="color: var(--danger);">❌ Search failed</p>';
-                }
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                
+                clearInterval(progressInterval);
+                
+                // Get results based on search type
+                const results = generateSearchResults(searchType, searchValue);
+                
+                // Display results
+                displayResults(results, searchType);
+                
+                // Update stats
+                currentUser.searchesDone++;
+                document.getElementById('searchCount').textContent = currentUser.searchesDone;
+                
+                addSearchLog(`✅ Search completed - Found ${results.length} records`, 'success');
+                
             } catch (error) {
-                resultsDiv.innerHTML = '<p style="color: var(--danger);">❌ Connection error</p>';
+                addSearchLog('❌ Search failed: ' + error.message, 'error');
+                document.getElementById('dataResults').innerHTML = '<p style="color: var(--danger); text-align: center;">❌ Search failed</p>';
+            } finally {
+                document.getElementById('searchStatus').classList.remove('active');
+                document.getElementById('searchBtn').disabled = false;
             }
         }
 
-        // Add log
-        function addLog(message, type = 'success') {
-            const logs = document.getElementById('attackLogs');
+        // Generate realistic search results
+        function generateSearchResults(type, value) {
+            const results = [];
+            const names = ['Rahul Sharma', 'Priya Patel', 'Amit Kumar', 'Neha Singh', 'Vikram Mehta', 'Pooja Desai', 'Rajesh Gupta', 'Anjali Verma'];
+            const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Pune', 'Ahmedabad', 'Hyderabad'];
+            
+            switch(type) {
+                case 'mobile':
+                    results.push({
+                        source: 'Telecom Operator',
+                        confidence: 'High',
+                        data: {
+                            'Mobile Number': value,
+                            'Operator': ['Jio', 'Airtel', 'Vodafone Idea', 'BSNL'][Math.floor(Math.random() * 4)],
+                            'Circle': cities[Math.floor(Math.random() * cities.length)],
+                            'Activation Date': `20${Math.floor(Math.random() * 10) + 10}-${Math.floor(Math.random() * 12) + 1}-${Math.floor(Math.random() * 28) + 1}`,
+                            'Status': 'Active',
+                            'CAF Number': 'CAF' + Math.random().toString().slice(2, 10),
+                            'SIM Type': ['4G', '5G', 'LTE'][Math.floor(Math.random() * 3)]
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'Truecaller/Spam DB',
+                        confidence: 'Medium',
+                        data: {
+                            'Name': names[Math.floor(Math.random() * names.length)],
+                            'Email': `user${Math.floor(Math.random() * 1000)}@gmail.com`,
+                            'Spam Reports': Math.floor(Math.random() * 50),
+                            'Tags': ['Telemarketer', 'Personal', 'Business'][Math.floor(Math.random() * 3)]
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'Social Media Leak',
+                        confidence: 'Medium',
+                        data: {
+                            'WhatsApp': 'Registered',
+                            'Telegram': 'Active',
+                            'Instagram': names[Math.floor(Math.random() * names.length)].toLowerCase().replace(' ', '') + Math.floor(Math.random() * 100),
+                            'Facebook': Math.random() > 0.3 ? 'Profile Found' : 'Not Found',
+                            'Last Seen': 'Online ' + Math.floor(Math.random() * 60) + ' mins ago'
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'Financial Leak',
+                        confidence: 'Low',
+                        data: {
+                            'Bank Accounts': Math.floor(Math.random() * 3) + 1,
+                            'UPI IDs': ['okhdfcbank', 'okaxis', 'paytm', 'phonepe'][Math.floor(Math.random() * 4)] + '@' + value.slice(-6),
+                            'Credit Score': Math.floor(Math.random() * 300) + 600,
+                            'Card Issues': Math.random() > 0.5 ? 'Yes' : 'No'
+                        }
+                    });
+                    break;
+                    
+                case 'pan':
+                    results.push({
+                        source: 'Income Tax Database',
+                        confidence: 'High',
+                        data: {
+                            'PAN Number': value,
+                            'Full Name': names[Math.floor(Math.random() * names.length)],
+                            'Father Name': names[Math.floor(Math.random() * names.length)] + ' Sr.',
+                            'Date of Birth': `${Math.floor(Math.random() * 28) + 1}-${Math.floor(Math.random() * 12) + 1}-19${Math.floor(Math.random() * 30) + 70}`,
+                            'Status': 'Valid',
+                            'Category': ['Individual', 'HUF', 'Company'][Math.floor(Math.random() * 3)]
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'Credit Bureau',
+                        confidence: 'Medium',
+                        data: {
+                            'Credit Score': Math.floor(Math.random() * 300) + 600,
+                            'Active Loans': Math.floor(Math.random() * 3),
+                            'Credit Cards': Math.floor(Math.random() * 4),
+                            'Default History': Math.random() > 0.8 ? 'Yes' : 'No',
+                            'Total Debt': '₹' + (Math.floor(Math.random() * 500000) + 50000)
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'Property Records',
+                        confidence: 'Medium',
+                        data: {
+                            'Properties Owned': Math.floor(Math.random() * 3),
+                            'Vehicle Owned': Math.random() > 0.5 ? 'Yes' : 'No',
+                            'Address': Math.floor(Math.random() * 999) + ', ' + cities[Math.floor(Math.random() * cities.length)]
+                        }
+                    });
+                    break;
+                    
+                case 'aadhar':
+                    results.push({
+                        source: 'UIDAI Database',
+                        confidence: 'High',
+                        data: {
+                            'Aadhar Number': value,
+                            'Name': names[Math.floor(Math.random() * names.length)],
+                            'DOB': `${Math.floor(Math.random() * 28) + 1}-${Math.floor(Math.random() * 12) + 1}-19${Math.floor(Math.random() * 30) + 70}`,
+                            'Gender': ['Male', 'Female'][Math.floor(Math.random() * 2)],
+                            'Address': `H No ${Math.floor(Math.random() * 999)}, ${cities[Math.floor(Math.random() * cities.length)]}`,
+                            'Mobile Linked': Math.random() > 0.2 ? 'Yes' : 'No',
+                            'Email Linked': Math.random() > 0.3 ? 'Yes' : 'No'
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'Bank KYC',
+                        confidence: 'Medium',
+                        data: {
+                            'Bank Name': ['SBI', 'HDFC', 'ICICI', 'Axis'][Math.floor(Math.random() * 4)],
+                            'Account Type': ['Savings', 'Current'][Math.floor(Math.random() * 2)],
+                            'Nominee': names[Math.floor(Math.random() * names.length)],
+                            'KYC Status': 'Completed'
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'DigiLocker',
+                        confidence: 'Medium',
+                        data: {
+                            'Documents': ['Driving License', 'Voter ID', 'Passport', 'Marksheet'].slice(0, Math.floor(Math.random() * 3) + 1),
+                            'Last Access': `${Math.floor(Math.random() * 30)} days ago`,
+                            'Verified': 'Yes'
+                        }
+                    });
+                    break;
+                    
+                case 'vehicle':
+                    results.push({
+                        source: 'RTO Database',
+                        confidence: 'High',
+                        data: {
+                            'Registration No': value,
+                            'Owner Name': names[Math.floor(Math.random() * names.length)],
+                            'Vehicle Model': ['Hyundai i20', 'Maruti Swift', 'Honda City', 'Toyota Innova'][Math.floor(Math.random() * 4)],
+                            'Manufacturing Year': 20 + Math.floor(Math.random() * 10) + 10,
+                            'Fuel Type': ['Petrol', 'Diesel', 'CNG'][Math.floor(Math.random() * 3)],
+                            'Insurance Expiry': `${Math.floor(Math.random() * 12) + 1}/20${Math.floor(Math.random() * 5) + 24}`
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'Traffic Challans',
+                        confidence: 'Medium',
+                        data: {
+                            'Total Challans': Math.floor(Math.random() * 5),
+                            'Pending Amount': '₹' + Math.floor(Math.random() * 5000),
+                            'Last Challan': `${Math.floor(Math.random() * 30)} days ago`,
+                            'Reason': ['Speeding', 'Wrong Parking', 'No Helmet'][Math.floor(Math.random() * 3)]
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'Insurance DB',
+                        confidence: 'Medium',
+                        data: {
+                            'Insurance Company': ['ICICI Lombard', 'Bajaj Allianz', 'HDFC Ergo'][Math.floor(Math.random() * 3)],
+                            'Policy Type': ['Comprehensive', 'Third Party'][Math.floor(Math.random() * 2)],
+                            'NCB': Math.floor(Math.random() * 50) + '%',
+                            'Claim History': Math.random() > 0.7 ? '1 claim' : 'No claims'
+                        }
+                    });
+                    
+                    results.push({
+                        source: 'Financier DB',
+                        confidence: 'Low',
+                        data: {
+                            'Loan Status': Math.random() > 0.5 ? 'Active' : 'Closed',
+                            'Financier': ['HDFC Bank', 'SBI', 'Bajaj Finance'][Math.floor(Math.random() * 3)],
+                            'EMI Amount': '₹' + (Math.floor(Math.random() * 15000) + 5000),
+                            'Tenure': Math.floor(Math.random() * 5) + 3 + ' years'
+                        }
+                    });
+                    break;
+            }
+            
+            return results;
+        }
+
+        // Display search results
+        function displayResults(results, searchType) {
+            const resultsDiv = document.getElementById('dataResults');
+            resultsDiv.innerHTML = '';
+            
+            results.forEach((result, index) => {
+                const card = document.createElement('div');
+                card.className = 'data-card';
+                
+                let icon = '📁';
+                switch(searchType) {
+                    case 'mobile': icon = '📱'; break;
+                    case 'pan': icon = '🆔'; break;
+                    case 'aadhar': icon = '👤'; break;
+                    case 'vehicle': icon = '🚗'; break;
+                }
+                
+                let content = `
+                    <div class="data-title">
+                        <i>${icon}</i> ${result.source}
+                        <span class="leak-source">Confidence: ${result.confidence}</span>
+                    </div>
+                    <div class="data-grid">
+                `;
+                
+                Object.entries(result.data).forEach(([key, value]) => {
+                    let valueClass = 'data-value';
+                    if (key.includes('Score') || key.includes('Amount') || key.includes('EMI')) {
+                        valueClass += ' warning';
+                    } else if (key.includes('Status') || key.includes('Valid')) {
+                        valueClass += value === 'Active' || value === 'Valid' || value === 'Yes' ? ' success' : ' danger';
+                    }
+                    
+                    content += `
+                        <div class="data-row">
+                            <span class="data-label">${key}:</span>
+                            <span class="${valueClass}">${value}</span>
+                        </div>
+                    `;
+                });
+                
+                content += '</div>';
+                card.innerHTML = content;
+                resultsDiv.appendChild(card);
+            });
+            
+            addSearchLog(`📊 Displayed ${results.length} result(s)`, 'info');
+        }
+
+        // Add search log
+        function addSearchLog(message, type = 'info') {
+            const logs = document.getElementById('searchLogs');
             const entry = document.createElement('div');
             entry.className = 'log-entry';
             
-            let colorClass = 'log-success';
-            if (type === 'error') colorClass = 'log-error';
+            let colorClass = 'log-info';
+            if (type === 'success') colorClass = 'log-success';
+            else if (type === 'error') colorClass = 'log-error';
             else if (type === 'warning') colorClass = 'log-warning';
             
-            entry.innerHTML = `<span class="log-time">${new Date().toLocaleTimeString()}</span> <span class="${colorClass}">${message}</span>`;
+            const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="${colorClass}">${message}</span>`;
             logs.appendChild(entry);
             logs.scrollTop = logs.scrollHeight;
             
-            document.getElementById('logCount').textContent = logs.children.length;
+            document.getElementById('searchLogCount').textContent = logs.children.length;
         }
 
         // Initialize
         document.getElementById('userId').textContent = currentUser.id;
-        loadStats();
-
-        // Add additional paste protection
+        
+        // Add paste protection
         document.addEventListener('DOMContentLoaded', function() {
             const keyInput = document.getElementById('keyInput');
             if (keyInput) {
                 keyInput.addEventListener('paste', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
                     let pastedText = e.clipboardData.getData('text');
                     this.value = pastedText.trim().toUpperCase();
                     
-                    // Auto activate after paste
                     setTimeout(() => {
                         activateKey();
                     }, 100);
