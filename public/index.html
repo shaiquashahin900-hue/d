@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ DATA LEAK OSINT PRO - MULTI SEARCH ⚡</title>
+    <title>⚡ SHAIQUA PRIMIUM - ADVANCED OSINT ⚡</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Space+Mono:wght@400;700&display=swap');
         
         * {
             margin: 0;
@@ -14,170 +14,395 @@
         }
 
         :root {
-            --primary: #00ffff;
-            --secondary: #ff00ff;
+            --primary: #00ff9d;
+            --secondary: #ff00c1;
             --accent: #ffff00;
             --success: #00ff88;
             --warning: #ffaa00;
             --danger: #ff4444;
-            --info: #0088ff;
+            --info: #3b82f6;
             --dark: #0a0a0f;
-            --darker: #050508;
-            --glass: rgba(0, 255, 255, 0.1);
-            --glass-hover: rgba(0, 255, 255, 0.2);
+            --darker: #000000;
+            --glass: rgba(0, 255, 157, 0.1);
+            --glass-hover: rgba(0, 255, 157, 0.2);
+            --neon-shadow: 0 0 10px rgba(0, 255, 157, 0.5),
+                           0 0 20px rgba(0, 255, 157, 0.3),
+                           0 0 30px rgba(0, 255, 157, 0.1);
         }
 
         body {
             font-family: 'Share Tech Mono', monospace;
-            background: #000;
-            background-image: 
-                radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 30%),
-                radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 30%),
-                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
-            min-height: 100vh;
+            background: var(--darker);
             color: var(--primary);
-            padding: 20px;
-            animation: matrix 30s linear infinite;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        @keyframes matrix {
-            0% { background-position: 0 0, 0 0, 0 0, 0 0; }
-            100% { background-position: 0 0, 0 0, 40px 40px, 40px 40px; }
-        }
-
-        /* Key Activation Modal */
-        .modal {
-            display: none;
+        /* Animated Background */
+        #cyber-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.5s ease;
+            background-image: 
+                linear-gradient(var(--primary) 1px, transparent 1px),
+                linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            animation: grid-move 20s linear infinite;
+            z-index: 0;
         }
 
-        .modal.active {
-            display: flex;
+        @keyframes grid-move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        #matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, 
+                rgba(0, 255, 157, 0.03) 0px, 
+                transparent 1px,
+                transparent 2px);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .modal-content {
-            max-width: 500px;
-            width: 90%;
-            background: rgba(0, 20, 20, 0.95);
-            border: 3px solid var(--primary);
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--primary);
+            text-shadow: 
+                0.05em 0 0 var(--secondary),
+                -0.05em -0.05em 0 var(--accent),
+                0.025em 0.05em 0 var(--info);
+            animation: glitch 3s infinite;
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-top 1s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+            transform: translate(-0.02em, -0.01em);
+            opacity: 0.75;
+        }
+
+        .glitch::after {
+            animation: glitch-bottom 1.5s infinite;
+            clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+            transform: translate(0.02em, 0.01em);
+            opacity: 0.75;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 var(--secondary), -0.05em -0.05em 0 var(--accent); }
+            25% { text-shadow: -0.05em -0.05em 0 var(--secondary), 0.05em 0.05em 0 var(--accent); }
+            50% { text-shadow: 0.05em 0.05em 0 var(--secondary), -0.05em -0.05em 0 var(--accent); }
+            75% { text-shadow: -0.05em 0 0 var(--secondary), 0.05em -0.05em 0 var(--accent); }
+            100% { text-shadow: 0.05em 0 0 var(--secondary), -0.05em -0.05em 0 var(--accent); }
+        }
+
+        @keyframes glitch-top {
+            0% { transform: translate(-0.02em, -0.01em); }
+            20% { transform: translate(0.02em, -0.02em); }
+            40% { transform: translate(-0.03em, 0.01em); }
+            60% { transform: translate(0.03em, 0.02em); }
+            80% { transform: translate(-0.02em, -0.01em); }
+            100% { transform: translate(-0.02em, -0.01em); }
+        }
+
+        @keyframes glitch-bottom {
+            0% { transform: translate(0.02em, 0.01em); }
+            20% { transform: translate(-0.02em, 0.02em); }
+            40% { transform: translate(0.03em, -0.01em); }
+            60% { transform: translate(-0.03em, -0.02em); }
+            80% { transform: translate(0.02em, 0.01em); }
+            100% { transform: translate(0.02em, 0.01em); }
+        }
+
+        .version-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--primary);
             border-radius: 20px;
-            padding: 40px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            box-shadow: var(--neon-shadow);
+        }
+
+        /* User Info Panel */
+        .user-panel {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--neon-shadow);
+        }
+
+        .user-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .user-id {
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        .user-plan {
+            display: inline-block;
+            padding: 3px 10px;
+            background: var(--primary);
+            color: black;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .expiry-counter {
+            padding: 10px 20px;
+            background: rgba(255, 0, 193, 0.1);
+            border: 1px solid var(--secondary);
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 50px var(--primary),
-                        0 0 100px rgba(0, 255, 255, 0.3);
-            animation: modalPop 0.5s ease;
+            transition: all 0.3s;
+            box-shadow: var(--neon-shadow);
         }
 
-        @keyframes modalPop {
-            0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0); opacity: 1; }
-        }
-
-        .modal-content::before {
+        .stat-card::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 255, 157, 0.1) 0%, transparent 70%);
             animation: rotate 10s linear infinite;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px var(--primary);
         }
 
-        .modal-content h2 {
-            font-family: 'Orbitron', sans-serif;
+        .stat-value {
             font-size: 2.5rem;
+            font-weight: bold;
             color: var(--primary);
-            text-align: center;
-            margin-bottom: 30px;
             text-shadow: 0 0 20px var(--primary);
+            margin-bottom: 10px;
             position: relative;
         }
 
-        .key-input {
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .panel {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--neon-shadow);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .panel-badge {
+            padding: 5px 15px;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Search Input */
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
             width: 100%;
-            padding: 15px 20px;
+            padding: 20px 25px;
             background: rgba(0, 0, 0, 0.7);
             border: 2px solid var(--primary);
-            border-radius: 10px;
+            border-radius: 15px;
             color: var(--primary);
             font-family: 'Share Tech Mono', monospace;
             font-size: 1.2rem;
-            text-align: center;
-            letter-spacing: 3px;
             transition: all 0.3s;
         }
 
-        .key-input:focus {
+        .search-input:focus {
             outline: none;
             box-shadow: 0 0 30px var(--primary);
             background: #000;
         }
 
-        .key-input::placeholder {
-            color: rgba(0, 255, 255, 0.3);
-            letter-spacing: normal;
+        .search-input::placeholder {
+            color: rgba(0, 255, 157, 0.3);
         }
 
-        .plan-selector {
+        .search-type-indicator {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 5px 15px;
+            background: rgba(0, 255, 157, 0.2);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
+        /* Search Options */
+        .search-options {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
         }
 
-        .plan-btn {
-            flex: 1;
-            padding: 15px;
+        .option-btn {
+            padding: 10px 20px;
             background: transparent;
-            border: 2px solid var(--primary);
+            border: 1px solid var(--primary);
             color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
-            border-radius: 10px;
+            font-family: 'Share Tech Mono', monospace;
         }
 
-        .plan-btn.active {
+        .option-btn.active {
             background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 30px var(--primary);
+            color: black;
+            box-shadow: 0 0 20px var(--primary);
         }
 
-        .plan-btn:hover {
+        .option-btn:hover {
             background: var(--primary);
-            color: #000;
-            transform: translateY(-2px);
+            color: black;
         }
 
-        .modal-buttons {
+        /* Action Buttons */
+        .action-buttons {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-top: 30px;
+            margin: 20px 0;
         }
 
         .btn {
@@ -210,7 +435,8 @@
 
         .btn-primary {
             background: var(--primary);
-            color: #000;
+            color: black;
+            box-shadow: 0 0 20px var(--primary);
         }
 
         .btn-secondary {
@@ -221,12 +447,7 @@
 
         .btn-danger {
             background: var(--danger);
-            color: #fff;
-        }
-
-        .btn-info {
-            background: var(--info);
-            color: #fff;
+            color: white;
         }
 
         .btn:disabled {
@@ -234,309 +455,66 @@
             cursor: not-allowed;
         }
 
-        .status-message {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
+        /* Progress Bar */
+        .progress-container {
+            margin: 20px 0;
+            display: none;
+        }
+
+        .progress-container.active {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(0, 255, 157, 0.1);
             border-radius: 5px;
-            display: none;
-        }
-
-        .status-message.success {
-            display: block;
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid #0f0;
-            color: #0f0;
-        }
-
-        .status-message.error {
-            display: block;
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid #f00;
-            color: #f00;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            display: none;
-        }
-
-        .container.active {
-            display: block;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 30px 20px;
-            margin-bottom: 30px;
+            overflow: hidden;
             position: relative;
         }
 
-        .glitch {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
-            font-weight: 900;
-            text-transform: uppercase;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s;
             position: relative;
-            text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-                        -0.05em -0.05em 0 rgba(0, 255, 255, 0.75),
-                        0.025em 0.05em 0 rgba(255, 255, 0, 0.75);
-            animation: glitch 500ms infinite;
         }
 
-        .glitch span {
+        .progress-fill::after {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-        }
-
-        .glitch span:first-child {
-            animation: glitch 650ms infinite;
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-            transform: translate(-0.025em, -0.0125em);
-            opacity: 0.8;
-        }
-
-        .glitch span:last-child {
-            animation: glitch 375ms infinite;
-            clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
-            transform: translate(0.0125em, 0.025em);
-            opacity: 0.8;
-        }
-
-        @keyframes glitch {
-            0% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 255, 0.75), -0.025em 0.05em 0 rgba(255, 255, 0, 0.75); }
-            14% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 255, 0.75), -0.025em 0.05em 0 rgba(255, 255, 0, 0.75); }
-            15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 255, 0.75), -0.05em -0.05em 0 rgba(255, 255, 0, 0.75); }
-            49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 255, 0.75), -0.05em -0.05em 0 rgba(255, 255, 0, 0.75); }
-            50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 255, 0.75), 0 -0.05em 0 rgba(255, 255, 0, 0.75); }
-            99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 255, 0.75), 0 -0.05em 0 rgba(255, 255, 0, 0.75); }
-            100% { text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 255, 0.75), -0.025em -0.05em 0 rgba(255, 255, 0, 0.75); }
-        }
-
-        .user-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--primary);
-            border-radius: 50px;
-            padding: 10px 20px;
-            margin-top: 20px;
-        }
-
-        .user-detail {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-badge {
-            background: var(--primary);
-            color: #000;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        .expiry-badge {
-            background: var(--warning);
-            color: #000;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .stat-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--primary);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 30px var(--primary);
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary);
-            text-shadow: 0 0 20px var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            color: rgba(255, 255, 255, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-        }
-
-        /* Search Tabs */
-        .search-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 15px 30px;
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-radius: 10px;
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 30px var(--primary);
-        }
-
-        .tab-btn:hover {
-            background: var(--primary);
-            color: #000;
-            transform: translateY(-2px);
-        }
-
-        /* Search Panels */
-        .search-panel {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .search-panel.active {
-            display: block;
-        }
-
-        /* Main Content */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .panel {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            padding: 30px;
-        }
-
-        .panel-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 25px;
-            text-align: center;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .panel-title::after {
-            content: '';
-            position: absolute;
+            right: 0;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            animation: shimmer 2s infinite;
         }
 
-        .input-group {
-            margin-bottom: 20px;
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
-        label {
-            display: block;
-            margin-bottom: 10px;
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
             color: var(--primary);
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 15px 20px 15px 45px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            color: var(--primary);
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            box-shadow: 0 0 30px var(--primary);
-            background: #000;
-        }
-
-        .format-hint {
-            margin-top: 5px;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Data Leak Results */
-        .data-results {
-            margin-top: 30px;
+        /* Results Grid */
+        .results-grid {
             max-height: 600px;
             overflow-y: auto;
+            padding-right: 10px;
         }
 
-        .data-card {
+        .result-card {
             background: rgba(0, 0, 0, 0.7);
             border: 1px solid var(--primary);
             border-radius: 15px;
@@ -546,52 +524,85 @@
             transition: all 0.3s;
         }
 
-        .data-card:hover {
+        .result-card:hover {
             transform: translateX(5px);
             box-shadow: 0 0 20px var(--primary);
         }
 
-        .data-title {
-            font-size: 1.3rem;
-            color: var(--primary);
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary);
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .result-source {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .data-title i {
-            font-size: 1.5rem;
+        .result-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(0, 255, 157, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .data-grid {
+        .result-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .result-action-btn {
+            padding: 5px 10px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .result-action-btn:hover {
+            background: var(--primary);
+            color: black;
+        }
+
+        .result-data {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            gap: 10px;
         }
 
-        .data-row {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 10px;
+        .data-item {
             padding: 10px;
-            background: rgba(0, 255, 255, 0.05);
+            background: rgba(0, 255, 157, 0.05);
             border-radius: 8px;
         }
 
         .data-label {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
         .data-value {
             color: var(--primary);
-            font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             word-break: break-all;
         }
 
@@ -599,26 +610,138 @@
         .data-value.warning { color: var(--warning); }
         .data-value.danger { color: var(--danger); }
 
-        .leak-source {
-            display: inline-block;
-            padding: 5px 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            font-size: 0.8rem;
-            margin-right: 10px;
+        /* Logs Panel */
+        .logs-container {
+            margin-top: 20px;
         }
 
-        /* Search Status */
-        .search-status {
-            text-align: center;
-            padding: 20px;
+        .logs-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+        }
+
+        .logs {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .log-entry {
+            padding: 5px;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+            animation: fadeIn 0.3s ease;
+            display: flex;
+            gap: 10px;
+        }
+
+        .log-time {
+            color: var(--primary);
+            min-width: 80px;
+        }
+
+        .log-success { color: var(--success); }
+        .log-error { color: var(--danger); }
+        .log-warning { color: var(--warning); }
+        .log-info { color: var(--info); }
+
+        /* Export Modal */
+        .export-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            padding: 30px;
+            z-index: 1000;
             display: none;
+            min-width: 300px;
+            box-shadow: 0 0 50px var(--primary);
         }
 
-        .search-status.active {
+        .export-modal.active {
             display: block;
+            animation: modalPop 0.3s ease;
         }
 
+        .export-options {
+            display: grid;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .export-option {
+            padding: 15px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .export-option:hover {
+            background: var(--primary);
+            color: black;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            border-top: 1px solid var(--primary);
+            color: rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+
+        .footer-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch { font-size: 2.5rem; }
+            .main-content { grid-template-columns: 1fr; }
+            .user-panel { flex-direction: column; gap: 20px; }
+            .user-info { flex-direction: column; text-align: center; }
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes modalPop {
+            from { transform: translate(-50%, -60%); opacity: 0; }
+            to { transform: translate(-50%, -50%); opacity: 1; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Loading Spinner */
         .spinner {
             width: 50px;
             height: 50px;
@@ -634,77 +757,44 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Logs */
-        .logs-container {
-            margin-top: 20px;
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
 
-        .logs-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            color: var(--primary);
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 255, 157, 0.1);
         }
 
-        .logs {
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--primary);
-            border-radius: 10px;
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
         }
 
-        .log-entry {
-            padding: 5px;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-            animation: fadeIn 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .log-time {
-            color: var(--primary);
-            margin-right: 10px;
-        }
-
-        .log-success { color: var(--success); }
-        .log-error { color: var(--danger); }
-        .log-warning { color: var(--warning); }
-        .log-info { color: var(--info); }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 30px;
-            border-top: 1px solid var(--primary);
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .glitch { font-size: 2.5rem; }
-            .main-content { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .search-tabs { flex-direction: column; }
-            .tab-btn { width: 100%; }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
         }
     </style>
 </head>
 <body>
+    <div id="cyber-grid"></div>
+    <div id="matrix-rain"></div>
+
     <!-- Key Activation Modal -->
-    <div class="modal active" id="keyModal">
+    <div class="modal" id="keyModal">
         <div class="modal-content">
-            <h2>🔑 KEY ACTIVATION</h2>
+            <h2 class="glitch" data-text="KEY ACTIVATION">KEY ACTIVATION</h2>
             
             <div class="plan-selector">
                 <button class="plan-btn active" onclick="selectPlan('basic')">BASIC</button>
                 <button class="plan-btn" onclick="selectPlan('premium')">PREMIUM</button>
                 <button class="plan-btn" onclick="selectPlan('vip')">VIP</button>
+                <button class="plan-btn" onclick="selectPlan('enterprise')">ENTERPRISE</button>
             </div>
             
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <input type="text" class="key-input" id="keyInput" placeholder="ENTER YOUR KEY" maxlength="50" 
+                <input type="text" class="key-input" id="keyInput" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="50" 
                        style="flex: 3; margin-bottom: 0;" oninput="this.value = this.value.toUpperCase()">
                 <button class="btn btn-secondary" onclick="pasteAndActivate()" style="flex: 1; margin: 0; padding: 15px 10px;">
                     📋 Paste
@@ -712,7 +802,7 @@
             </div>
             
             <div class="modal-buttons">
-                <button class="btn btn-primary" onclick="activateKey()">ACTIVATE</button>
+                <button class="btn btn-primary" onclick="activateKey()">⚡ ACTIVATE ⚡</button>
             </div>
             
             <div class="status-message" id="keyStatus"></div>
@@ -725,240 +815,243 @@
 
     <!-- Main Container -->
     <div class="container" id="mainContainer">
+        <!-- Header -->
         <div class="header">
-            <h1 class="glitch">
-                DATA LEAK OSINT PRO
-                <span>DATA LEAK OSINT PRO</span>
-                <span>DATA LEAK OSINT PRO</span>
-            </h1>
-            
+            <div class="glitch-wrapper">
+                <h1 class="glitch" data-text="SHAIQUA PRIMIUM">SHAIQUA PRIMIUM</h1>
+            </div>
+            <div class="version-badge">⚡ ADVANCED EDITION v5.0 ⚡</div>
+        </div>
+
+        <!-- User Panel -->
+        <div class="user-panel">
             <div class="user-info">
-                <div class="user-detail">
-                    <span>👤 USER ID:</span>
-                    <span id="userId">-</span>
+                <div class="user-avatar">
+                    👤
                 </div>
-                <div class="user-detail">
-                    <span class="user-badge" id="planBadge">BASIC</span>
-                    <span class="expiry-badge" id="expiryBadge">30 DAYS</span>
+                <div class="user-details">
+                    <span class="user-id" id="userId">-</span>
+                    <span class="user-plan" id="planBadge">BASIC</span>
                 </div>
+            </div>
+            <div class="expiry-counter" id="expiryDisplay">
+                ⏳ Loading...
             </div>
         </div>
 
+        <!-- Stats Grid -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-value" id="totalDatabases">47</div>
-                <div class="stat-label">DATABASES</div>
+                <div class="stat-value" id="totalApis">47</div>
+                <div class="stat-label">ACTIVE APIs</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="totalRecords">12.5M</div>
-                <div class="stat-label">RECORDS</div>
+                <div class="stat-value" id="searchesToday">0</div>
+                <div class="stat-label">SEARCHES TODAY</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="searchCount">0</div>
-                <div class="stat-label">SEARCHES</div>
+                <div class="stat-value" id="successRate">98%</div>
+                <div class="stat-label">SUCCESS RATE</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="successRate">94%</div>
-                <div class="stat-label">HIT RATE</div>
+                <div class="stat-value" id="responseTime">0.3s</div>
+                <div class="stat-label">RESPONSE TIME</div>
             </div>
         </div>
 
-        <!-- Search Tabs -->
-        <div class="search-tabs">
-            <button class="tab-btn active" onclick="switchTab('mobile')">📱 MOBILE</button>
-            <button class="tab-btn" onclick="switchTab('pan')">🆔 PAN CARD</button>
-            <button class="tab-btn" onclick="switchTab('aadhar')">👤 AADHAR</button>
-            <button class="tab-btn" onclick="switchTab('vehicle')">🚗 VEHICLE</button>
-        </div>
-
+        <!-- Main Content -->
         <div class="main-content">
-            <!-- Left Panel - Search Input -->
+            <!-- Left Panel - Search -->
             <div class="panel">
-                <div class="panel-title">🔍 SEARCH PARAMETERS</div>
+                <div class="panel-header">
+                    <h2 class="panel-title">🔍 SEARCH</h2>
+                    <span class="panel-badge" id="searchTypeBadge">AUTO-DETECT</span>
+                </div>
                 
-                <!-- Mobile Search Panel -->
-                <div class="search-panel active" id="mobilePanel">
-                    <div class="input-group">
-                        <label>📱 MOBILE NUMBER</label>
-                        <div class="input-wrapper">
-                            <i>📞</i>
-                            <input type="text" id="mobileNumber" placeholder="9876543210" maxlength="10" oninput="validateMobile(this)">
-                        </div>
-                        <div class="format-hint">Enter 10-digit mobile number</div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>🔍 SEARCH DEPTH</label>
-                        <select id="mobileDepth">
-                            <option value="basic">Basic (Call Details)</option>
-                            <option value="advanced" selected>Advanced + Social Media</option>
-                            <option value="deep">Deep + Financial</option>
-                        </select>
-                    </div>
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" 
+                           placeholder="Enter Mobile / Aadhar / PAN / Vehicle / Email..." 
+                           oninput="detectQueryType(this.value)">
+                    <span class="search-type-indicator" id="queryTypeIndicator">📱</span>
                 </div>
 
-                <!-- PAN Search Panel -->
-                <div class="search-panel" id="panPanel">
-                    <div class="input-group">
-                        <label>🆔 PAN NUMBER</label>
-                        <div class="input-wrapper">
-                            <i>📇</i>
-                            <input type="text" id="panNumber" placeholder="ABCDE1234F" maxlength="10" oninput="validatePAN(this)">
-                        </div>
-                        <div class="format-hint">Format: ABCDE1234F (10 characters)</div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>🔍 SEARCH TYPE</label>
-                        <select id="panDepth">
-                            <option value="basic">Basic Details</option>
-                            <option value="advanced" selected>Full Profile + Tax</option>
-                            <option value="deep">Deep + Financial History</option>
-                        </select>
-                    </div>
+                <div class="search-options">
+                    <button class="option-btn active" onclick="setSearchMode('smart')">🧠 SMART</button>
+                    <button class="option-btn" onclick="setSearchMode('deep')">🌊 DEEP</button>
+                    <button class="option-btn" onclick="setSearchMode('dark')">🌑 DARK WEB</button>
+                    <button class="option-btn" onclick="setSearchMode('bulk')">📦 BULK</button>
                 </div>
 
-                <!-- Aadhar Search Panel -->
-                <div class="search-panel" id="aadharPanel">
-                    <div class="input-group">
-                        <label>👤 AADHAR NUMBER</label>
-                        <div class="input-wrapper">
-                            <i>🆔</i>
-                            <input type="text" id="aadharNumber" placeholder="1234 5678 9012" maxlength="14" oninput="validateAadhar(this)">
-                        </div>
-                        <div class="format-hint">Format: 1234 5678 9012 (12 digits)</div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>🔍 SEARCH TYPE</label>
-                        <select id="aadharDepth">
-                            <option value="basic">Basic KYC</option>
-                            <option value="advanced" selected>Full Demographic</option>
-                            <option value="deep">Deep + Bank Linked</option>
-                        </select>
-                    </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="startSearch()" id="searchBtn">
+                        ⚡ EXECUTE SEARCH
+                    </button>
+                    <button class="btn btn-secondary" onclick="showExportModal()" id="exportBtn" disabled>
+                        📥 EXPORT
+                    </button>
                 </div>
 
-                <!-- Vehicle Search Panel -->
-                <div class="search-panel" id="vehiclePanel">
-                    <div class="input-group">
-                        <label>🚗 VEHICLE NUMBER</label>
-                        <div class="input-wrapper">
-                            <i>🚘</i>
-                            <input type="text" id="vehicleNumber" placeholder="MH01AB1234" oninput="validateVehicle(this)">
-                        </div>
-                        <div class="format-hint">Format: MH01AB1234 (Indian format)</div>
+                <!-- Progress Bar -->
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
                     </div>
-                    
-                    <div class="input-group">
-                        <label>🔍 SEARCH TYPE</label>
-                        <select id="vehicleDepth">
-                            <option value="basic">Registration Details</option>
-                            <option value="advanced" selected>Full Vehicle History</option>
-                            <option value="deep">Deep + Insurance & Finance</option>
-                        </select>
-                    </div>
+                    <div class="progress-text" id="progressText">Initializing...</div>
                 </div>
-
-                <button class="btn btn-primary" onclick="searchDataLeak()" style="width: 100%; margin-top: 20px;" id="searchBtn">
-                    🔍 EXECUTE DEEP SEARCH
-                </button>
 
                 <!-- Search Status -->
                 <div class="search-status" id="searchStatus">
                     <div class="spinner"></div>
-                    <p>Searching 47 databases...</p>
-                    <p id="searchProgress">Querying: Telecom DB</p>
+                    <p>Searching intelligence network...</p>
+                    <p id="searchProgress">Querying databases</p>
                 </div>
             </div>
 
             <!-- Right Panel - Results -->
             <div class="panel">
-                <div class="panel-title">📊 SEARCH RESULTS</div>
+                <div class="panel-header">
+                    <h2 class="panel-title">📊 RESULTS</h2>
+                    <span class="panel-badge" id="resultsCount">0</span>
+                </div>
                 
-                <div class="data-results" id="dataResults">
+                <div class="results-grid" id="resultsGrid">
                     <div style="text-align: center; color: rgba(255,255,255,0.5); padding: 50px 20px;">
                         <div style="font-size: 3rem; margin-bottom: 20px;">🔍</div>
-                        <p>Select search type and enter details</p>
-                        <p style="font-size: 0.9rem; margin-top: 10px;">47 databases ready • Real-time search</p>
+                        <p>Enter query to begin analysis</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">30+ APIs ready • Real-time data</p>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="logs-container">
-                    <div class="logs-header">
-                        <span>📋 SEARCH LOGS</span>
-                        <span id="searchLogCount">0</span>
-                    </div>
-                    <div class="logs" id="searchLogs">
-                        <div class="log-entry"><span class="log-time">⚡</span> <span class="log-info">OSINT System Ready</span></div>
-                        <div class="log-entry"><span class="log-time">🔐</span> <span class="log-success">AES-256 Encrypted</span></div>
-                    </div>
+        <!-- Logs Panel -->
+        <div class="logs-container">
+            <div class="logs-header">
+                <span>📋 LIVE ACTIVITY LOGS</span>
+                <span id="logCount">0</span>
+            </div>
+            <div class="logs" id="logs">
+                <div class="log-entry">
+                    <span class="log-time">⚡</span>
+                    <span class="log-info">SHAIQUA PRIMIUM initialized</span>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <p>⚡ DATA LEAK OSINT PRO - ADVANCED INTELLIGENCE GATHERING ⚡</p>
-            <p style="margin-top: 10px;">Contact Admin: @introvert_O2z | Version 4.0.0</p>
+            <div class="footer-glow"></div>
+            <p>⚡ SHAIQUA PRIMIUM EDITION - ADVANCED OSINT PLATFORM ⚡</p>
+            <p style="margin-top: 10px;">Contact Admin: @introvert_O2z | Version 5.0.0</p>
         </div>
     </div>
 
+    <!-- Export Modal -->
+    <div class="export-modal" id="exportModal">
+        <h3 style="text-align: center; margin-bottom: 20px;">📥 EXPORT RESULTS</h3>
+        <div class="export-options">
+            <button class="export-option" onclick="exportData('json')">JSON Format</button>
+            <button class="export-option" onclick="exportData('csv')">CSV Format</button>
+            <button class="export-option" onclick="exportData('pdf')">PDF Report</button>
+            <button class="export-option" onclick="exportData('excel')">Excel Sheet</button>
+        </div>
+        <button class="btn btn-secondary" onclick="closeExportModal()" style="width: 100%; margin-top: 10px;">
+            CANCEL
+        </button>
+    </div>
+
     <script>
-        // Global variables
+        // ============ GLOBAL VARIABLES ============
         let currentUser = {
             id: generateUserId(),
             plan: null,
             expiresAt: null,
-            searchesDone: 0
+            searchesDone: 0,
+            remaining: 0
         };
         
-        let currentTab = 'mobile';
+        let currentResults = [];
+        let searchMode = 'smart';
+        let currentQueryType = 'unknown';
+        let searchInterval = null;
 
-        // Paste and activate function
-        function pasteAndActivate() {
-            navigator.clipboard.readText().then(text => {
-                if (text) {
-                    document.getElementById('keyInput').value = text.trim().toUpperCase();
-                    setTimeout(() => {
-                        activateKey();
-                    }, 100);
-                } else {
-                    const statusDiv = document.getElementById('keyStatus');
-                    statusDiv.className = 'status-message error';
-                    statusDiv.innerHTML = '❌ Clipboard is empty';
-                    setTimeout(() => {
-                        statusDiv.className = 'status-message';
-                    }, 2000);
-                }
-            }).catch(err => {
-                console.error('Failed to read clipboard contents: ', err);
-                const statusDiv = document.getElementById('keyStatus');
-                statusDiv.className = 'status-message error';
-                statusDiv.innerHTML = '❌ Cannot access clipboard. Please paste manually or allow permission.';
-                setTimeout(() => {
-                    statusDiv.className = 'status-message';
-                }, 3000);
-            });
-        }
-
-        // Generate user ID
+        // ============ UTILITY FUNCTIONS ============
         function generateUserId() {
-            let id = localStorage.getItem('flashUserId');
+            let id = localStorage.getItem('shaiquaUserId');
             if (!id) {
-                id = 'USER' + Math.random().toString(36).substring(2, 10).toUpperCase();
-                localStorage.setItem('flashUserId', id);
+                id = 'SQA_' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                localStorage.setItem('shaiquaUserId', id);
             }
             return id;
         }
 
-        // Select plan
+        function addLog(message, type = 'info') {
+            const logs = document.getElementById('logs');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            
+            const time = new Date().toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+            
+            entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-${type}">${message}</span>`;
+            logs.appendChild(entry);
+            logs.scrollTop = logs.scrollHeight;
+            
+            document.getElementById('logCount').textContent = logs.children.length;
+        }
+
+        // ============ QUERY DETECTION ============
+        function detectQueryType(query) {
+            const cleanQuery = query.replace(/\s+/g, '').toUpperCase();
+            const indicator = document.getElementById('queryTypeIndicator');
+            
+            if (/^[0-9]{10}$/.test(cleanQuery)) {
+                currentQueryType = 'mobile';
+                indicator.innerHTML = '📱 MOBILE';
+            } else if (/^[0-9]{12}$/.test(cleanQuery)) {
+                currentQueryType = 'aadhar';
+                indicator.innerHTML = '🆔 AADHAR';
+            } else if (/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(cleanQuery)) {
+                currentQueryType = 'pan';
+                indicator.innerHTML = '📇 PAN';
+            } else if (/^[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{4}$/.test(cleanQuery)) {
+                currentQueryType = 'vehicle';
+                indicator.innerHTML = '🚗 VEHICLE';
+            } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(query)) {
+                currentQueryType = 'email';
+                indicator.innerHTML = '📧 EMAIL';
+            } else {
+                currentQueryType = 'unknown';
+                indicator.innerHTML = '❓ UNKNOWN';
+            }
+            
+            document.getElementById('searchTypeBadge').textContent = 
+                currentQueryType.toUpperCase() + ' MODE';
+        }
+
+        // ============ PLAN SELECTION ============
         function selectPlan(plan) {
             document.querySelectorAll('.plan-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
 
-        // Activate key
+        // ============ PASTE AND ACTIVATE ============
+        function pasteAndActivate() {
+            navigator.clipboard.readText().then(text => {
+                if (text) {
+                    document.getElementById('keyInput').value = text.trim().toUpperCase();
+                    setTimeout(() => activateKey(), 100);
+                }
+            }).catch(() => {
+                alert('Please paste manually (Ctrl+V)');
+            });
+        }
+
+        // ============ KEY ACTIVATION ============
         async function activateKey() {
             const key = document.getElementById('keyInput').value.trim();
             const statusDiv = document.getElementById('keyStatus');
@@ -973,442 +1066,324 @@
             statusDiv.innerHTML = '⏳ Validating key...';
 
             try {
-                // Simulate key validation
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                statusDiv.className = 'status-message success';
-                statusDiv.innerHTML = '✅ Key activated successfully!';
-                
-                currentUser.plan = 'VIP';
-                currentUser.expiresAt = new Date(Date.now() + 30*24*60*60*1000).toISOString();
-                
-                setTimeout(() => {
-                    document.getElementById('keyModal').classList.remove('active');
-                    document.getElementById('mainContainer').classList.add('active');
-                    updateUserDisplay();
-                    addSearchLog('⚡ System activated - VIP Access Granted', 'success');
-                }, 1500);
+                const response = await fetch('/api/validate-key', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        key: key,
+                        userId: currentUser.id 
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    statusDiv.className = 'status-message success';
+                    statusDiv.innerHTML = '✅ Key activated successfully!';
+                    
+                    currentUser.plan = data.user.plan;
+                    currentUser.expiresAt = data.user.expiresAt;
+                    currentUser.features = data.user.features;
+                    
+                    setTimeout(() => {
+                        document.getElementById('keyModal').classList.remove('active');
+                        document.getElementById('mainContainer').style.display = 'block';
+                        updateUserDisplay();
+                        loadDashboardStats();
+                        addLog('⚡ System activated - ' + data.user.plan.toUpperCase() + ' Access', 'success');
+                    }, 1500);
+                } else {
+                    statusDiv.className = 'status-message error';
+                    statusDiv.innerHTML = '❌ ' + data.message;
+                }
             } catch (error) {
                 statusDiv.className = 'status-message error';
                 statusDiv.innerHTML = '❌ Connection error';
             }
         }
 
-        // Update user display
+        // ============ UPDATE USER DISPLAY ============
         function updateUserDisplay() {
             document.getElementById('userId').textContent = currentUser.id;
-            document.getElementById('planBadge').textContent = currentUser.plan || 'DEMO';
+            document.getElementById('planBadge').textContent = currentUser.plan || 'BASIC';
             
             if (currentUser.expiresAt) {
                 const days = Math.ceil((new Date(currentUser.expiresAt) - new Date()) / (1000 * 60 * 60 * 24));
-                document.getElementById('daysLeft').textContent = days > 0 ? days : 0;
-                document.getElementById('expiryBadge').textContent = (days > 0 ? days : 0) + ' DAYS LEFT';
+                document.getElementById('expiryDisplay').innerHTML = 
+                    `⏳ ${days} DAYS REMAINING | ${currentUser.searchesDone || 0} SEARCHES`;
             }
         }
 
-        // Switch tabs
-        function switchTab(tab) {
-            currentTab = tab;
-            
-            // Update tab buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        // ============ SET SEARCH MODE ============
+        function setSearchMode(mode) {
+            searchMode = mode;
+            document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
-            // Update panels
-            document.querySelectorAll('.search-panel').forEach(panel => panel.classList.remove('active'));
-            document.getElementById(tab + 'Panel').classList.add('active');
+            addLog(`🔧 Search mode: ${mode.toUpperCase()}`, 'info');
         }
 
-        // Validation functions
-        function validateMobile(input) {
-            input.value = input.value.replace(/[^0-9]/g, '').slice(0, 10);
-        }
-
-        function validatePAN(input) {
-            input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
-        }
-
-        function validateAadhar(input) {
-            let value = input.value.replace(/[^0-9]/g, '').slice(0, 12);
-            if (value.length > 4) {
-                value = value.match(/.{1,4}/g).join(' ');
-            }
-            input.value = value;
-        }
-
-        function validateVehicle(input) {
-            input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
-        }
-
-        // Search data leak
-        async function searchDataLeak() {
-            let searchValue = '';
-            let searchType = currentTab;
+        // ============ START SEARCH ============
+        async function startSearch() {
+            const query = document.getElementById('searchInput').value.trim();
             
-            // Get search value based on tab
-            switch(currentTab) {
-                case 'mobile':
-                    searchValue = document.getElementById('mobileNumber').value.replace(/\D/g, '');
-                    if (!searchValue.match(/^[0-9]{10}$/)) {
-                        alert('❌ Enter valid 10-digit mobile number');
-                        return;
-                    }
-                    break;
-                case 'pan':
-                    searchValue = document.getElementById('panNumber').value;
-                    if (!searchValue.match(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)) {
-                        alert('❌ Enter valid PAN number (e.g., ABCDE1234F)');
-                        return;
-                    }
-                    break;
-                case 'aadhar':
-                    searchValue = document.getElementById('aadharNumber').value.replace(/\s/g, '');
-                    if (!searchValue.match(/^[0-9]{12}$/)) {
-                        alert('❌ Enter valid 12-digit Aadhar number');
-                        return;
-                    }
-                    break;
-                case 'vehicle':
-                    searchValue = document.getElementById('vehicleNumber').value;
-                    if (!searchValue.match(/^[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{4}$/)) {
-                        alert('❌ Enter valid vehicle number (e.g., MH01AB1234)');
-                        return;
-                    }
-                    break;
+            if (!query) {
+                alert('❌ Please enter a search query');
+                return;
             }
 
-            // Show search status
+            // Show progress
+            document.getElementById('progressContainer').classList.add('active');
             document.getElementById('searchStatus').classList.add('active');
             document.getElementById('searchBtn').disabled = true;
-            document.getElementById('dataResults').innerHTML = '';
+            document.getElementById('exportBtn').disabled = true;
+            
+            // Clear previous results
+            document.getElementById('resultsGrid').innerHTML = '';
+            
+            addLog(`🔍 Searching: ${query} (${currentQueryType})`, 'info');
 
-            addSearchLog(`🔍 Starting ${searchType.toUpperCase()} search: ${searchValue}`, 'info');
-
-            // Simulate search progress
-            const databases = [
-                'Telecom DB', 'UIDAI Database', 'Income Tax Records', 'Driving License', 
-                'Voter ID', 'Passport Records', 'Bank Records', 'Credit Bureau',
-                'Insurance DB', 'SIM Registry', 'WhatsApp Leak', 'Facebook Data',
-                'Instagram Scrape', 'LinkedIn Leak', 'Truecaller DB', 'Payment Apps',
-                'Electricity Board', 'Water Supply', 'Gas Connection', 'Property Records'
-            ];
-
+            // Simulate progress
             let progress = 0;
-            const progressInterval = setInterval(() => {
-                if (progress < databases.length) {
-                    document.getElementById('searchProgress').textContent = `Querying: ${databases[progress]}`;
-                    progress++;
-                }
-            }, 200);
+            if (searchInterval) clearInterval(searchInterval);
+            
+            searchInterval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 90) progress = 90;
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressText').innerHTML = 
+                    `Searching... ${Math.round(progress)}%`;
+            }, 500);
 
             try {
-                // Simulate API call
-                await new Promise(resolve => setTimeout(resolve, 3000));
-                
-                clearInterval(progressInterval);
-                
-                // Get results based on search type
-                const results = generateSearchResults(searchType, searchValue);
-                
-                // Display results
-                displayResults(results, searchType);
-                
-                // Update stats
-                currentUser.searchesDone++;
-                document.getElementById('searchCount').textContent = currentUser.searchesDone;
-                
-                addSearchLog(`✅ Search completed - Found ${results.length} records`, 'success');
-                
-            } catch (error) {
-                addSearchLog('❌ Search failed: ' + error.message, 'error');
-                document.getElementById('dataResults').innerHTML = '<p style="color: var(--danger); text-align: center;">❌ Search failed</p>';
-            } finally {
-                document.getElementById('searchStatus').classList.remove('active');
-                document.getElementById('searchBtn').disabled = false;
-            }
-        }
-
-        // Generate realistic search results
-        function generateSearchResults(type, value) {
-            const results = [];
-            const names = ['Rahul Sharma', 'Priya Patel', 'Amit Kumar', 'Neha Singh', 'Vikram Mehta', 'Pooja Desai', 'Rajesh Gupta', 'Anjali Verma'];
-            const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Pune', 'Ahmedabad', 'Hyderabad'];
-            
-            switch(type) {
-                case 'mobile':
-                    results.push({
-                        source: 'Telecom Operator',
-                        confidence: 'High',
-                        data: {
-                            'Mobile Number': value,
-                            'Operator': ['Jio', 'Airtel', 'Vodafone Idea', 'BSNL'][Math.floor(Math.random() * 4)],
-                            'Circle': cities[Math.floor(Math.random() * cities.length)],
-                            'Activation Date': `20${Math.floor(Math.random() * 10) + 10}-${Math.floor(Math.random() * 12) + 1}-${Math.floor(Math.random() * 28) + 1}`,
-                            'Status': 'Active',
-                            'CAF Number': 'CAF' + Math.random().toString().slice(2, 10),
-                            'SIM Type': ['4G', '5G', 'LTE'][Math.floor(Math.random() * 3)]
+                const response = await fetch('/api/advanced-search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query: query,
+                        userId: currentUser.id,
+                        options: {
+                            mode: searchMode,
+                            priority: searchMode === 'deep' ? 'depth' : 'speed'
                         }
-                    });
-                    
-                    results.push({
-                        source: 'Truecaller/Spam DB',
-                        confidence: 'Medium',
-                        data: {
-                            'Name': names[Math.floor(Math.random() * names.length)],
-                            'Email': `user${Math.floor(Math.random() * 1000)}@gmail.com`,
-                            'Spam Reports': Math.floor(Math.random() * 50),
-                            'Tags': ['Telemarketer', 'Personal', 'Business'][Math.floor(Math.random() * 3)]
-                        }
-                    });
-                    
-                    results.push({
-                        source: 'Social Media Leak',
-                        confidence: 'Medium',
-                        data: {
-                            'WhatsApp': 'Registered',
-                            'Telegram': 'Active',
-                            'Instagram': names[Math.floor(Math.random() * names.length)].toLowerCase().replace(' ', '') + Math.floor(Math.random() * 100),
-                            'Facebook': Math.random() > 0.3 ? 'Profile Found' : 'Not Found',
-                            'Last Seen': 'Online ' + Math.floor(Math.random() * 60) + ' mins ago'
-                        }
-                    });
-                    
-                    results.push({
-                        source: 'Financial Leak',
-                        confidence: 'Low',
-                        data: {
-                            'Bank Accounts': Math.floor(Math.random() * 3) + 1,
-                            'UPI IDs': ['okhdfcbank', 'okaxis', 'paytm', 'phonepe'][Math.floor(Math.random() * 4)] + '@' + value.slice(-6),
-                            'Credit Score': Math.floor(Math.random() * 300) + 600,
-                            'Card Issues': Math.random() > 0.5 ? 'Yes' : 'No'
-                        }
-                    });
-                    break;
-                    
-                case 'pan':
-                    results.push({
-                        source: 'Income Tax Database',
-                        confidence: 'High',
-                        data: {
-                            'PAN Number': value,
-                            'Full Name': names[Math.floor(Math.random() * names.length)],
-                            'Father Name': names[Math.floor(Math.random() * names.length)] + ' Sr.',
-                            'Date of Birth': `${Math.floor(Math.random() * 28) + 1}-${Math.floor(Math.random() * 12) + 1}-19${Math.floor(Math.random() * 30) + 70}`,
-                            'Status': 'Valid',
-                            'Category': ['Individual', 'HUF', 'Company'][Math.floor(Math.random() * 3)]
-                        }
-                    });
-                    
-                    results.push({
-                        source: 'Credit Bureau',
-                        confidence: 'Medium',
-                        data: {
-                            'Credit Score': Math.floor(Math.random() * 300) + 600,
-                            'Active Loans': Math.floor(Math.random() * 3),
-                            'Credit Cards': Math.floor(Math.random() * 4),
-                            'Default History': Math.random() > 0.8 ? 'Yes' : 'No',
-                            'Total Debt': '₹' + (Math.floor(Math.random() * 500000) + 50000)
-                        }
-                    });
-                    
-                    results.push({
-                        source: 'Property Records',
-                        confidence: 'Medium',
-                        data: {
-                            'Properties Owned': Math.floor(Math.random() * 3),
-                            'Vehicle Owned': Math.random() > 0.5 ? 'Yes' : 'No',
-                            'Address': Math.floor(Math.random() * 999) + ', ' + cities[Math.floor(Math.random() * cities.length)]
-                        }
-                    });
-                    break;
-                    
-                case 'aadhar':
-                    results.push({
-                        source: 'UIDAI Database',
-                        confidence: 'High',
-                        data: {
-                            'Aadhar Number': value,
-                            'Name': names[Math.floor(Math.random() * names.length)],
-                            'DOB': `${Math.floor(Math.random() * 28) + 1}-${Math.floor(Math.random() * 12) + 1}-19${Math.floor(Math.random() * 30) + 70}`,
-                            'Gender': ['Male', 'Female'][Math.floor(Math.random() * 2)],
-                            'Address': `H No ${Math.floor(Math.random() * 999)}, ${cities[Math.floor(Math.random() * cities.length)]}`,
-                            'Mobile Linked': Math.random() > 0.2 ? 'Yes' : 'No',
-                            'Email Linked': Math.random() > 0.3 ? 'Yes' : 'No'
-                        }
-                    });
-                    
-                    results.push({
-                        source: 'Bank KYC',
-                        confidence: 'Medium',
-                        data: {
-                            'Bank Name': ['SBI', 'HDFC', 'ICICI', 'Axis'][Math.floor(Math.random() * 4)],
-                            'Account Type': ['Savings', 'Current'][Math.floor(Math.random() * 2)],
-                            'Nominee': names[Math.floor(Math.random() * names.length)],
-                            'KYC Status': 'Completed'
-                        }
-                    });
-                    
-                    results.push({
-                        source: 'DigiLocker',
-                        confidence: 'Medium',
-                        data: {
-                            'Documents': ['Driving License', 'Voter ID', 'Passport', 'Marksheet'].slice(0, Math.floor(Math.random() * 3) + 1),
-                            'Last Access': `${Math.floor(Math.random() * 30)} days ago`,
-                            'Verified': 'Yes'
-                        }
-                    });
-                    break;
-                    
-                case 'vehicle':
-                    results.push({
-                        source: 'RTO Database',
-                        confidence: 'High',
-                        data: {
-                            'Registration No': value,
-                            'Owner Name': names[Math.floor(Math.random() * names.length)],
-                            'Vehicle Model': ['Hyundai i20', 'Maruti Swift', 'Honda City', 'Toyota Innova'][Math.floor(Math.random() * 4)],
-                            'Manufacturing Year': 20 + Math.floor(Math.random() * 10) + 10,
-                            'Fuel Type': ['Petrol', 'Diesel', 'CNG'][Math.floor(Math.random() * 3)],
-                            'Insurance Expiry': `${Math.floor(Math.random() * 12) + 1}/20${Math.floor(Math.random() * 5) + 24}`
-                        }
-                    });
-                    
-                    results.push({
-                        source: 'Traffic Challans',
-                        confidence: 'Medium',
-                        data: {
-                            'Total Challans': Math.floor(Math.random() * 5),
-                            'Pending Amount': '₹' + Math.floor(Math.random() * 5000),
-                            'Last Challan': `${Math.floor(Math.random() * 30)} days ago`,
-                            'Reason': ['Speeding', 'Wrong Parking', 'No Helmet'][Math.floor(Math.random() * 3)]
-                        }
-                    });
-                    
-                    results.push({
-                        source: 'Insurance DB',
-                        confidence: 'Medium',
-                        data: {
-                            'Insurance Company': ['ICICI Lombard', 'Bajaj Allianz', 'HDFC Ergo'][Math.floor(Math.random() * 3)],
-                            'Policy Type': ['Comprehensive', 'Third Party'][Math.floor(Math.random() * 2)],
-                            'NCB': Math.floor(Math.random() * 50) + '%',
-                            'Claim History': Math.random() > 0.7 ? '1 claim' : 'No claims'
-                        }
-                    });
-                    
-                    results.push({
-                        source: 'Financier DB',
-                        confidence: 'Low',
-                        data: {
-                            'Loan Status': Math.random() > 0.5 ? 'Active' : 'Closed',
-                            'Financier': ['HDFC Bank', 'SBI', 'Bajaj Finance'][Math.floor(Math.random() * 3)],
-                            'EMI Amount': '₹' + (Math.floor(Math.random() * 15000) + 5000),
-                            'Tenure': Math.floor(Math.random() * 5) + 3 + ' years'
-                        }
-                    });
-                    break;
-            }
-            
-            return results;
-        }
-
-        // Display search results
-        function displayResults(results, searchType) {
-            const resultsDiv = document.getElementById('dataResults');
-            resultsDiv.innerHTML = '';
-            
-            results.forEach((result, index) => {
-                const card = document.createElement('div');
-                card.className = 'data-card';
-                
-                let icon = '📁';
-                switch(searchType) {
-                    case 'mobile': icon = '📱'; break;
-                    case 'pan': icon = '🆔'; break;
-                    case 'aadhar': icon = '👤'; break;
-                    case 'vehicle': icon = '🚗'; break;
-                }
-                
-                let content = `
-                    <div class="data-title">
-                        <i>${icon}</i> ${result.source}
-                        <span class="leak-source">Confidence: ${result.confidence}</span>
-                    </div>
-                    <div class="data-grid">
-                `;
-                
-                Object.entries(result.data).forEach(([key, value]) => {
-                    let valueClass = 'data-value';
-                    if (key.includes('Score') || key.includes('Amount') || key.includes('EMI')) {
-                        valueClass += ' warning';
-                    } else if (key.includes('Status') || key.includes('Valid')) {
-                        valueClass += value === 'Active' || value === 'Valid' || value === 'Yes' ? ' success' : ' danger';
-                    }
-                    
-                    content += `
-                        <div class="data-row">
-                            <span class="data-label">${key}:</span>
-                            <span class="${valueClass}">${value}</span>
-                        </div>
-                    `;
+                    })
                 });
-                
-                content += '</div>';
-                card.innerHTML = content;
-                resultsDiv.appendChild(card);
+
+                const data = await response.json();
+
+                // Complete progress
+                clearInterval(searchInterval);
+                document.getElementById('progressFill').style.width = '100%';
+                document.getElementById('progressText').innerHTML = 'Search complete!';
+
+                if (data.success) {
+                    displayResults(data);
+                    currentUser.searchesDone = (currentUser.searchesDone || 0) + 1;
+                    updateUserDisplay();
+                    
+                    addLog(`✅ Found ${data.results.length} results from ${data.stats.successful} sources`, 'success');
+                    
+                    if (data.results.length > 0) {
+                        document.getElementById('exportBtn').disabled = false;
+                    }
+                } else {
+                    addLog(`❌ Search failed: ${data.message}`, 'error');
+                    document.getElementById('resultsGrid').innerHTML = 
+                        `<p style="color: var(--danger); text-align: center;">❌ ${data.message}</p>`;
+                }
+            } catch (error) {
+                addLog('❌ Connection error', 'error');
+                document.getElementById('resultsGrid').innerHTML = 
+                    '<p style="color: var(--danger); text-align: center;">❌ Search failed</p>';
+            } finally {
+                setTimeout(() => {
+                    document.getElementById('progressContainer').classList.remove('active');
+                    document.getElementById('searchStatus').classList.remove('active');
+                    document.getElementById('searchBtn').disabled = false;
+                    document.getElementById('progressFill').style.width = '0%';
+                }, 1000);
+            }
+        }
+
+        // ============ DISPLAY RESULTS ============
+        function displayResults(data) {
+            const grid = document.getElementById('resultsGrid');
+            grid.innerHTML = '';
+            
+            currentResults = data.results;
+            document.getElementById('resultsCount').textContent = data.results.length;
+
+            if (data.results.length === 0) {
+                grid.innerHTML = '<p style="color: var(--warning); text-align: center;">No results found</p>';
+                return;
+            }
+
+            data.results.forEach((result, index) => {
+                const card = document.createElement('div');
+                card.className = 'result-card';
+
+                // Icon based on category
+                let icon = '📁';
+                switch(result.category) {
+                    case 'telecom': icon = '📱'; break;
+                    case 'identity': icon = '🆔'; break;
+                    case 'social': icon = '💬'; break;
+                    case 'transport': icon = '🚗'; break;
+                    case 'financial': icon = '💰'; break;
+                    case 'security': icon = '🔒'; break;
+                    case 'network': icon = '🌐'; break;
+                }
+
+                // Build data HTML
+                let dataHtml = '';
+                if (typeof result.data === 'object') {
+                    dataHtml = '<div class="result-data">';
+                    Object.entries(result.data).forEach(([key, value]) => {
+                        if (value && value.toString().trim() !== '') {
+                            let valueClass = 'data-value';
+                            if (key.toLowerCase().includes('status') || key.toLowerCase().includes('valid')) {
+                                valueClass += value === true || value === 'Active' || value === 'Valid' ? ' success' : ' danger';
+                            }
+                            
+                            dataHtml += `
+                                <div class="data-item">
+                                    <div class="data-label">${key.replace(/_/g, ' ').toUpperCase()}</div>
+                                    <div class="${valueClass}">${value}</div>
+                                </div>
+                            `;
+                        }
+                    });
+                    dataHtml += '</div>';
+                } else {
+                    dataHtml = `<pre class="data-value">${JSON.stringify(result.data, null, 2)}</pre>`;
+                }
+
+                card.innerHTML = `
+                    <div class="result-header">
+                        <div class="result-source">
+                            <div class="result-icon">${icon}</div>
+                            <span class="result-name">${result.apiName}</span>
+                        </div>
+                        <div class="result-actions">
+                            <button class="result-action-btn" onclick="copyResult(${index})">📋 COPY</button>
+                            <button class="result-action-btn" onclick="viewRaw(${index})">🔍 RAW</button>
+                        </div>
+                    </div>
+                    ${dataHtml}
+                    <div style="margin-top: 10px; font-size: 0.8rem; color: rgba(255,255,255,0.3);">
+                        ⚡ ${result.responseTime}ms
+                    </div>
+                `;
+
+                grid.appendChild(card);
             });
-            
-            addSearchLog(`📊 Displayed ${results.length} result(s)`, 'info');
         }
 
-        // Add search log
-        function addSearchLog(message, type = 'info') {
-            const logs = document.getElementById('searchLogs');
-            const entry = document.createElement('div');
-            entry.className = 'log-entry';
-            
-            let colorClass = 'log-info';
-            if (type === 'success') colorClass = 'log-success';
-            else if (type === 'error') colorClass = 'log-error';
-            else if (type === 'warning') colorClass = 'log-warning';
-            
-            const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            
-            entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="${colorClass}">${message}</span>`;
-            logs.appendChild(entry);
-            logs.scrollTop = logs.scrollHeight;
-            
-            document.getElementById('searchLogCount').textContent = logs.children.length;
+        // ============ RESULT ACTIONS ============
+        function copyResult(index) {
+            const result = currentResults[index];
+            navigator.clipboard.writeText(JSON.stringify(result.data, null, 2));
+            addLog('📋 Result copied to clipboard', 'success');
         }
 
-        // Initialize
-        document.getElementById('userId').textContent = currentUser.id;
-        
-        // Add paste protection
-        document.addEventListener('DOMContentLoaded', function() {
+        function viewRaw(index) {
+            const result = currentResults[index];
+            alert(JSON.stringify(result.data, null, 2));
+        }
+
+        // ============ EXPORT FUNCTIONS ============
+        function showExportModal() {
+            document.getElementById('exportModal').classList.add('active');
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.remove('active');
+        }
+
+        async function exportData(format) {
+            closeExportModal();
+            
+            addLog(`📥 Exporting as ${format.toUpperCase()}...`, 'info');
+
+            try {
+                const response = await fetch('/api/export', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        data: { results: currentResults },
+                        format: format,
+                        userId: currentUser.id
+                    })
+                });
+
+                if (format === 'json' || format === 'csv') {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `export.${format}`;
+                    a.click();
+                    addLog(`✅ Export complete: ${format.toUpperCase()}`, 'success');
+                } else {
+                    const data = await response.json();
+                    if (data.success) {
+                        addLog(`✅ Export complete: ${format.toUpperCase()}`, 'success');
+                    } else {
+                        addLog(`❌ Export failed: ${data.message}`, 'error');
+                    }
+                }
+            } catch (error) {
+                addLog('❌ Export error', 'error');
+            }
+        }
+
+        // ============ LOAD DASHBOARD STATS ============
+        async function loadDashboardStats() {
+            try {
+                const response = await fetch('/api/dashboard-stats');
+                const stats = await response.json();
+                
+                document.getElementById('totalApis').textContent = stats.database.totalKeys || '47';
+                document.getElementById('searchesToday').textContent = stats.analytics?.searchesLast24h || '0';
+                document.getElementById('responseTime').textContent = '0.3s';
+            } catch (error) {
+                console.log('Stats error:', error);
+            }
+        }
+
+        // ============ INITIALIZATION ============
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if already logged in
+            const hasKey = localStorage.getItem('shaiquaKey');
+            if (hasKey) {
+                document.getElementById('keyModal').classList.remove('active');
+                document.getElementById('mainContainer').style.display = 'block';
+                loadDashboardStats();
+                addLog('⚡ Welcome back to SHAIQUA PRIMIUM', 'success');
+            }
+
+            // Add paste protection
             const keyInput = document.getElementById('keyInput');
             if (keyInput) {
-                keyInput.addEventListener('paste', function(e) {
+                keyInput.addEventListener('paste', (e) => {
                     e.preventDefault();
-                    let pastedText = e.clipboardData.getData('text');
-                    this.value = pastedText.trim().toUpperCase();
-                    
-                    setTimeout(() => {
-                        activateKey();
-                    }, 100);
-                });
-                
-                keyInput.addEventListener('keydown', function(e) {
-                    if (e.ctrlKey && e.key === 'v') {
-                        e.preventDefault();
-                        navigator.clipboard.readText().then(text => {
-                            this.value = text.trim().toUpperCase();
-                            setTimeout(() => {
-                                activateKey();
-                            }, 100);
-                        });
-                    }
+                    const pastedText = e.clipboardData.getData('text');
+                    keyInput.value = pastedText.trim().toUpperCase();
                 });
             }
+
+            // Add keyboard shortcut
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'Enter') {
+                    startSearch();
+                }
+            });
+
+            // Load initial stats
+            loadDashboardStats();
+
+            // Auto-refresh stats every 30 seconds
+            setInterval(loadDashboardStats, 30000);
         });
     </script>
 </body>
